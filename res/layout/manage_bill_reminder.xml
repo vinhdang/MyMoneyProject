@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <TabHost
+        android:id="@android:id/tabhost"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
+
+            <TabWidget
+                android:id="@android:id/tabs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+            </TabWidget>
+
+            <FrameLayout
+                android:id="@android:id/tabcontent"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" >
+
+                <LinearLayout
+                    android:id="@+id/tab_paidbill"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" >
+					  <RelativeLayout
+				        android:layout_width="match_parent"
+				        android:layout_height="wrap_content" android:layout_marginTop="10px" android:layout_marginBottom="10px">
+				
+				        <TextView
+				            android:id="@+id/tv_trans_name"
+				            android:layout_width="wrap_content"
+				            android:layout_height="wrap_content"
+				            android:layout_alignParentLeft="true"
+				            android:layout_alignParentTop="true"
+				            android:text="Name" />
+				
+				
+				        <TextView
+				            android:id="@+id/tv_trans_date"
+				            android:layout_width="wrap_content"
+				            android:layout_height="wrap_content"
+				            android:layout_alignParentTop="true"
+				            android:layout_centerHorizontal="true"
+				            android:text="Due Date"/>
+				
+				        <TextView
+				            android:id="@+id/tv_trans_balance"
+				            android:layout_width="wrap_content"
+				            android:layout_height="wrap_content"
+				            android:layout_alignParentRight="true"
+				            android:layout_alignParentTop="true"
+				            android:text="Amount"/>
+				
+				    </RelativeLayout>
+                    <ListView
+                        android:id="@+id/lv_paidBill"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" >
+
+                    </ListView>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/tab_upcomingbill"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" >
+				
+                	<RelativeLayout
+				        android:layout_width="match_parent"
+				        android:layout_height="wrap_content" android:layout_marginTop="10px" android:layout_marginBottom="10px">
+				
+				        <TextView
+				            android:id="@+id/tv_trans_name2"
+				            android:layout_width="wrap_content"
+				            android:layout_height="wrap_content"
+				            android:layout_alignParentLeft="true"
+				            android:layout_alignParentTop="true"
+				            android:text="Name" />
+				
+				
+				        <TextView
+				            android:id="@+id/tv_trans_date2"
+				            android:layout_width="wrap_content"
+				            android:layout_height="wrap_content"
+				            android:layout_alignParentTop="true"
+				            android:layout_centerHorizontal="true"
+				            android:text="Due Date"/>
+				
+				        <TextView
+				            android:id="@+id/tv_trans_balance2"
+				            android:layout_width="wrap_content"
+				            android:layout_height="wrap_content"
+				            android:layout_alignParentRight="true"
+				            android:layout_alignParentTop="true"
+				            android:text="Amount"/>
+				
+				    </RelativeLayout>
+                    <ListView
+                        android:id="@+id/lv_upcomingBill"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" >
+
+                    </ListView>
+
+                </LinearLayout>
+            </FrameLayout>
+        </LinearLayout>
+    </TabHost>
+
+</LinearLayout>

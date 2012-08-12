@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="hello">Hello World, MyMoneyProjectActivity!</string>
+    <string name="app_name">MyMoneyProject</string>
+    <string name="next">>></string>
+    <string name="prev"></string>
+
+</resources>

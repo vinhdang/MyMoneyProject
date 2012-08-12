@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/blue" >
+
+                    <Button
+                        android:id="@+id/btn_transactionAddNew"
+                        android:layout_width="30dp"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentTop="true" 
+                        android:background="@drawable/transaction2"/>
+
+                    <TextView
+                        android:id="@+id/textView1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true"
+                        android:text="List Transaction"
+                        android:textAppearance="?android:attr/textAppearanceLarge" />
+                </RelativeLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" >
+
+                    <Button
+                        android:id="@+id/btn_transPrev"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:background="@drawable/back"/>
+
+                    <Spinner
+                        android:id="@+id/spn_transMonth"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+
+                    <Button
+                        android:id="@+id/btn_transNext"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:background="@drawable/forward" />
+
+                    <ToggleButton
+                        android:id="@+id/toggleButton1"
+                        android:layout_width="70dp"
+                        android:layout_height="wrap_content"
+                        android:textOn="Expand"
+                        android:textOff="Collapse"
+                        android:checked="true" />
+
+                </LinearLayout>
+			 <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" >
+
+                    <TextView
+                        android:id="@+id/tv_viewItemName2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Name"
+                        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                    <TextView
+                        android:id="@+id/tv_viewItemUnit2"
+                        android:layout_width="40dp"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentTop="true"
+                        android:text="Unit"
+                        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                    <TextView
+                        android:id="@+id/tv_viewItemAmount2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginRight="22dp"
+                        android:layout_toLeftOf="@+id/tv_viewItemUnit2"
+                        android:text="Amount"
+                        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                    <TextView
+                        android:id="@+id/tv_viewItemCat2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginLeft="46dp"
+                        android:layout_toRightOf="@+id/tv_viewItemName2"
+                        android:text="Cate"
+                        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                </RelativeLayout>
+                
+			 <LinearLayout
+			     android:layout_width="fill_parent"
+			     android:layout_height="wrap_content"
+			     android:layout_marginBottom="1dp"
+			     android:layout_weight="0.1"
+			     android:orientation="vertical" >
+                    <ExpandableListView
+                        android:id="@+id/elv_transList"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent" >
+
+                    </ExpandableListView>
+			</LinearLayout>
+</LinearLayout>
