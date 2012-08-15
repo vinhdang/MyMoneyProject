@@ -102,7 +102,15 @@ public class ManageTransaction extends Activity {
 		
 		public void onClick(View v) {
 			if(indexMonth < month.size()-1)
-				indexMonth ++;				
+			{
+				indexMonth ++;
+				btn_transactionPrev.setVisibility(v.VISIBLE);
+			}
+			else
+			{
+				btn_transactionNext.setVisibility(v.GONE);
+				btn_transactionPrev.setVisibility(v.VISIBLE);
+			}
 			spn_Month.setSelection(indexMonth);
 			//process list view
 			String key = spn_Month.getSelectedItem().toString();
@@ -123,7 +131,15 @@ public class ManageTransaction extends Activity {
 		
 		public void onClick(View v) {
 			if(indexMonth > 0)
+			{
 				indexMonth --;
+				btn_transactionNext.setVisibility(v.VISIBLE);
+			}
+			else
+			{
+				btn_transactionPrev.setVisibility(v.GONE);
+				btn_transactionNext.setVisibility(v.VISIBLE);
+			}
 			spn_Month.setSelection(indexMonth);
 			String key = spn_Month.getSelectedItem().toString();
 			handleChoose(key);
