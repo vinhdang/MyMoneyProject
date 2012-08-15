@@ -17,7 +17,6 @@ import android.widget.Toast;
 
 public class ManageView extends Activity {
 	private Spinner spn_viewList;
-	private TextView tv_viewTotal;
 	private ListView lv_viewTransaction;
 	private TransactionAdapter transAdapter;
 	
@@ -28,7 +27,6 @@ public class ManageView extends Activity {
 		
 		/**Get id and process*/
 		spn_viewList = (Spinner)findViewById(R.id.spn_reportListType);
-		tv_viewTotal = (TextView)findViewById(R.id.tv_viewTotalMenu);
 		lv_viewTransaction = (ListView)findViewById(R.id.lv_viewTransaction);
 		ArrayAdapter<String> adapterListType = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, Publics.listSpinnerView);
 		transAdapter = new TransactionAdapter(getApplicationContext(), Publics.list_Transaction);
@@ -37,7 +35,6 @@ public class ManageView extends Activity {
 		spn_viewList.setAdapter(adapterListType);
 		spn_viewList.setOnItemSelectedListener(handleItem);
 		lv_viewTransaction.setAdapter(transAdapter);
-		tv_viewTotal.setText("3,855");
 	}
 	
 	/**Event of click item*/
@@ -49,17 +46,21 @@ public class ManageView extends Activity {
 			{
 				case 0: //Handle event of Daily 
 				{
+					
+				}break;
+				case 1:
+				{
 					Toast.makeText(getApplicationContext(), "Choose Report Daily .....", Toast.LENGTH_SHORT).show();
 					Intent i = new  Intent(getApplicationContext(), ViewDaily.class);
 					startActivity(i);
 				}break;
-				case 1: // Handle event of Category
+				case 2: // Handle event of Category
 				{
 					Toast.makeText(getApplicationContext(), "Choose Report Category .....", Toast.LENGTH_SHORT).show();
 					Intent i = new  Intent(getApplicationContext(), ViewCategory.class);
 					startActivity(i);
 				}break;
-				case 2: // Handle event of Compare Plan
+				case 3: // Handle event of Compare Plan
 				{
 					Toast.makeText(getApplicationContext(), "Choose Report Compare Plan .....", Toast.LENGTH_SHORT).show();
 					Intent i = new  Intent(getApplicationContext(), ComparePlan.class);

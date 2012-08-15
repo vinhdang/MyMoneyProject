@@ -21,7 +21,7 @@ import android.widget.TabHost;
 import android.widget.Toast;
 
 public class Publics {
-	public final static  String[]  listSpinnerView = {"Daily","Category","Compare Plan"};
+	public final static  String[]  listSpinnerView = {"All", "Daily","Category","Compare Plan"};
 	public final static  String[]  listGridMenuTool = {"Backup","Restore","Import","Export","Exchange"}; 
 	public final static  String[]  listCurrency = {"VND", "USD-US", "USD-AUS", "USD-CAN", "EURO", "YUAN"};
 	public final static  String[]  listLanguage = {"Vietnamese", "English", "France"};

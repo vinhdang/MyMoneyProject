@@ -43,18 +43,4 @@
         android:layout_height="330dp" >
     </ListView>
 
-    <LinearLayout
-        android:id="@+id/linearLayout2"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:gravity="center|left" >
-
-        <TextView
-            android:id="@+id/tv_viewTotalMenu"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Total : " />
-
-    </LinearLayout>
-
 </LinearLayout>

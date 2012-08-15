@@ -56,12 +56,13 @@
                     android:layout_width="160dp"
                     android:layout_height="wrap_content"
                     android:text="Null" />
-
+
                 <Button
                     android:id="@+id/btn_viewDailyDate"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Select" />
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:background="@drawable/view_32" />
+
             </LinearLayout>
 
             <ListView
