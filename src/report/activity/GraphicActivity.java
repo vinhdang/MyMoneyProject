@@ -88,7 +88,7 @@ public class GraphicActivity extends Activity {
         //------------------------------------------------------------------------------------------
         // OverlayId  => Image to be drawn on top of pie to make it more beautiful!
         //------------------------------------------------------------------------------------------
-        int OverlayId = R.drawable.cam_overlay_big;
+        //int OverlayId = R.drawable.cam_overlay_big;
         //------------------------------------------------------------------------------------------
         // Size => Pie size
         //------------------------------------------------------------------------------------------
@@ -106,7 +106,7 @@ public class GraphicActivity extends Activity {
         //------------------------------------------------------------------------------------------
         ViewPieChart PieChartView = new ViewPieChart( this );
         PieChartView.setLayoutParams(new LayoutParams(Size, Size));
-        PieChartView.setGeometry(Size, Size, 1, 1, 1, 1, OverlayId);
+        PieChartView.setGeometry(Size, Size, 1, 1, 1, 1, R.drawable.cam_overlay_big);
         PieChartView.setSkinParams(BgColor);
         PieChartView.setData(PieData, MaxCount);
         PieChartView.invalidate();
