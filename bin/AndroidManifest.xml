@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="main.activity"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk android:minSdkVersion="8" />
+
+    <application
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name" >
+        <activity
+            android:name="general.activity.General"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name="general.activity.GeneralMenu"></activity>
+        <activity android:name="general.activity.GeneralAccount"></activity>
+ 		<activity android:name="tool.activity.ToolBackup"></activity>
+ 		<activity android:name="tool.activity.ToolExport"></activity>
+ 		<activity android:name="tool.activity.ToolExchange"></activity>
+ 		<activity android:name="tool.activity.ToolImport"></activity>
+ 		<activity android:name="tool.activity.ToolRestore"></activity>
+ 		<activity android:name="tool.activity.SendFileExport"></activity>
+ 		<activity android:name="tool.activity.SendFileBackup"></activity>
+ 		<activity android:name="view.activity.ManageView"></activity>
+ 		<activity android:name="view.activity.ViewCategory"></activity>
+ 		<activity android:name="view.activity.ViewDaily"></activity>
+ 		<activity android:name="view.activity.ComparePlan"></activity>
+ 		<activity android:name="setting.activity.ChangePassword"></activity>
+ 		<activity android:name="setting.activity.ManageSetting"></activity>
+ 		<activity android:name="category.activity.ManageCategory"></activity>
+ 		<activity android:name="category.activity.AddNewCategory"></activity>
+ 		<activity android:name="category.activity.UpdateCategory"></activity>
+ 		<activity android:name="category.activity.ViewDetailCategory"></activity>
+ 		<activity android:name="report.activity.ManageReport"></activity>
+ 		<activity android:name="report.activity.ReportIncome"></activity>
+ 		<activity android:name="report.activity.ReportExpense"></activity>
+ 		<activity android:name="report.activity.ReportMonthly"></activity>
+ 		<activity android:name="tool.activity.ManageTool"></activity>
+ 		<activity android:name="account.activity.ManageAccount"></activity>
+ 		<activity android:name="billreminder.activity.ManageBillReminder"></activity>
+ 		<activity android:name="plan.activity.ManagePlan"></activity>
+ 		<activity android:name="account.activity.AddNewAccount"></activity>
+ 		<activity android:name="account.activity.AccountDetail"></activity>
+ 		<activity android:name="plan.activity.AddNewPlan"></activity>
+ 		<activity android:name="account.activity.UpdateAccount"></activity>
+ 		<activity android:name="plan.activity.UpdatePlan"></activity>
+ 		<activity android:name="billreminder.activity.UpdateBillReminder"></activity>
+ 		<activity android:name="billreminder.activity.NewBillReminder"></activity>
+ 		<activity android:name="billreminder.activity.BillDetail"></activity>
+ 		<activity android:name="plan.activity.ViewPlan"></activity>
+ 		<activity android:name="synchronize.activity.Synchronize"></activity>
+ 		<activity android:name="main.activity.Upgrade"></activity>
+ 		<activity android:name="main.activity.About"></activity>
+ 		<activity android:name="transaction.activity.ManageTransaction"></activity>
+ 		<activity android:name="transaction.activity.TransactionNew"></activity>
+ 		<activity android:name="transaction.activity.TransactionDetail"></activity>
+ 		<activity android:name="account.activity.AccountListTransaction" android:label="@string/app_name"></activity>
+ 		<activity android:name="report.activity.GraphicActivity"></activity>
+    </application>
+
+</manifest>

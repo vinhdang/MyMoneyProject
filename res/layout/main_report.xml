@@ -29,24 +29,27 @@
                 <Spinner
                     android:id="@+id/spinner1"
                     android:layout_width="fill_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content" 
+                    android:layout_gravity="center"/>
 
                 <TextView
-                    android:id="@+id/textView1"
+                    android:id="@+id/textView3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:gravity="center"
                     android:text="Date:" />
 
                 <DatePicker
                     android:id="@+id/datePicker1"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content" 
+                    android:layout_gravity="center"/>
                 
             </LinearLayout>
             
             <LinearLayout
 		        android:id="@+id/pie_container"
-		        android:layout_width="wrap_content"
+		        android:layout_width="fill_parent"
 		        android:layout_height="wrap_content"
 		        android:orientation="vertical"
 		        android:gravity="center" >
@@ -57,6 +60,7 @@
                 android:weightSum="100"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
+                android:gravity="center"
                 android:orientation="horizontal" >
 
                 <Button
@@ -64,14 +68,14 @@
                     android:layout_weight="30"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Button" />
+                    android:text="Menu" />
 
                 <Button
                     android:id="@+id/button2"
                     android:layout_weight="30"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Button" />
+                    android:text="Back" />
                 
             </LinearLayout>
 

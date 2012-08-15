@@ -90,7 +90,7 @@ public class GraphicActivity extends Activity {
         //------------------------------------------------------------------------------------------
         //int OverlayId = R.drawable.cam_overlay_big;
         //------------------------------------------------------------------------------------------
-        // Size => Pie size
+        // Size => Pie size 
         //------------------------------------------------------------------------------------------
         int Size = 146;
         //------------------------------------------------------------------------------------------
@@ -102,7 +102,7 @@ public class GraphicActivity extends Activity {
         //------------------------------------------------------------------------------------------
         Bitmap mBackgroundImage = Bitmap.createBitmap(200, 350, Bitmap.Config.RGB_565);
         //------------------------------------------------------------------------------------------
-        // Generating Pie view
+        // Generating Pie views
         //------------------------------------------------------------------------------------------
         ViewPieChart PieChartView = new ViewPieChart( this );
         PieChartView.setLayoutParams(new LayoutParams(Size, Size));
@@ -116,7 +116,7 @@ public class GraphicActivity extends Activity {
         PieChartView.draw(new Canvas(mBackgroundImage));
         PieChartView = null;
         //------------------------------------------------------------------------------------------
-        // Create a new ImageView to add to main layout
+        // Create a new ImageView to add to main layout 
         //------------------------------------------------------------------------------------------
         ImageView mImageView = new ImageView(this);
 	    mImageView.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
@@ -126,38 +126,9 @@ public class GraphicActivity extends Activity {
         // Finaly add Image View to target view !!!
         //------------------------------------------------------------------------------------------
 	    LinearLayout TargetPieView =  (LinearLayout) findViewById(R.id.pie_container);
-	    TargetPieView.setGravity(Gravity.CENTER);
 	    TargetPieView.addView(mImageView);
+	    TargetPieView.setBackgroundColor(BgColor);
 	    
     }
-	
-    /** Called when the activity is first created. 
-	DrawView drawView;
-    @Override 
-    public void onCreate(Bundle savedInstanceState) { 
-        super.onCreate(savedInstanceState); 
-        // setContentView(R.layout.main); 
-        drawView = new DrawView(this);
-        drawView.setBackgroundColor(Color.WHITE);
-        setContentView(drawView);
-    } 
-	class DrawView extends View { 
-	    Paint paint = new Paint(); 
-	    public DrawView(Context context) { 
-	        super(context); 
-	        paint.setColor(Color.RED); 
-	    } 
-	    @Override 
-	    public void onDraw(Canvas canvas) { 
-	            canvas.drawLine(1, 1, 100, 100, paint); 
-	            canvas.drawLine(100, 1, 1, 100, paint);
-	            canvas.drawLine(1, 100, 1, 1, paint);
-	            canvas.drawLine(1, 1, 150, 1, paint);
-	            canvas.drawLine(10, 15, 40, 60, paint);
-	            canvas.drawCircle(150, 150, 30, paint);
-	    } 
-	}  
-	*/ 
-	
 	
 }
