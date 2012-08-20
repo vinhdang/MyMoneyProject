@@ -4,6 +4,7 @@ import publics.Publics;
 import main.activity.R;
 import model.category.Category;
 import model.category.CategoryAdapter;
+import model.category.CategoryDataSoure;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -25,11 +26,33 @@ public class ManageCategory extends Activity{
 	private ListView lv_categoryAll;
 	private Button btn_categoryNew;
 	private CategoryAdapter cateAdapter;
+	private CategoryDataSoure dataSource;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.manage_category);
+		dataSource = new CategoryDataSoure(this);
+		dataSource.open();
+		try{
+			Publics.list_Category = dataSource.getAllCategorys();
+		}catch(Exception ex)	
+		{
+			ex.printStackTrace();
+		}
+		if(Publics.list_Category.size() == 0)
+		{
+			Category cate = null;
+			cate = dataSource.createCategory("An uong", "Chi tieu", "");
+			cate = dataSource.createCategory("Dam tiec", "Chi tieu", "");
+			cate = dataSource.createCategory("Mua sam", "Chi tieu", "");
+			cate = dataSource.createCategory("Giai tri", "Chi tieu", "");
+			cate = dataSource.createCategory("Sua chua", "Chi tieu", "");
+			cate = dataSource.createCategory("Phi", "Chi tieu", "");
+			cate = dataSource.createCategory("Nhien lieu", "Chi tieu", "");
+			cate = dataSource.createCategory("Luong", "Thu nhap", "");
+			Publics.list_Category = dataSource.getAllCategorys();
+		}
 				
 		/**Get id and process*/
 		lv_categoryAll = (ListView)findViewById(R.id.lv_categoryAll);

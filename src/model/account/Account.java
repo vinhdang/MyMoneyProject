@@ -1,6 +1,7 @@
 package model.account;
 
 public class Account {
+	private int id;
 	public String accountName;
 	public double finalBalance;
 	public String unit;
@@ -10,6 +11,11 @@ public class Account {
 		this.accountName = name;
 		this.finalBalance = balance;
 		this.unit = unit;
+	}
+	
+	public  Account() 
+	{
+
 	}
 	
 	public String getAccountName() {
@@ -31,6 +37,14 @@ public class Account {
 	}
 	public void setFinalBalance(double finalBalance) {
 		this.finalBalance = finalBalance;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 	
 	

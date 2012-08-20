@@ -7,6 +7,7 @@ public class Category implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	private int id;
 	public String categoryName;
 	public String categoryType;
 	public String categoryDescription;
@@ -16,6 +17,10 @@ public class Category implements Serializable{
 		this.categoryName = name;
 		this.categoryType = type;
 		this.categoryDescription = description;
+	}
+	
+	public Category() {
+		// TODO Auto-generated constructor stub
 	}
 	
 	public String getCategoryName() {
@@ -35,5 +40,13 @@ public class Category implements Serializable{
 	}
 	public void setCategoryDescription(String categoryDescription) {
 		this.categoryDescription = categoryDescription;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 }

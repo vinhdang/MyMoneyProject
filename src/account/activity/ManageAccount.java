@@ -2,7 +2,9 @@ package account.activity;
 
 import publics.Publics;
 import main.activity.R;
+import model.account.Account;
 import model.account.AccountAdapter;
+import model.account.AccountDataSource;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -23,11 +25,30 @@ import android.widget.ListView;
 public class ManageAccount extends Activity {
 	private ListView lv_acc;
 	private Button btnAddNewAcc;
+	private AccountDataSource dataSource;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);	
 		setContentView(R.layout.manage_account);
+		dataSource = new AccountDataSource(this);
+		dataSource.open();
+		try{
+			Publics.list_Account = dataSource.getAllAccounts();
+		}catch(Exception ex)	
+		{
+			ex.printStackTrace();
+		}
+		if(Publics.list_Account.size() == 0)
+		{
+			Account a = null;
+			a = dataSource.createAccount("Dong A", (double)5000, "VND");
+			Publics.list_Account.add(a);
+			a = dataSource.createAccount("HSBC", (double)10000, "VND");
+			Publics.list_Account.add(a);
+			a = dataSource.createAccount("ACB", (double)2000, "VND");
+			Publics.list_Account.add(a);
+		}
 		
 		/**Process data*/
 		lv_acc = (ListView)findViewById(R.id.lv_account);
@@ -41,6 +62,18 @@ public class ManageAccount extends Activity {
 		lv_acc.setOnItemLongClickListener(handleLongClick);
 //		registerForContextMenu(lv_acc);
 	}
+	
+	 @Override
+	  protected void onResume() {
+		dataSource.open();
+	    super.onResume();
+	  }
+
+	  @Override
+	  protected void onPause() {
+		dataSource.close();
+	    super.onPause();
+	  }
 	
 	/** Click On ListVIew*/
 	OnItemClickListener handleView = new OnItemClickListener() {

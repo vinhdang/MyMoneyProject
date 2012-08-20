@@ -45,19 +45,19 @@ public class General extends TabActivity {
 		Publics.list_Transaction.add(new Transaction("Xem phim","14/6/2012",(double) 55,"Giai tri", "HSBC"));
 		
 		Publics.list_Account = new ArrayList<Account>();
-		Publics.list_Account.add(new Account("Dong A", 5000, "VND"));
-		Publics.list_Account.add(new Account("HSBC", 10000, "VND"));
-		Publics.list_Account.add(new Account("ACB", 2000, "VND"));
+//		Publics.list_Account.add(new Account("Dong A", 5000, "VND"));
+//		Publics.list_Account.add(new Account("HSBC", 10000, "VND"));
+//		Publics.list_Account.add(new Account("ACB", 2000, "VND"));
 		
 		Publics.list_Category = new ArrayList<Category>();
-		Publics.list_Category.add(new Category("An uong", "Chi tieu", ""));
-		Publics.list_Category.add(new Category("Dam tiec", "Chi tieu", ""));
-		Publics.list_Category.add(new Category("Mua sam", "Chi tieu", ""));
-		Publics.list_Category.add(new Category("Giai tri", "Chi tieu", ""));
-		Publics.list_Category.add(new Category("Sua chua", "Chi tieu", ""));
-		Publics.list_Category.add(new Category("Phi", "Chi tieu", ""));
-		Publics.list_Category.add(new Category("Nhien lieu", "Chi tieu", ""));
-		Publics.list_Category.add(new Category("Luong", "Thu nhap", ""));
+//		Publics.list_Category.add(new Category("An uong", "Chi tieu", ""));
+//		Publics.list_Category.add(new Category("Dam tiec", "Chi tieu", ""));
+//		Publics.list_Category.add(new Category("Mua sam", "Chi tieu", ""));
+//		Publics.list_Category.add(new Category("Giai tri", "Chi tieu", ""));
+//		Publics.list_Category.add(new Category("Sua chua", "Chi tieu", ""));
+//		Publics.list_Category.add(new Category("Phi", "Chi tieu", ""));
+//		Publics.list_Category.add(new Category("Nhien lieu", "Chi tieu", ""));
+//		Publics.list_Category.add(new Category("Luong", "Thu nhap", ""));
 		
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.general);
