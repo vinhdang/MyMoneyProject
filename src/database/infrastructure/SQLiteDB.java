@@ -3,24 +3,24 @@ package database.infrastructure;
 import android.content.Context;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-public class AccountDB extends SQLiteOpenHelper {
-
+public class SQLiteDB extends SQLiteOpenHelper {
+	/**Table Account*/
 	public static final String AId = "id";
     public static final String AName = "name";
     public static final String ABalance = "balance";
     public static final String AUnit = "unit";
-    
+    public static final String ADescript = "descript";
+    /**Table Category*/
     public static final String CId = "id";
     public static final String CName = "name";
     public static final String CType = "type";
     public static final String CDescript = "descript";    
-     
+    /**Name and version Database*/ 
     public static final String DB_NAME = "Database";
-    public static final String DB_TABLE = "Account";
+    public static final String TABLE_ACCOUNT = "Account";
     public static final String TABLE_CATE = "Category";
     public static final int DB_VERSION = 1;
 //    SQLiteDatabase db;
@@ -30,7 +30,7 @@ public class AccountDB extends SQLiteOpenHelper {
 //		super(context, name, factory, version);
 //	}
 	
-	public AccountDB(Context context) {
+	public SQLiteDB(Context context) {
 	    super(context, DB_NAME, null, DB_VERSION);
 //	    try
 //        {
@@ -46,7 +46,7 @@ public class AccountDB extends SQLiteOpenHelper {
 	public void onCreate(SQLiteDatabase db) {
 		 try
          {
-            db.execSQL("CREATE TABLE Account(id integer PRIMARY KEY autoincrement, name text, balance double, unit text);");
+            db.execSQL("CREATE TABLE Account(id integer PRIMARY KEY autoincrement, name text, balance double, unit text, descript text);");
             db.execSQL("CREATE TABLE Category(id integer primary key autoincrement, name text, type text, descript text);");
          }
          catch(SQLException ex)
