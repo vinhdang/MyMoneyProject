@@ -8,7 +8,9 @@ import report.activity.ManageReport;
 import transaction.activity.ManageTransaction;
 import main.activity.R;
 import model.account.Account;
+import model.account.AccountDataSource;
 import model.category.Category;
+import model.category.CategoryDataSoure;
 import model.transaction.Transaction;
 import account.activity.ManageAccount;
 import android.app.TabActivity;
@@ -19,6 +21,8 @@ import android.widget.TabHost.TabSpec;
 
 public class General extends TabActivity {
 	public static TabSpec mTabCurrent;
+	private AccountDataSource dataSourceAcc;
+	private CategoryDataSoure dataSourceCate;
 //	private TabHost tabHost;
 	
 	@Override
@@ -45,11 +49,60 @@ public class General extends TabActivity {
 		Publics.list_Transaction.add(new Transaction("Xem phim","14/6/2012",(double) 55,"Giai tri", "HSBC"));
 		
 		Publics.list_Account = new ArrayList<Account>();
+		dataSourceAcc = new AccountDataSource(this);
+		dataSourceAcc.open();
+		try{
+			Publics.list_Account = dataSourceAcc.getAllAccounts();
+		}catch(Exception ex)	
+		{
+			ex.printStackTrace();
+		}
+		if(Publics.list_Account.size() == 0)
+		{
+			Account a = new Account("Dong A", (double)5000, "VND", "");
+			dataSourceAcc.insertAccount(a);
+			a = new Account("HSBC", (double)10000, "VND", "");
+			dataSourceAcc.insertAccount(a);
+			a = new Account("ACB", (double)2000, "VND", "");
+			dataSourceAcc.insertAccount(a);
+			Publics.list_Account = dataSourceAcc.getAllAccounts();
+		}
+		dataSourceAcc.close();
 //		Publics.list_Account.add(new Account("Dong A", 5000, "VND"));
 //		Publics.list_Account.add(new Account("HSBC", 10000, "VND"));
 //		Publics.list_Account.add(new Account("ACB", 2000, "VND"));
 		
 		Publics.list_Category = new ArrayList<Category>();
+		dataSourceCate = new CategoryDataSoure(this);
+		dataSourceCate.open();
+		try{
+			Publics.list_Category = dataSourceCate.getAllCategorys();
+		}catch(Exception ex)	
+		{
+			ex.printStackTrace();
+		}
+		if(Publics.list_Category.size() == 0)
+		{
+			Category cate = new Category("An uong", "Chi tieu", "");
+			dataSourceCate.insertCategory(cate);
+			cate = new Category("Dam tiec", "Chi tieu", "");
+			dataSourceCate.insertCategory(cate);
+			cate = new Category("Mua sam", "Chi tieu", "");
+			dataSourceCate.insertCategory(cate);
+			cate = new Category("Luong", "Thu nhap", "");
+			dataSourceCate.insertCategory(cate);
+			cate = new Category("Giai tri", "Chi tieu", "");
+			dataSourceCate.insertCategory(cate);
+			cate = new Category("Sua chua", "Chi tieu", "");
+			dataSourceCate.insertCategory(cate);
+			cate = new Category("Phi", "Chi tieu", "");
+			dataSourceCate.insertCategory(cate);
+			cate = new Category("Nhien lieu", "Chi tieu", "");
+			dataSourceCate.insertCategory(cate);
+			
+			Publics.list_Category = dataSourceCate.getAllCategorys();
+		}
+		dataSourceCate.close();
 //		Publics.list_Category.add(new Category("An uong", "Chi tieu", ""));
 //		Publics.list_Category.add(new Category("Dam tiec", "Chi tieu", ""));
 //		Publics.list_Category.add(new Category("Mua sam", "Chi tieu", ""));
@@ -135,5 +188,19 @@ public class General extends TabActivity {
 			
 		}
 	}
+	
+	@Override
+	  protected void onResume() {
+		dataSourceCate.open();
+		dataSourceAcc.open();
+	    super.onResume();
+	  }
+
+	  @Override
+	  protected void onPause() {
+		dataSourceCate.close();
+		dataSourceAcc.close();
+	    super.onPause();
+	  }
 }
 

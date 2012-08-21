@@ -55,10 +55,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
+            android:layout_marginRight="31dp"
+            android:layout_toLeftOf="@+id/tv_generalAccUnit3"
             android:text="Balance"
             android:textAppearance="?android:attr/textAppearanceMedium" />
-
 
 	</RelativeLayout>
 

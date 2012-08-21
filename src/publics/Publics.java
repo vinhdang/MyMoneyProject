@@ -212,4 +212,25 @@ public class Publics {
 		DecimalFormat nf = new DecimalFormat("###,###");
 		return nf.format(s);
 	}
+	
+	/**Check number*/
+	public static boolean isNumeric(String str)  
+	{  
+	  try  
+	  {  
+	    double d = Double.parseDouble(str);
+	    if(d >= 0)
+	    {
+	    	return true;
+	    }
+	    else
+	    {
+	    	return false;
+	    }
+	  }  
+	  catch(NumberFormatException nfe)  
+	  {  
+	    return false;  
+	  }  
+	}
 }

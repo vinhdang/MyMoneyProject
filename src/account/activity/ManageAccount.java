@@ -10,13 +10,9 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.ContextMenu;
-import android.view.MenuItem;
 import android.view.View;
-import android.view.ContextMenu.ContextMenuInfo;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
-import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.Button;
@@ -25,30 +21,14 @@ import android.widget.ListView;
 public class ManageAccount extends Activity {
 	private ListView lv_acc;
 	private Button btnAddNewAcc;
-	private AccountDataSource dataSource;
+//	private AccountDataSource dataSource;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);	
 		setContentView(R.layout.manage_account);
-		dataSource = new AccountDataSource(this);
-		dataSource.open();
-		try{
-			Publics.list_Account = dataSource.getAllAccounts();
-		}catch(Exception ex)	
-		{
-			ex.printStackTrace();
-		}
-		if(Publics.list_Account.size() == 0)
-		{
-			Account a = null;
-			a = dataSource.createAccount("Dong A", (double)5000, "VND");
-			Publics.list_Account.add(a);
-			a = dataSource.createAccount("HSBC", (double)10000, "VND");
-			Publics.list_Account.add(a);
-			a = dataSource.createAccount("ACB", (double)2000, "VND");
-			Publics.list_Account.add(a);
-		}
+//		dataSource = new AccountDataSource(this);
+//		dataSource.open();
 		
 		/**Process data*/
 		lv_acc = (ListView)findViewById(R.id.lv_account);
@@ -60,20 +40,19 @@ public class ManageAccount extends Activity {
 		btnAddNewAcc.setOnClickListener(handleNew);
 		lv_acc.setOnItemClickListener(handleView);
 		lv_acc.setOnItemLongClickListener(handleLongClick);
-//		registerForContextMenu(lv_acc);
 	}
 	
-	 @Override
-	  protected void onResume() {
-		dataSource.open();
-	    super.onResume();
-	  }
-
-	  @Override
-	  protected void onPause() {
-		dataSource.close();
-	    super.onPause();
-	  }
+//	 @Override
+//	  protected void onResume() {
+//		dataSource.open();
+//	    super.onResume();
+//	  }
+//
+//	  @Override
+//	  protected void onPause() {
+//		dataSource.close();
+//	    super.onPause();
+//	  }
 	
 	/** Click On ListVIew*/
 	OnItemClickListener handleView = new OnItemClickListener() {
@@ -89,19 +68,10 @@ public class ManageAccount extends Activity {
 	OnItemLongClickListener handleLongClick = new OnItemLongClickListener() {
 
 		public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
-				final int arg2, long arg3) {			
-			//Build popup menu
-			final AlertDialog.Builder builder = new AlertDialog.Builder(ManageAccount.this);
-			builder.setItems(new String[]{"View Detail"}, new DialogInterface.OnClickListener() {
-				
-				public void onClick(DialogInterface dialog, int which) {
-					Intent i = new Intent(getApplicationContext(), AccountDetail.class);
-					i.putExtra("POS", arg2);
-					startActivity(i);
-				}
-			});
-			builder.create().show();
-			
+				final int arg2, long arg3) {				
+			Intent i = new Intent(getApplicationContext(), AccountDetail.class);
+			i.putExtra("POS", arg2);
+			startActivity(i);
 			return true;
 		}
 	};
@@ -110,8 +80,10 @@ public class ManageAccount extends Activity {
 	OnClickListener handleNew = new OnClickListener() {
 		
 		public void onClick(View v) {
-			Intent intentAddNewAccount = new Intent(ManageAccount.this, AddNewAccount.class);
-			startActivityForResult(intentAddNewAccount,Publics.REQ_NEW_ACCOUNT);
+//			Intent intentAddNewAccount = new Intent(ManageAccount.this, AddNewAccount.class);
+//			startActivityForResult(intentAddNewAccount,Publics.REQ_NEW_ACCOUNT);
+			Intent i = new Intent(getApplicationContext(), AddNewAccount.class);
+			startActivity(i);
 		}
 	};
 	
@@ -119,26 +91,6 @@ public class ManageAccount extends Activity {
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
+		
 	}
-	
-	/**Context Menu*/
-	@Override  
-    public void onCreateContextMenu(ContextMenu menu, View v,ContextMenuInfo menuInfo) {  
-	 	if(v.getId() == R.id.lv_account)
-	 	{
-	 		AdapterView.AdapterContextMenuInfo info = (AdapterContextMenuInfo) menuInfo;
-	 		super.onCreateContextMenu(menu, v, menuInfo);
-	 		 menu.setHeaderTitle(Publics.list_Account.get(info.position).getAccountName());  
-	 		super.onCreateContextMenu(menu, v, menuInfo);   
-	        menu.add(0, v.getId(), 0, "View transaction");  
-	 	}
-    }  
- 
-	@Override  
-    public boolean onContextItemSelected(MenuItem item) { 
-		 AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo)item.getMenuInfo();
-		 Publics.paramToMngTrans = info.position;
-		 Publics.tabHost.setCurrentTabByTag("Transaction");
-		return true;  
-    }
 }

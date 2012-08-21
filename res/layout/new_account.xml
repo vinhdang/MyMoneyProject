@@ -31,9 +31,9 @@
                 android:layout_marginTop="20px"
                 android:text="Account name"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
-
+
             <EditText
-                android:id="@+id/edt_accName"
+                android:id="@+id/edt_accNewName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10" >
@@ -61,9 +61,9 @@
                 android:layout_marginTop="10px"
                 android:text="Description"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
-
+
             <EditText
-                android:id="@+id/edt_description"
+                android:id="@+id/edt_accNewdescription"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10" />
@@ -75,16 +75,16 @@
                 android:layout_marginTop="10px"
                 android:text="Starting balance"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
-
+
             <EditText
-                android:id="@+id/edt_startingBalance"
+                android:id="@+id/edt_accNewstartingBalance"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10" />
 
             <Button
                 android:id="@+id/btn_AddNewAccountSave"
-                android:layout_width="wrap_content"
+                android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="Save" />

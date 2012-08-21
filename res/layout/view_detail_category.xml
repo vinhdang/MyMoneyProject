@@ -23,14 +23,6 @@
         android:layout_weight="1.96"
         android:orientation="vertical" >
 
-        <TextView
-            android:id="@+id/textView1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="View Detail Category"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
-
         <LinearLayout
             android:id="@+id/linearLayout5"
             android:layout_width="match_parent"
@@ -41,67 +33,84 @@
                 android:id="@+id/tv_viewCategoryDetail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Name Of Category" />
+                android:text="Name Of Category"
+                android:textAppearance="?android:attr/textAppearanceMedium"  />
+
         </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/linearLayout1"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="100dp" >
+            android:layout_height="50dp" >
 
             <TextView
                 android:id="@+id/textView2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Category Name : " />
+                android:text="Category Name : "
+                android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <TextView
                 android:id="@+id/tv_viewCategoryName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="TextView" />
-        </LinearLayout>
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="38dp"
+                android:layout_toRightOf="@+id/textView2"
+                android:text="TextView"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
 
-        <LinearLayout
-            android:id="@+id/linearLayout2"
+        </RelativeLayout>
+
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="100dp" >
+            android:layout_height="50dp" >
 
             <TextView
                 android:id="@+id/textView4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Category Type : " />
+                android:text="Category Type : "
+                android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <TextView
                 android:id="@+id/tv_viewCategoryType"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="TextView" />
-        </LinearLayout>
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="48dp"
+                android:layout_toRightOf="@+id/textView4"
+                android:text="TextView"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
 
-        <LinearLayout
-            android:id="@+id/linearLayout3"
+        </RelativeLayout>
+
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="100dp" >
+            android:layout_height="50dp" >
 
             <TextView
                 android:id="@+id/textView6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Description : " />
+                android:text="Description : "
+                android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <TextView
                 android:id="@+id/tv_viewCategoryDescription"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="TextView" />
-        </LinearLayout>
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="70dp"
+                android:layout_toRightOf="@+id/textView6"
+                android:text="TextView"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        </RelativeLayout>
 
         <LinearLayout
             android:id="@+id/linearLayout4"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:gravity="center" >
 
             <Button

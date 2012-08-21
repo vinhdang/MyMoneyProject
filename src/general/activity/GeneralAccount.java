@@ -30,9 +30,9 @@ public class GeneralAccount extends Activity {
 		Publics.bottomFunction(this);
 		
 		list_acc = new ArrayList<Account>();
-		list_acc.add(new Account("Dong A", 5000, "VND"));
-		list_acc.add(new Account("HSBC", 10000, "VND"));
-		list_acc.add(new Account("ACB", 2000, "VND"));
+		list_acc.add(new Account("Dong A", 5000, "VND",""));
+		list_acc.add(new Account("HSBC", 10000, "VND",""));
+		list_acc.add(new Account("ACB", 2000, "VND",""));
 		Publics.list_Account = new ArrayList<Account>();
 		Publics.list_Account = list_acc;
 		

@@ -5,12 +5,14 @@ public class Account {
 	public String accountName;
 	public double finalBalance;
 	public String unit;
+	private String descript;
 	
-	public Account(String name, double balance, String unit)
+	public Account(String name, double balance, String unit, String descript)
 	{
 		this.accountName = name;
 		this.finalBalance = balance;
 		this.unit = unit;
+		this.setDescript(descript);
 	}
 	
 	public  Account() 
@@ -45,6 +47,14 @@ public class Account {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+
+	public String getDescript() {
+		return descript;
+	}
+
+	public void setDescript(String descript) {
+		this.descript = descript;
 	}
 	
 	

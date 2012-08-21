@@ -25,13 +25,14 @@
             android:layout_alignParentTop="true"
             android:text="Unit"
             android:textAppearance="?android:attr/textAppearanceMedium" />
-
+
         <TextView
             android:id="@+id/tv_generalAccBalance"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
+            android:layout_marginRight="30dp"
+            android:layout_toLeftOf="@+id/tv_generalAccUnit"
             android:gravity="right"
             android:text="TextView"
             android:textAppearance="?android:attr/textAppearanceMedium" />

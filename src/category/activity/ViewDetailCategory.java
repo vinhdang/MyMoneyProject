@@ -3,6 +3,7 @@ package category.activity;
 import publics.Publics;
 import main.activity.R;
 import model.category.Category;
+import model.category.CategoryDataSoure;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -23,14 +24,13 @@ public class ViewDetailCategory extends Activity {
 	private TextView tv_categoryItemName;
 	private Category cate;
 	private int pos = 0;
+	private CategoryDataSoure dataSource;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.view_detail_category);
-		
-		//create function for 4 image button on bottom
-		Publics.bottomFunction(this);
+		dataSource = new CategoryDataSoure(this);
 		
 		//create on click for 5 top button
 		Publics.topFunction(this);
@@ -76,6 +76,9 @@ public class ViewDetailCategory extends Activity {
 						try{
 							Intent i = new Intent(getApplicationContext(), ManageCategory.class);
 							Publics.list_Category.remove(pos);
+							dataSource.open();
+							dataSource.deleteCategory(cate);
+							dataSource.close();
 							startActivity(i);
 						}catch(Exception ex)
 						{
