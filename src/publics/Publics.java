@@ -8,6 +8,7 @@ import java.util.List;
 import main.activity.R;
 import model.account.Account;
 import model.category.Category;
+import model.plan.Plan;
 import model.transaction.Transaction;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -18,7 +19,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TabHost;
-import android.widget.Toast;
 
 public class Publics {
 	public final static  String[]  listSpinnerView = {"All", "Daily","Category","Compare Plan"};
@@ -34,7 +34,7 @@ public class Publics {
 	public static List<Transaction> list_Transaction;
 	public static List<Category> list_Category; 
 	public static List<Account> list_Account;
-	public static List<String>	list_Plan;
+	public static List<Plan>	list_Plan;
 	public static TabHost tabHost;
 	
 	public static int paramToMngTrans = -1;

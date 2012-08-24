@@ -2,12 +2,8 @@ package account.activity;
 
 import publics.Publics;
 import main.activity.R;
-import model.account.Account;
 import model.account.AccountAdapter;
-import model.account.AccountDataSource;
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -55,7 +51,8 @@ public class ManageAccount extends Activity {
 //	  }
 	
 	/** Click On ListVIew*/
-	OnItemClickListener handleView = new OnItemClickListener() {
+	OnItemClickListener handleView = new OnItemClickListener()
+	{
 
 		public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 				long arg3) {
@@ -67,8 +64,8 @@ public class ManageAccount extends Activity {
 	/**Long Click On ListView*/
 	OnItemLongClickListener handleLongClick = new OnItemLongClickListener() {
 
-		public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
-				final int arg2, long arg3) {				
+		public boolean onItemLongClick(AdapterView<?> arg0, View arg1, final int arg2, long arg3) 
+		{				
 			Intent i = new Intent(getApplicationContext(), AccountDetail.class);
 			i.putExtra("POS", arg2);
 			startActivity(i);

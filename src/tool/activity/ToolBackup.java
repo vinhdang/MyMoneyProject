@@ -1,9 +1,5 @@
 package tool.activity;
-
-import java.util.ArrayList;
-
 import publics.Publics;
-
 import main.activity.R;
 import android.app.Activity;
 import android.content.Intent;
@@ -12,7 +8,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.Spinner;

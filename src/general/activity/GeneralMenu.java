@@ -2,7 +2,6 @@ package general.activity;
 
 import java.util.LinkedList;
 import plan.activity.ManagePlan;
-import report.activity.ManageReport;
 import setting.activity.ManageSetting;
 import synchronize.activity.Synchronize;
 import tool.activity.ManageTool;

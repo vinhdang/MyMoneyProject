@@ -1,33 +1,47 @@
 package plan.activity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import publics.Publics;
 import main.activity.R;
+import model.plan.Plan;
+import model.plan.PlanAdapter;
+import model.plan.PlanDataSource;
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.AdapterView.OnItemClickListener;
 
 public class ManagePlan extends Activity {
+	private List<Plan> list_plan;
+	private PlanDataSource dataSource;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
+
 		super.onCreate(savedInstanceState);
-		
 		setContentView(R.layout.manage_plan);
-		
+		list_plan = new ArrayList<Plan>();
+		Publics.list_Plan = new ArrayList<Plan>();
+		dataSource = new PlanDataSource(getApplicationContext());
+		try{
+			dataSource.open();
+			list_plan = dataSource.getAllPlans();
+			dataSource.close();
+			Publics.list_Plan = list_plan;
+		}catch(Exception ex)
+		{
+			ex.printStackTrace();
+		}
+	
 		//Fill listview content (fake data)
 		ListView lv_plan = (ListView)findViewById(R.id.lv_listPlan);
-		ArrayAdapter<String> adap = new ArrayAdapter<String>(this,
-										android.R.layout.simple_list_item_1,
-										new String[]{"Plan 1","Plan 2","plan 3","plan 4"});
+		PlanAdapter adap = new PlanAdapter(getApplicationContext(), list_plan);
 		lv_plan.setAdapter(adap);
 		
 		
@@ -36,46 +50,13 @@ public class ManagePlan extends Activity {
 		btnAddNewPlan.setOnClickListener(new OnClickListener() {
 			
 			public void onClick(View v) {
-				Intent intentAddNewAccount = new Intent(ManagePlan.this, AddNewPlan.class);
-				startActivityForResult(intentAddNewAccount,1);
+				Intent i = new Intent(ManagePlan.this, AddNewPlan.class);
+				startActivityForResult(i, 1);
 			}
 		});
 		//end action
 		
-		//Build popup menu
-		final AlertDialog.Builder builder = new AlertDialog.Builder(this);
-		builder.setItems(new String[]{"Update","View","Delete"}, new DialogInterface.OnClickListener() {
-			
-			public void onClick(DialogInterface dialog, int which) {
-				if (which==0) //Update
-				{
-					Intent intentUpdateAccount = new Intent(ManagePlan.this, UpdatePlan.class);
-					startActivityForResult(intentUpdateAccount,Publics.REQ_UPDATE_ACCOUNT);
-				}
-				else if (which==1) //view
-				{
-					Intent intentUpdateAccount = new Intent(ManagePlan.this, ViewPlan.class);
-					startActivityForResult(intentUpdateAccount,Publics.REQ_VIEW_ACCOUNT);
-				}
-				else if (which==2) //delete
-				{
-					Publics.msgBoxDelete(ManagePlan.this, "This plan will be deleted from List plan",
-							new DialogInterface.OnClickListener() {
-			
-								public void onClick(DialogInterface dialog, int which) {
-									// delete action
-								}
-							}, new DialogInterface.OnClickListener() {
-								
-								public void onClick(DialogInterface dialog, int which) {
-									// cancel action
-									
-								}
-							});
-				}
-
-			}
-		});
+		
 		//end build
 		//Test popup menu
 		
@@ -83,14 +64,11 @@ public class ManagePlan extends Activity {
 			
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
-				builder.create().show();
-				
+				Intent i = new Intent(ManagePlan.this, AddNewPlan.class);
+				i.putExtra("POS", arg2);
+				startActivity(i);
 			}
 		});
 		//end test
-		
-		
-		//function for home button
-        Publics.bottomFunction(this);
 	}
 }

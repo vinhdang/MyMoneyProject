@@ -32,7 +32,6 @@ public class AccountDetail extends Activity {
 		setContentView(R.layout.account_detail);
 		dataSource = new AccountDataSource(this);
 		
-		
 		tv_name = (TextView)findViewById(R.id.tv_accName);
 		tv_currency = (TextView)findViewById(R.id.tv_currency);
 		tv_balance = (TextView)findViewById(R.id.tv_startingBalance);

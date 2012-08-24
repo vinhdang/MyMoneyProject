@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import billreminder.activity.ManageBillReminder;
 import publics.Publics;
 import report.activity.GraphicActivity;
-import report.activity.ManageReport;
 import transaction.activity.ManageTransaction;
 import main.activity.R;
 import model.account.Account;
