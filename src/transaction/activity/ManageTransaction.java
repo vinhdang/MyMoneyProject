@@ -7,6 +7,7 @@ import main.activity.R;
 import model.account.Account;
 import model.transaction.ExpandTransAdapter;
 import model.transaction.Transaction;
+import model.transaction.TransactionDataSource;
 import model.transaction.TransactionGroup;
 import android.app.Activity;
 import android.content.Intent;
@@ -17,7 +18,6 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.ExpandableListView;
 import android.widget.ExpandableListView.OnChildClickListener;
 import android.widget.ExpandableListView.OnGroupExpandListener;
@@ -47,6 +47,14 @@ public class ManageTransaction extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.transaction_list);
 		list_trans = new ArrayList<Transaction>();
+		
+		TransactionDataSource tds = new TransactionDataSource(this);
+		tds.open();
+		
+		//list_trans.add(new Transaction("An Choi", 123.0, "Dong A", "chi tieu", "", "26/08/2012", "Cash", "AA"));
+		list_trans = tds.getAllTransactions();
+		tds.close();
+		
 		list_transMonth = new ArrayList<Transaction>();
 //		if(daily == null)
 		daily = new ArrayList<String>();
@@ -100,6 +108,7 @@ public class ManageTransaction extends Activity {
 	/**Click next*/
 	OnClickListener handleNext = new OnClickListener() {
 		
+		@SuppressWarnings("static-access")
 		public void onClick(View v) {
 			if(indexMonth < month.size()-1)
 			{
@@ -129,6 +138,7 @@ public class ManageTransaction extends Activity {
 	/**Click previous*/
 	OnClickListener handlePrev = new OnClickListener() {
 		
+		@SuppressWarnings("static-access")
 		public void onClick(View v) {
 			if(indexMonth > 0)
 			{

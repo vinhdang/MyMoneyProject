@@ -2,6 +2,7 @@ package transaction.activity;
 
 import publics.Publics;
 import main.activity.R;
+import model.transaction.TransactionDataSource;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;

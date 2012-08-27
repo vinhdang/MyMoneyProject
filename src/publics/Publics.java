@@ -30,6 +30,9 @@ public class Publics {
 	public final static  String[]  listMonth = {"6", "7"};
 	public final static	 String[]  listDay = {"1 day", "2 day", "1 week", "1 month"};
 	
+	public final static	 String[]  listPayMode = {"Cash"};
+	public final static	 String[]  listRepeat = {"Dayly","Weekly","Monthly"};
+	
 	public static  List<String>  list_File;
 	public static List<Transaction> list_Transaction;
 	public static List<Category> list_Category; 

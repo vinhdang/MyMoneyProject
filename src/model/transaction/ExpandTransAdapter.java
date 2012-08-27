@@ -88,7 +88,7 @@ public class ExpandTransAdapter extends BaseExpandableListAdapter {
 		TextView tv_name = (TextView)v.findViewById(R.id.tv_viewItemName);
 		TextView tv_unit = (TextView)v.findViewById(R.id.tv_viewItemUnit);
 		TextView tv_amount = (TextView)v.findViewById(R.id.tv_viewItemAmount);
-		tv_name.setText(child.getTransactionName());
+		tv_name.setText(child.getTransactionItem());
 		tv_unit.setText("VND");
 		tv_cate.setText(child.getTransactionCategory());
 		tv_amount.setText(Publics.formatNumber(child.getTransactionAmount()));

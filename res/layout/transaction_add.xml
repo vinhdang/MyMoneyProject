@@ -44,12 +44,13 @@
                         android:layout_height="wrap_content"
                         android:text="Item:"
                         android:textAppearance="?android:attr/textAppearanceMedium" />
-
+
                     <EditText
                         android:id="@+id/edt_transactionItemName"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1.33" >
+                        android:layout_weight="1.33"
+                        android:text="anchoi" >
 
                         <requestFocus />
                     </EditText>
@@ -66,12 +67,14 @@
                         android:layout_height="wrap_content"
                         android:text="Amount:"
                         android:textAppearance="?android:attr/textAppearanceMedium" />
-
+
                     <EditText
                         android:id="@+id/edt_transactionAddAmount"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1.33" />
+                        android:layout_weight="1.33"
+                        android:text="2" />
+
                 </TableRow>
 
                 <TableRow
@@ -153,12 +156,14 @@
                         android:layout_height="wrap_content"
                         android:text="Note:"
                         android:textAppearance="?android:attr/textAppearanceMedium" />
-
+
                     <EditText
                         android:id="@+id/edt_transactionAddNote"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1.33" />
+                        android:layout_weight="1.33"
+                        android:text="note" />
+
                 </TableRow>
 
                 <TableRow
@@ -203,19 +208,6 @@
                     android:id="@+id/tableRow4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" >
-
-                    <TextView
-                        android:id="@+id/textView10"
-                        android:layout_width="90dp"
-                        android:layout_height="wrap_content"
-                        android:text="Type"
-                        android:textAppearance="?android:attr/textAppearanceMedium" />
-
-                    <Spinner
-                        android:id="@+id/spn_transactionAddType"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1" />
                 </TableRow>
 
                 <TableRow

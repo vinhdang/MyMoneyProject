@@ -3,7 +3,6 @@ package general.activity;
 import java.util.ArrayList;
 import billreminder.activity.ManageBillReminder;
 import publics.Publics;
-import report.activity.GraphicActivity;
 import transaction.activity.ManageTransaction;
 import main.activity.R;
 import model.account.Account;
@@ -18,34 +17,69 @@ import android.os.Bundle;
 import android.widget.Toast;
 import android.widget.TabHost.TabSpec;
 
+import model.transaction.TransactionDataSource;
+
 public class General extends TabActivity {
 	public static TabSpec mTabCurrent;
 	private AccountDataSource dataSourceAcc;
 	private CategoryDataSoure dataSourceCate;
+	
+	private TransactionDataSource dataSourceTrans;
 //	private TabHost tabHost;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		
-		/**Create data*/
-		Publics.list_Transaction = new ArrayList<Transaction>();		
-		Publics.list_Transaction.add(new Transaction("Luong Lotteria", "29/7/2012", (double) 1500, "Luong", "HSBC"));
-		Publics.list_Transaction.add(new Transaction("Day them", "29/7/2012", (double) 1000, "Luong", "HSBC"));
-		Publics.list_Transaction.add(new Transaction("An sang", "9/7/2012", (double) 15, "An uong", "Dong A"));
-		Publics.list_Transaction.add(new Transaction("Do xang", "9/7/2012", (double) 50, "Nhien lieu", "Dong A"));
-		Publics.list_Transaction.add(new Transaction("Com trua", "9/7/2012", (double) 30, "An uong", "Dong A"));
-		Publics.list_Transaction.add(new Transaction("Cafe", "9/7/2012", (double) 10, "An uong", "Dong A"));
-		Publics.list_Transaction.add(new Transaction("Luong Lotteria", "29/6/2012", (double) 1500, "Luong", "HSBC"));	
-		Publics.list_Transaction.add(new Transaction("Dong tien hoc", "25/6/2012", (double) 2000, "Phi", "ACB"));
-		Publics.list_Transaction.add(new Transaction("Tien Dien", "25/6/2012", (double) 800, "Phi", "ACB"));
-		Publics.list_Transaction.add(new Transaction("Tien nuoc", "24/6/2012", (double) 200, "Phi", "HSBC"));
-		Publics.list_Transaction.add(new Transaction("Xem phim", "24/6/2012", (double) 150, "Giai tri", "HSBC"));
-		Publics.list_Transaction.add(new Transaction("Dam cuoi", "22/6/2012", ((double) 500), "Dam tiec", "ACB"));
-		Publics.list_Transaction.add(new Transaction("Sua xe", "22/6/2012", (double) 100, "Sua chua", "ACB"));
-		Publics.list_Transaction.add(new Transaction("Mua sam","19/6/2012",(double) 180,"Mua sam", "HSBC"));
-		Publics.list_Transaction.add(new Transaction("Mua xe","18/7/1991",(double) 25000, "Mua sam", "HSBC"));
-		Publics.list_Transaction.add(new Transaction("An Sang","14/6/2012",(double) 5,"An uong", "Dong A"));
-		Publics.list_Transaction.add(new Transaction("Xem phim","14/6/2012",(double) 55,"Giai tri", "HSBC"));
+		Publics.list_Transaction = new ArrayList<Transaction>();
+		dataSourceTrans = new TransactionDataSource(this);
+		dataSourceTrans.open();
+		try{
+			Publics.list_Transaction = dataSourceTrans.getAllTransactions();
+		}catch(Exception ex)
+		{
+			ex.printStackTrace();
+		}
+		if(Publics.list_Transaction.size() == 0)
+		{
+			Transaction a = new Transaction("An bun bo", "13/7/2012", (double)20000, "An uong", "Dong A", "An ngon wa",  "Tien mat", "Khong lap");
+			dataSourceTrans.insertTransaction(a);
+			a = new Transaction("Luong Lotteria", "29/7/2012", (double) 1500, "Luong", "HSBC", "", "Card", "Khong lap");
+			dataSourceTrans.insertTransaction(a);
+			a = new Transaction("Day them", "29/7/2012", (double) 1000, "Luong", "HSBC", "", "Card", "Khong lap");
+			dataSourceTrans.insertTransaction(a);
+			a = new Transaction("An sang", "9/7/2012", (double) 15, "An uong", "Dong A", "", "Card", "Khong lap");
+			dataSourceTrans.insertTransaction(a);
+			a = new Transaction("Do xang", "9/7/2012", (double) 50, "Nhien lieu", "Dong A", "", "Card", "Khong lap");
+			dataSourceTrans.insertTransaction(a);
+			a = new Transaction("Com trua", "9/7/2012", (double) 30, "An uong", "Dong A", "", "Card", "Khong lap");
+			dataSourceTrans.insertTransaction(a);
+			a = new Transaction("Cafe", "9/7/2012", (double) 10, "An uong", "Dong A", "", "Card", "Khong lap");
+			dataSourceTrans.insertTransaction(a);
+			a = new Transaction("Luong Lotteria", "29/6/2012", (double) 1500, "Luong", "HSBC", "", "Card", "Khong lap");
+			dataSourceTrans.insertTransaction(a);
+			a = new Transaction("Dong tien hoc", "25/6/2012", (double) 2000, "Phi", "ACB", "", "Card", "Khong lap");
+			dataSourceTrans.insertTransaction(a);
+			a = new Transaction("Tien Dien", "25/6/2012", (double) 800, "Phi", "ACB", "", "Card", "Khong lap");
+			dataSourceTrans.insertTransaction(a);
+			a = new Transaction("Tien nuoc", "24/6/2012", (double) 200, "Phi", "HSBC", "", "Card", "Khong lap");
+			dataSourceTrans.insertTransaction(a);
+			a = new Transaction("Xem phim", "24/6/2012", (double) 150, "Giai tri", "HSBC", "", "Card", "Khong lap");
+			dataSourceTrans.insertTransaction(a);
+			a = new Transaction("Dam cuoi", "22/6/2012", ((double) 500), "Dam tiec", "ACB", "", "Card", "Khong lap");
+			dataSourceTrans.insertTransaction(a);
+			a = new Transaction("Sua xe", "22/6/2012", (double) 100, "Sua chua", "ACB", "", "Card", "Khong lap");
+			dataSourceTrans.insertTransaction(a);
+			a = new Transaction("Mua sam","19/6/2012",(double) 180,"Mua sam", "HSBC", "", "Card", "Khong lap");
+			dataSourceTrans.insertTransaction(a);
+			a = new Transaction("Mua xe","18/7/1991",(double) 25000, "Mua sam", "HSBC", "", "Card", "Khong lap");
+			dataSourceTrans.insertTransaction(a);
+			a = new Transaction("An Sang","14/6/2012",(double) 5,"An uong", "Dong A", "", "Card", "Khong lap");
+			dataSourceTrans.insertTransaction(a);
+			a = new Transaction("Xem phim","14/6/2012",(double) 55,"Giai tri", "HSBC", "", "Card", "Khong lap");
+			dataSourceTrans.insertTransaction(a);
+			Publics.list_Transaction = dataSourceTrans.getAllTransactions();
+		}
+		dataSourceTrans.close();
 		
 		Publics.list_Account = new ArrayList<Account>();
 		dataSourceAcc = new AccountDataSource(this);
@@ -133,10 +167,10 @@ public class General extends TabActivity {
 		specMenu.setContent(iMenu);
 		
 		//Tab Report
-		TabSpec specReport = Publics.tabHost.newTabSpec("Report");
-		specReport.setIndicator("Report",  getResources().getDrawable(R.drawable.report_48));
-		Intent iReport = new Intent(getApplicationContext(), GraphicActivity.class);
-		specReport.setContent(iReport);
+		//TabSpec specReport = Publics.tabHost.newTabSpec("Report");
+		//specReport.setIndicator("Report",  getResources().getDrawable(R.drawable.report_48));
+		//Intent iReport = new Intent(getApplicationContext(), GraphicActivity.class);
+		//specReport.setContent(iReport);
 		
 		//Tab Bill
 		TabSpec specBill = Publics.tabHost.newTabSpec("Bill");
@@ -149,7 +183,7 @@ public class General extends TabActivity {
 		Publics.tabHost.addTab(specAccount);
 		Publics.tabHost.addTab(specTransaction);
 		Publics.tabHost.addTab(specBill);
-		Publics.tabHost.addTab(specReport);
+		//Publics.tabHost.addTab(specReport);
 		Publics.tabHost.addTab(specMenu);
 		
 		//Switch tab

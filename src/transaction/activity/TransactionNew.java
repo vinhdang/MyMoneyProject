@@ -4,6 +4,8 @@ import java.util.Calendar;
 
 import publics.Publics;
 import main.activity.R;
+import model.transaction.Transaction;
+import model.transaction.TransactionDataSource;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
@@ -11,8 +13,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -54,15 +59,56 @@ public class TransactionNew extends Activity {
 		pPickDate.setOnClickListener(handlePickDate);
 		/** Display the current date in the TextView */
         updateDisplay();
+        
+        //Fill data for component
+        Spinner spnAcc = (Spinner)findViewById(R.id.spn_transactionAddAccount);
+        
+        TransactionDataSource tds = new TransactionDataSource(this);
+		tds.open();
+        ArrayAdapter<String> arrAdapAcc = new ArrayAdapter<String>(this,
+        		android.R.layout.simple_spinner_item,tds.getAccountList());
+        spnAcc.setAdapter(arrAdapAcc);
+        
+        Spinner spnCate = (Spinner)findViewById(R.id.spn_transactionAddCategory);
+        ArrayAdapter<String> arrAdapCate = new ArrayAdapter<String>(this,
+        		android.R.layout.simple_spinner_item,tds.getCategoryList());
+        spnCate.setAdapter(arrAdapCate);
+        tds.close();
+        
+        Spinner spnPay = (Spinner)findViewById(R.id.spn_transactionAddPayMode);
+        spnPay.setAdapter(new ArrayAdapter<String>(this,
+        		android.R.layout.simple_spinner_item,Publics.listPayMode));
+        
+        Spinner spnRepeat = (Spinner)findViewById(R.id.spn_transactionAddRepeat);
+        spnRepeat.setAdapter(new ArrayAdapter<String>(this,
+        		android.R.layout.simple_spinner_item,Publics.listRepeat));
 	}
 	
 	/**Click Save*/
 	OnClickListener handleSave = new OnClickListener() {
 		
 		public void onClick(View v) {
-			Intent i= new Intent(getApplicationContext(), ManageTransaction.class);
-			Toast.makeText(getApplicationContext(), "Save New Transaction.....", Toast.LENGTH_SHORT).show();
-			setResult(RESULT_OK, i);
+			
+			
+			Transaction trans = new Transaction();
+			trans.setTransactionAccount(((Spinner)findViewById(R.id.spn_transactionAddAccount)).getSelectedItem().toString());
+			trans.setTransactionAmount(Double.parseDouble(((EditText)findViewById(R.id.edt_transactionAddAmount)).getText().toString()));
+			trans.setTransactionCategory(((Spinner)findViewById(R.id.spn_transactionAddCategory)).getSelectedItem().toString());
+			trans.setTransactionDate(((TextView)findViewById(R.id.tv_transAddDate)).getText().toString());
+			trans.setTransactionItem(((EditText)findViewById(R.id.edt_transactionItemName)).getText().toString());
+			trans.setTransactionPaymode(((Spinner)findViewById(R.id.spn_transactionAddPayMode)).getSelectedItem().toString());
+			trans.setTransactionRepeat(((Spinner)findViewById(R.id.spn_transactionAddRepeat)).getSelectedItem().toString());
+			trans.setTransactionNote(((EditText)findViewById(R.id.edt_transactionAddNote)).getText().toString());
+			
+			TransactionDataSource tds = new TransactionDataSource(TransactionNew.this);
+			tds.open();
+			
+			tds.insertTransaction(trans);
+			tds.close();
+			//
+			//Intent i= new Intent(getApplicationContext(), ManageTransaction.class);
+			//Toast.makeText(getApplicationContext(), "Save New Transaction.....", Toast.LENGTH_SHORT).show();
+			setResult(RESULT_OK);
 			finish();
 		}
 	};
@@ -71,9 +117,7 @@ public class TransactionNew extends Activity {
 	OnClickListener handleCancel = new OnClickListener() {
 		
 		public void onClick(View v) {
-			Intent i= new Intent(getApplicationContext(), ManageTransaction.class);
-			Toast.makeText(getApplicationContext(), "Canceled.....", Toast.LENGTH_SHORT).show();
-			startActivity(i);			
+			finish();		
 		}
 	};
 	

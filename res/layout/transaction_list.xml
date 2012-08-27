@@ -78,16 +78,6 @@
                         android:textAppearance="?android:attr/textAppearanceMedium" />
 
                     <TextView
-                        android:id="@+id/tv_viewItemAmount2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentTop="true"
-                        android:layout_marginRight="22dp"
-                        android:layout_toLeftOf="@+id/tv_viewItemUnit2"
-                        android:text="Amount"
-                        android:textAppearance="?android:attr/textAppearanceMedium" />
-
-                    <TextView
                         android:id="@+id/tv_viewItemCat2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -95,6 +85,16 @@
                         android:layout_marginLeft="46dp"
                         android:layout_toRightOf="@+id/tv_viewItemName2"
                         android:text="Cate"
+                        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                    <TextView
+                        android:id="@+id/tv_viewItemAmount2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginRight="14dp"
+                        android:layout_toLeftOf="@+id/tv_viewItemUnit2"
+                        android:text="Amount"
                         android:textAppearance="?android:attr/textAppearanceMedium" />
 
                 </RelativeLayout>
