@@ -1,9 +1,14 @@
 package tool.activity;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.nio.channels.FileChannel;
 import publics.Publics;
 import main.activity.R;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Environment;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
@@ -37,6 +42,7 @@ public class ToolBackup extends Activity {
 		tv_tmp = (TextView)findViewById(R.id.tv_toolBackupAt);
 		dpk_date = (TimePicker)findViewById(R.id.timePicker_toolScheduler);
 		spn_time = (Spinner)findViewById(R.id.spn_toolScheduler);
+		edt_name = (EditText)findViewById(R.id.edt_toolNameFile);
 		ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), 
 				android.R.layout.simple_spinner_item, Publics.listDay);
 		
@@ -53,8 +59,32 @@ public class ToolBackup extends Activity {
 	/**Event click save backup*/
 	OnClickListener handleSave = new OnClickListener() {
 		
+		@SuppressWarnings("resource")
 		public void onClick(View v) {
 			Intent i = new Intent(getApplicationContext(), ManageTool.class);
+			try {
+		        File sd = Environment.getExternalStorageDirectory();
+		        File data = Environment.getDataDirectory();
+
+		        if (sd.canWrite()) {
+		            String currentDBPath = "//data//main.activity//databases//Database.db";
+		            String tmp = edt_name.getText().toString();
+		            String backupDBPath = tmp;
+		            File currentDB = new File(data, currentDBPath);
+		            File backupDB = new File(sd, backupDBPath);
+
+//		            if (currentDB.exists()) {
+		                FileChannel src = new FileInputStream(currentDB).getChannel();
+		                FileChannel dst = new FileOutputStream(backupDB).getChannel();
+		                dst.transferFrom(src, 0, src.size());
+		                src.close();
+		                dst.close();
+//		            }
+		        }
+		    } catch (Exception e) 
+		    {
+		    	e.printStackTrace();
+		    }		    
 			Toast.makeText(getApplicationContext(), "Backup And Save .... ", Toast.LENGTH_SHORT).show();
 			startActivity(i);
 		}
@@ -92,4 +122,11 @@ public class ToolBackup extends Activity {
 			}
 		}
 	};
+	
+	/**Process autobackup*/
+	public void processcing()
+	{
+		String date  = spn_time.getSelectedItem().toString();
+		String time = dpk_date.toString();
+	}
 }

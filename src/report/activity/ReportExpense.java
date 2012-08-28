@@ -20,6 +20,7 @@ public class ReportExpense extends Activity {
 	private Spinner spn_reportAccount;
 	private Spinner spn_reportCategory;
 	private Spinner spn_reportMonth;
+	private Spinner spn_reportMonth;
 	private TextView tv_reportTotal;
 	private ListView lv_report;
 	private List<String> list_acc;
@@ -67,11 +68,11 @@ public class ReportExpense extends Activity {
 					if((acc.equals("HSBC")== true))
 					{
 						
-						list_show.add(new Transaction("Mua xe","18/07/1991",(double) 25000, "Mua sam", "HSBC"));
-						list_show.add(new Transaction("Mua sam","19/06/2012",(double) 180,"Mua sam", "HSBC"));
-						list_show.add(new Transaction("Tien nuoc", "24/6/2012", (double) 200, "Phi", "HSBC"));
-						list_show.add(new Transaction("Xem phim","14/06/2012",(double) 55,"Giai tri", "HSBC"));
-						list_show.add(new Transaction("Xem phim", "24/6/2012", (double) 150, "Giai tri", "HSBC"));
+//						list_show.add(new Transaction("Mua xe","18/07/1991",(double) 25000, "Mua sam", "HSBC"));
+//						list_show.add(new Transaction("Mua sam","19/06/2012",(double) 180,"Mua sam", "HSBC"));
+//						list_show.add(new Transaction("Tien nuoc", "24/6/2012", (double) 200, "Phi", "HSBC"));
+//						list_show.add(new Transaction("Xem phim","14/06/2012",(double) 55,"Giai tri", "HSBC"));
+//						list_show.add(new Transaction("Xem phim", "24/6/2012", (double) 150, "Giai tri", "HSBC"));
 						tv_reportTotal.setText("55");
 					}
 					setListTransaction(list_show);
@@ -81,11 +82,11 @@ public class ReportExpense extends Activity {
 					list_show.clear();
 					if((acc.equals("Dong A")== true))
 					{
-						list_show.add(new Transaction("An sang", "9/7/2012", (double) 15, "An uong", "Dong A"));
-						list_show.add(new Transaction("Do xang", "9/7/2012", (double) 50, "Nhien lieu", "Dong A"));
-						list_show.add(new Transaction("Com trua", "9/7/2012", (double) 30, "An uong", "Dong A"));
-						list_show.add(new Transaction("Cafe", "9/7/2012", (double) 10, "An uong", "Dong A"));
-						list_show.add(new Transaction("An Sang","14/06/2012",(double) 5,"An uong", "Dong A"));
+//						list_show.add(new Transaction("An sang", "9/7/2012", (double) 15, "An uong", "Dong A"));
+//						list_show.add(new Transaction("Do xang", "9/7/2012", (double) 50, "Nhien lieu", "Dong A"));
+//						list_show.add(new Transaction("Com trua", "9/7/2012", (double) 30, "An uong", "Dong A"));
+//						list_show.add(new Transaction("Cafe", "9/7/2012", (double) 10, "An uong", "Dong A"));
+//						list_show.add(new Transaction("An Sang","14/06/2012",(double) 5,"An uong", "Dong A"));
 						tv_reportTotal.setText("3,000");
 					}
 					setListTransaction(list_show);
