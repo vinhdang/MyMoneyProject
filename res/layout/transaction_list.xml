@@ -66,6 +66,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Name"
+                        android:textColor="@color/orange"
+            			android:textStyle="bold"
                         android:textAppearance="?android:attr/textAppearanceMedium" />
 
                     <TextView
@@ -75,6 +77,8 @@
                         android:layout_alignParentRight="true"
                         android:layout_alignParentTop="true"
                         android:text="Unit"
+                        android:textColor="@color/orange"
+           				android:textStyle="bold"
                         android:textAppearance="?android:attr/textAppearanceMedium" />
 
                     <TextView
@@ -85,6 +89,8 @@
                         android:layout_marginLeft="46dp"
                         android:layout_toRightOf="@+id/tv_viewItemName2"
                         android:text="Cate"
+                        android:textColor="@color/orange"
+           				android:textStyle="bold"
                         android:textAppearance="?android:attr/textAppearanceMedium" />
 
                     <TextView
@@ -95,6 +101,8 @@
                         android:layout_marginRight="14dp"
                         android:layout_toLeftOf="@+id/tv_viewItemUnit2"
                         android:text="Amount"
+                        android:textColor="@color/orange"
+           				android:textStyle="bold"
                         android:textAppearance="?android:attr/textAppearanceMedium" />
 
                 </RelativeLayout>

@@ -9,6 +9,7 @@ import main.activity.R;
 import model.account.Account;
 import model.category.Category;
 import model.plan.Plan;
+import model.bill.Bill;
 import model.transaction.Transaction;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -38,6 +39,7 @@ public class Publics {
 	public static List<Category> list_Category; 
 	public static List<Account> list_Account;
 	public static List<Plan>	list_Plan;
+	public static List<Bill>	list_Bill;
 	public static TabHost tabHost;
 	
 	public static int paramToMngTrans = -1;

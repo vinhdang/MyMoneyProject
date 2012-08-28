@@ -100,7 +100,7 @@
                         android:id="@+id/textView6"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Due Day"
+                        android:text="Due Date"
                         android:textAppearance="?android:attr/textAppearanceLarge" />
 
                     <TextView

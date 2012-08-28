@@ -39,7 +39,9 @@
 				            android:layout_height="wrap_content"
 				            android:layout_alignParentLeft="true"
 				            android:layout_alignParentTop="true"
-				            android:text="Name" />
+				            android:text="Name"
+				            android:textColor="@color/orange"
+           					android:textStyle="bold" />
 				
 				
 				        <TextView
@@ -48,7 +50,9 @@
 				            android:layout_height="wrap_content"
 				            android:layout_alignParentTop="true"
 				            android:layout_centerHorizontal="true"
-				            android:text="Due Date"/>
+				            android:text="Due Date"
+				            android:textColor="@color/orange"
+           					android:textStyle="bold"/>
 				
 				        <TextView
 				            android:id="@+id/tv_trans_balance"
@@ -56,7 +60,9 @@
 				            android:layout_height="wrap_content"
 				            android:layout_alignParentRight="true"
 				            android:layout_alignParentTop="true"
-				            android:text="Amount"/>
+				            android:text="Amount"
+				            android:textColor="@color/orange"
+           					android:textStyle="bold"/>
 				
 				    </RelativeLayout>
                     <ListView

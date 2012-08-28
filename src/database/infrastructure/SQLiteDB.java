@@ -40,7 +40,7 @@ public class SQLiteDB extends SQLiteOpenHelper {
     public static final String BItem = "item";
     public static final String BAmount = "amount";
     public static final String BCategory = "category";
-    public static final String BDuedate = "duedate";
+    public static final String BDueday = "dueday";
     public static final String BNote = "note";
     public static final String BNotification = "notification";
     public static final String BRepeat = "repeat";  
@@ -75,7 +75,7 @@ public class SQLiteDB extends SQLiteOpenHelper {
             db.execSQL("CREATE TABLE Category(id integer primary key autoincrement, name text, type text, descript text);");
             db.execSQL("CREATE TABLE Plan(id integer primary key autoincrement, name text, account text, category text, amount double);");
             db.execSQL("CREATE TABLE Transactions(id integer primary key autoincrement, item text, tdate text, amount double, category text, account text, note text, paymode text, repeat text);");
-            db.execSQL("CREATE TABLE Bill(id integer primary key autoincrement, item text, amount double, category text, duedate text, note text, notification text, repeat text);");
+            db.execSQL("CREATE TABLE Bill(id integer primary key autoincrement, item text, amount double, category text, dueday text, note text, notification text, repeat text);");
 //         }
 //         catch(SQLException ex)
 //         {

@@ -1,6 +1,7 @@
 package model.bill;
 
 import java.util.LinkedList;
+import java.util.List;
 
 import publics.Publics;
 
@@ -14,16 +15,12 @@ import android.widget.TextView;
 
 public class BillReminderAdapter extends BaseAdapter
 {
-	private LinkedList<BillReminderData> data = new LinkedList<BillReminderData>();
+	private List<Bill> data;
 	private Context mContext;
-	public BillReminderAdapter(Context context)
+	public BillReminderAdapter(Context context, List<Bill> list)
 	{
 		mContext = context;
-		data.add(new BillReminderData("HD Dien","14/01/1991",5));
-		data.add(new BillReminderData("HD Nuoc","14/02/1991",55));
-		data.add(new BillReminderData("HD Net","19/02/1991",180));
-		data.add(new BillReminderData("HD Bao hiem","14/02/1991",999));
-		data.add(new BillReminderData("HD Dien Thoai","18/07/1991",25000));
+		data = list;
 	}
 
 	public int getCount() {
@@ -49,13 +46,13 @@ public class BillReminderAdapter extends BaseAdapter
 			v = li.inflate(R.layout.billreminder_inflate, null);
 			
 			TextView tv = (TextView)v.findViewById(R.id.tv_trans_name);
-			tv.setText(data.get(pos).name);
+			tv.setText(data.get(pos).getBillItem());
 			
 			tv = (TextView)v.findViewById(R.id.tv_trans_date);
-			tv.setText(data.get(pos).date);
+			tv.setText(data.get(pos).getBillDueDay());
 			
 			tv = (TextView)v.findViewById(R.id.tv_trans_balance);
-			tv.setText(Publics.formatNumber((data.get(pos).balance)));
+			tv.setText(Publics.formatNumber((data.get(pos).getBillAmount())));
 
 		}
 		else
@@ -65,16 +62,4 @@ public class BillReminderAdapter extends BaseAdapter
 		return v;
 	}
 	
-}
-class BillReminderData
-{
-	public String name;
-	public String date;
-	public int balance;
-	public BillReminderData(String name, String date, int balance)
-	{
-		this.name = name;
-		this.date = date;
-		this.balance = balance;
-	}
 }

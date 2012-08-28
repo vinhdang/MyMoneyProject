@@ -3,6 +3,10 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.nio.channels.FileChannel;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
 import publics.Publics;
 import main.activity.R;
 import android.app.Activity;
@@ -61,30 +65,33 @@ public class ToolBackup extends Activity {
 		
 		@SuppressWarnings("resource")
 		public void onClick(View v) {
+			
+			processcing();
+//			try {
+//		        File sd = Environment.getExternalStorageDirectory();
+//		        File data = Environment.getDataDirectory();
+//
+//		        if (sd.canWrite()) {
+//		            String currentDBPath = "//data//main.activity//databases//Database.db";
+//		            String tmp = edt_name.getText().toString();
+//		            String backupDBPath = tmp;
+//		            File currentDB = new File(data, currentDBPath);
+//		            File backupDB = new File(sd, backupDBPath);
+//
+////		            if (currentDB.exists()) {
+//		                FileChannel src = new FileInputStream(currentDB).getChannel();
+//		                FileChannel dst = new FileOutputStream(backupDB).getChannel();
+//		                dst.transferFrom(src, 0, src.size());
+//		                src.close();
+//		                dst.close();
+////		            }
+//		        }
+//		    } catch (Exception e) 
+//		    {
+//		    	e.printStackTrace();
+//		    }		    
+
 			Intent i = new Intent(getApplicationContext(), ManageTool.class);
-			try {
-		        File sd = Environment.getExternalStorageDirectory();
-		        File data = Environment.getDataDirectory();
-
-		        if (sd.canWrite()) {
-		            String currentDBPath = "//data//main.activity//databases//Database.db";
-		            String tmp = edt_name.getText().toString();
-		            String backupDBPath = tmp;
-		            File currentDB = new File(data, currentDBPath);
-		            File backupDB = new File(sd, backupDBPath);
-
-//		            if (currentDB.exists()) {
-		                FileChannel src = new FileInputStream(currentDB).getChannel();
-		                FileChannel dst = new FileOutputStream(backupDB).getChannel();
-		                dst.transferFrom(src, 0, src.size());
-		                src.close();
-		                dst.close();
-//		            }
-		        }
-		    } catch (Exception e) 
-		    {
-		    	e.printStackTrace();
-		    }		    
 			Toast.makeText(getApplicationContext(), "Backup And Save .... ", Toast.LENGTH_SHORT).show();
 			startActivity(i);
 		}
@@ -128,5 +135,14 @@ public class ToolBackup extends Activity {
 	{
 		String date  = spn_time.getSelectedItem().toString();
 		String time = dpk_date.toString();
+		Calendar cal = Calendar.getInstance();
+		SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+		String tmp = sdf.format(cal.getTime());
+//		Date dcur = new Date(tmp);
 	}
+	
+	/**calculate date*/
+	public static long calculateDays(Date dateEarly, Date dateLater) {
+		  return (dateLater.getTime() - dateEarly.getTime()) / (24 * 60 * 60 * 1000);
+		}
 }

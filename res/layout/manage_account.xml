@@ -39,6 +39,8 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:text="Name"
+            android:textColor="@color/orange"
+            android:textStyle="bold"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <TextView
@@ -48,6 +50,8 @@
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
             android:text="Unit"
+            android:textColor="@color/orange"
+            android:textStyle="bold"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <TextView
@@ -58,6 +62,8 @@
             android:layout_marginRight="31dp"
             android:layout_toLeftOf="@+id/tv_generalAccUnit3"
             android:text="Balance"
+            android:textColor="@color/orange"
+            android:textStyle="bold"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
 	</RelativeLayout>
