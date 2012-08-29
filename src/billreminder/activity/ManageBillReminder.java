@@ -1,10 +1,7 @@
 package billreminder.activity;
 
-import java.util.ArrayList;
 import publics.Publics;
 import main.activity.R;
-import model.bill.Bill;
-import model.bill.BillDataSource;
 import model.bill.BillReminderAdapter;
 import android.app.TabActivity;
 import android.content.Intent;
@@ -19,33 +16,23 @@ import android.widget.ListView;
 import android.widget.TabHost;
 
 public class ManageBillReminder extends TabActivity {
-	private BillDataSource dataSource;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.manage_bill_reminder);
-		dataSource = new BillDataSource(this);
-		Publics.list_Bill = new ArrayList<Bill>();
-		try{
-			dataSource.open();
-			Publics.list_Bill = dataSource.getAllBills();
-			dataSource.close();
-		}catch(Exception ex)
-		{
-			ex.printStackTrace();
-		}
 		
 		TabHost th = getTabHost();
-		th.addTab(th.newTabSpec("Main").setIndicator("View paid bill").setContent(R.id.tab_paidbill));
-		th.addTab(th.newTabSpec("Main2").setIndicator("View upcoming bill").setContent(R.id.tab_upcomingbill));
+		th.addTab(th.newTabSpec("Main").setIndicator("Paid bill").setContent(R.id.tab_paidbill));
+		th.addTab(th.newTabSpec("Main2").setIndicator("Upcoming bill").setContent(R.id.tab_upcomingbill));
 		th.getTabWidget().getChildAt(0).setBackgroundColor(Color.parseColor("#FFA500"));
 		th.getTabWidget().getChildAt(1).setBackgroundColor(Color.parseColor("#FFA500"));
 		
+		/**List paid bill*/
 		ListView lv_paidBill = (ListView)findViewById(R.id.lv_paidBill);
 		lv_paidBill.setAdapter(new BillReminderAdapter(this, Publics.list_Bill));
 		
-		//
+		/**List upcoming bill*/
 		ListView lv_upcomingBill = (ListView)findViewById(R.id.lv_upcomingBill);
 		lv_upcomingBill.setAdapter(new BillReminderAdapter(this, Publics.list_Bill));
 		

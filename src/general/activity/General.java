@@ -8,6 +8,8 @@ import transaction.activity.ManageTransaction;
 import main.activity.R;
 import model.account.Account;
 import model.account.AccountDataSource;
+import model.bill.Bill;
+import model.bill.BillDataSource;
 import model.category.Category;
 import model.category.CategoryDataSoure;
 import model.transaction.Transaction;
@@ -25,13 +27,14 @@ public class General extends TabActivity {
 	public static TabSpec mTabCurrent;
 	private AccountDataSource dataSourceAcc;
 	private CategoryDataSoure dataSourceCate;
+	private BillDataSource dataSource;
 	
 	private TransactionDataSource dataSourceTrans;
 //	private TabHost tabHost;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		
+		/**processing Transaction*/
 		Publics.list_Transaction = new ArrayList<Transaction>();
 		dataSourceTrans = new TransactionDataSource(this);
 		dataSourceTrans.open();
@@ -82,7 +85,7 @@ public class General extends TabActivity {
 			Publics.list_Transaction = dataSourceTrans.getAllTransactions();
 		}
 		dataSourceTrans.close();
-		
+		/**Processing Account*/
 		Publics.list_Account = new ArrayList<Account>();
 		dataSourceAcc = new AccountDataSource(this);
 		dataSourceAcc.open();
@@ -103,10 +106,8 @@ public class General extends TabActivity {
 			Publics.list_Account = dataSourceAcc.getAllAccounts();
 		}
 		dataSourceAcc.close();
-//		Publics.list_Account.add(new Account("Dong A", 5000, "VND"));
-//		Publics.list_Account.add(new Account("HSBC", 10000, "VND"));
-//		Publics.list_Account.add(new Account("ACB", 2000, "VND"));
-		
+
+		/**Processing Category*/
 		Publics.list_Category = new ArrayList<Category>();
 		dataSourceCate = new CategoryDataSoure(this);
 		dataSourceCate.open();
@@ -138,15 +139,18 @@ public class General extends TabActivity {
 			Publics.list_Category = dataSourceCate.getAllCategorys();
 		}
 		dataSourceCate.close();
-//		Publics.list_Category.add(new Category("An uong", "Chi tieu", ""));
-//		Publics.list_Category.add(new Category("Dam tiec", "Chi tieu", ""));
-//		Publics.list_Category.add(new Category("Mua sam", "Chi tieu", ""));
-//		Publics.list_Category.add(new Category("Giai tri", "Chi tieu", ""));
-//		Publics.list_Category.add(new Category("Sua chua", "Chi tieu", ""));
-//		Publics.list_Category.add(new Category("Phi", "Chi tieu", ""));
-//		Publics.list_Category.add(new Category("Nhien lieu", "Chi tieu", ""));
-//		Publics.list_Category.add(new Category("Luong", "Thu nhap", ""));
 		
+		/**Processing Bill*/
+		dataSource = new BillDataSource(this);
+		Publics.list_Bill = new ArrayList<Bill>();
+		try{
+			dataSource.open();
+			Publics.list_Bill = dataSource.getAllBills();
+			dataSource.close();
+		}catch(Exception ex)
+		{
+			ex.printStackTrace();
+		}
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.general);
 		
@@ -187,6 +191,7 @@ public class General extends TabActivity {
 		Publics.tabHost.addTab(specBill);
 		Publics.tabHost.addTab(specReport);
 		Publics.tabHost.addTab(specMenu);
+		/**Set color*/
 		Publics.tabHost.getTabWidget().getChildAt(0).setBackgroundColor(Color.parseColor("#7EEB09"));
 		Publics.tabHost.getTabWidget().getChildAt(1).setBackgroundColor(Color.parseColor("#7EEB09"));
 		Publics.tabHost.getTabWidget().getChildAt(2).setBackgroundColor(Color.parseColor("#7EEB09"));
