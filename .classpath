@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry excluding="report/activity/" kind="src" path="src"/>
+	<classpathentry including="account/|billreminder/|category/|database/|general/|main/|model/|plan/|publics/|report/|setting/|synchronize/|tool/|transaction/|view/" kind="src" path="src"/>
 	<classpathentry kind="src" path="gen"/>
-	<classpathentry excluding="src/|gen/" kind="src" path=""/>
 	<classpathentry kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"/>
 	<classpathentry kind="con" path="com.android.ide.eclipse.adt.LIBRARIES"/>
 	<classpathentry kind="output" path="bin/classes"/>

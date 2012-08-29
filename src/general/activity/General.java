@@ -3,6 +3,7 @@ package general.activity;
 import java.util.ArrayList;
 import billreminder.activity.ManageBillReminder;
 import publics.Publics;
+import report.activity.GraphicActivity;
 import transaction.activity.ManageTransaction;
 import main.activity.R;
 import model.account.Account;
@@ -167,11 +168,11 @@ public class General extends TabActivity {
 		Intent iMenu = new Intent(getApplicationContext(), GeneralMenu.class);
 		specMenu.setContent(iMenu);
 		
-		//Tab Report
-		//TabSpec specReport = Publics.tabHost.newTabSpec("Report");
-		//specReport.setIndicator("Report",  getResources().getDrawable(R.drawable.report_48));
-		//Intent iReport = new Intent(getApplicationContext(), GraphicActivity.class);
-		//specReport.setContent(iReport);
+//		Tab Report
+		TabSpec specReport = Publics.tabHost.newTabSpec("Report");
+		specReport.setIndicator("Report",  getResources().getDrawable(R.drawable.report_48));
+		Intent iReport = new Intent(getApplicationContext(), GraphicActivity.class);
+		specReport.setContent(iReport);
 		
 		//Tab Bill
 		TabSpec specBill = Publics.tabHost.newTabSpec("Bill");
@@ -184,13 +185,13 @@ public class General extends TabActivity {
 		Publics.tabHost.addTab(specAccount);
 		Publics.tabHost.addTab(specTransaction);
 		Publics.tabHost.addTab(specBill);
-		//Publics.tabHost.addTab(specReport);
+		Publics.tabHost.addTab(specReport);
 		Publics.tabHost.addTab(specMenu);
 		Publics.tabHost.getTabWidget().getChildAt(0).setBackgroundColor(Color.parseColor("#7EEB09"));
 		Publics.tabHost.getTabWidget().getChildAt(1).setBackgroundColor(Color.parseColor("#7EEB09"));
 		Publics.tabHost.getTabWidget().getChildAt(2).setBackgroundColor(Color.parseColor("#7EEB09"));
 		Publics.tabHost.getTabWidget().getChildAt(3).setBackgroundColor(Color.parseColor("#7EEB09"));
-//		Publics.tabHost.getTabWidget().getChildAt(4).setBackgroundColor(Color.parseColor("#00A2E8"));
+		Publics.tabHost.getTabWidget().getChildAt(4).setBackgroundColor(Color.parseColor("#7EEB09"));
 		
 		//Switch tab
 		Intent it = getIntent();

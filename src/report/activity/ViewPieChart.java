@@ -2,17 +2,14 @@ package report.activity;
 
 import java.text.DecimalFormat;
 import java.util.List;
-
 import report.activity.GraphicActivity.PieDetailsItem;
-
-
-
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.BitmapFactory.Options;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.RectF;
@@ -72,6 +69,11 @@ public class ViewPieChart extends View{
     	//------------------------------------------------------------
     	float lblX;
     	float lblY;
+    	//Define the location of notes.
+    	int SmallRectX = 200;
+    	int SmallRectY = 180;
+    	int TextLocation = 194;
+    	
     	String LblPercent;
     	float Percent;
     	DecimalFormat FloatFormatter = new DecimalFormat("0.## %");
@@ -94,48 +96,48 @@ public class ViewPieChart extends View{
     	    lblX = (float) ((float) CenterOffset + Radius*Math.cos( Conv*(mStart+mSweep/2)))- bounds.width()/2;
     	    lblY = (float) ((float) CenterOffset + Radius*Math.sin( Conv*(mStart+mSweep/2)))+ bounds.height()/2;
     	    // Dwraw Label on Canvas
-    	    
-    	    
     		mBgPaints.setColor(Item.Color);
     		canvas.drawArc(mOvals, mStart, mSweep, true, mBgPaints);
     		canvas.drawArc(mOvals, mStart, mSweep, true, mLinePaints);
     		canvas.drawText(LblPercent, lblX , lblY , mLinePaints);
     		mStart += mSweep;
+    		//------------------------------------------------------
+        	//Draw small rectangle and write the meaning of this rectangle.
+        	//------------------------------------------------------
+    		paint.setColor(mDataArray.get(i).Color);
+            canvas.drawRect(0, SmallRectX, 30, SmallRectY, paint);
+            paint.setColor(Color.DKGRAY);
+            canvas.drawText(LblPercent + " " + Item.Label, 50, TextLocation, paint);
+            if(i == 0)
+            {
+            	canvas.drawText(Item.title, 0, 164, paint);
+            }
+            SmallRectX += 30;
+            SmallRectY += 30;
+            TextLocation += 30;
         }
     	//------------------------------------------------------
     	Options options = new BitmapFactory.Options();
         options.inScaled = false;
     	Bitmap OverlayBitmap = BitmapFactory.decodeResource(getResources(), mOverlayId, options);
-    	canvas.drawBitmap(OverlayBitmap, 0.0f, 0.0f, null);
-    	//------------------------------------------------------
-    	//Draw small rectangle and write the meaning of this rectangle.
-    	//------------------------------------------------------
-    	paint.setColor(mDataArray.get(0).Color);
-        canvas.drawRect(0, 200, 30, 180, paint);
-        paint.setColor(Color.DKGRAY);
-        canvas.drawText("Tiền ăn trong tháng", 50, 194, paint);
-        
-        paint.setColor(mDataArray.get(1).Color);
-        canvas.drawRect(0, 230, 30, 210, paint );
-        paint.setColor(Color.DKGRAY);
-        canvas.drawText("Tiền đổ xăng xe", 50, 224, paint);
-        
-        paint.setColor(mDataArray.get(2).Color);
-        canvas.drawRect(0, 260, 30, 240, paint );
-        paint.setColor(Color.DKGRAY);
-        canvas.drawText("Tiền phòng trọ", 50, 254, paint);
-        
-        paint.setColor(mDataArray.get(3).Color);
-        canvas.drawRect(0, 290, 30, 270, paint );
-        paint.setColor(Color.DKGRAY);
-        canvas.drawText("Tiền điện nước", 50, 284, paint);
-        
-        paint.setColor(mDataArray.get(4).Color);
-        canvas.drawRect(0, 320, 30, 300, paint );
-        paint.setColor(Color.DKGRAY);
-        canvas.drawText("Tiền mạng Internet", 50, 314, paint);
-        
-        
+    	
+    	//-----------------------------------------------
+    	// Added code Begin
+    	//-----------------------------------------------
+    	int width = OverlayBitmap.getWidth();
+    	int height = OverlayBitmap.getHeight();
+    	int newWidth = mWidth;
+    	int newHeight = mWidth;
+    	float scaleWidth = ((float) newWidth) / width;
+    	float scaleHeight = ((float) newHeight) / height;
+    	Matrix matrix = new Matrix();
+    	matrix.postScale(scaleWidth, scaleHeight);
+    	Bitmap resizedBitmap = Bitmap.createBitmap(OverlayBitmap, 0, 0,width, height, matrix, true);
+    	//-----------------------------------------------
+    	// End Added code
+    	//-----------------------------------------------
+    	//canvas.drawBitmap(OverlayBitmap, 0.0f, 0.0f, null);
+    	canvas.drawBitmap(resizedBitmap, 0.0f, 0.0f, null);
         //------------------------------------------------------
     	mState = IS_DRAW;
     }

@@ -23,12 +23,15 @@ import android.widget.TabHost;
 public class Publics {
 	public final static  String[]  listSpinnerView = {"All", "Daily","Category","Compare Plan"};
 	public final static  String[]  listGridMenuTool = {"Backup","Restore","Import","Export","Exchange"}; 
-	public final static  String[]  listCurrency = {"VND", "USD-US", "USD-AUS", "USD-CAN", "EURO", "YUAN"};
+	public final static  String[]  listCurrency = {"VND", "USD-US", "USD-AUS", "USD-CAN", "EURO"};
 	public final static  String[]  listLanguage = {"Vietnamese", "English", "France"};
 	public final static  String[]  listDateFormat = {"dd/mm/yyyy", "mm/dd/yyyy"};
 	public final static  String[]  listCategoryType = {"Chi tieu", "Thu nhap"};
 	public final static  String[]  listMonth = {"6", "7"};
 	public final static	 String[]  listDay = {"1 day", "2 day", "1 week", "1 month"};
+	public final static  String[]  listColor = {"-1843419","-14300190","-1044291","-11994766",
+		"-14922743","-7424497","-2417081","-8073554","-7229610","-2005138","-4192165", 
+		"-13481860","-4693234","-3475868","-15652540"};
 	
 	public final static	 String[]  listPayMode = {"Cash"};
 	public final static	 String[]  listRepeat = {"Dayly","Weekly","Monthly"};
