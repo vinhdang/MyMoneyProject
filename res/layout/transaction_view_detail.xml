@@ -1,8 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout android:id="@+id/tv_trans_detail_note"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical" xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.57"
+        android:orientation="vertical" >
+
+        <include
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            layout="@layout/top_function" />
+    </LinearLayout>
 
     <ScrollView
         android:id="@+id/scrollView1"
@@ -23,11 +36,12 @@
                 android:gravity="center" >
 
                 <TextView
-                    android:id="@+id/textView1"
+                    android:id="@+id/tv_transactionViewNameItem3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="View Detail"
                     android:textAppearance="?android:attr/textAppearanceMedium" />
+
             </LinearLayout>
 
             <LinearLayout
@@ -40,7 +54,8 @@
                     android:id="@+id/tv_transactionViewNameItem"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="TextView" />
+                    android:text="TextView" 
+                    android:textAppearance="?android:attr/textAppearanceMedium"/>
             </LinearLayout>
 
             <LinearLayout
@@ -50,16 +65,38 @@
 
                 <TextView
                     android:id="@+id/textView3"
-                    android:layout_width="80dp"
+                    android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:text="Amount:"
                     android:textAppearance="?android:attr/textAppearanceMedium" />
-
+
                 <TextView
-                    android:id="@+id/textView4"
+                    android:id="@+id/tv_transdetailamount"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="TextView" />
+                    android:text="TextView"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp" >
+
+                <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:text="Account" 
+                    android:textAppearance="?android:attr/textAppearanceMedium"/>
+
+                <TextView
+                    android:id="@+id/tv_trans_detail_account"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="TextView" 
+                    android:textAppearance="?android:attr/textAppearanceMedium"/>
+
             </LinearLayout>
 
             <LinearLayout
@@ -69,16 +106,18 @@
 
                 <TextView
                     android:id="@+id/textView5"
-                    android:layout_width="80dp"
+                    android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:text="Category:"
                     android:textAppearance="?android:attr/textAppearanceMedium" />
-
+
                 <TextView
-                    android:id="@+id/textView6"
+                    android:id="@+id/tv_trans_detail_category"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="TextView" />
+                    android:text="TextView"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+
             </LinearLayout>
 
             <LinearLayout
@@ -88,54 +127,18 @@
 
                 <TextView
                     android:id="@+id/textView7"
-                    android:layout_width="80dp"
+                    android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:text="Date:"
                     android:textAppearance="?android:attr/textAppearanceMedium" />
-
+
                 <TextView
-                    android:id="@+id/textView8"
+                    android:id="@+id/tv_trans_detail_date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="TextView" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/linearLayout6"
-                android:layout_width="match_parent"
-                android:layout_height="40dp" >
-
-                <TextView
-                    android:id="@+id/textView9"
-                    android:layout_width="80dp"
-                    android:layout_height="wrap_content"
-                    android:text="Paymode:"
+                    android:text="TextView"
                     android:textAppearance="?android:attr/textAppearanceMedium" />
 
-                <TextView
-                    android:id="@+id/textView12"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="TextView" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/linearLayout7"
-                android:layout_width="match_parent"
-                android:layout_height="40dp" >
-
-                <TextView
-                    android:id="@+id/textView10"
-                    android:layout_width="80dp"
-                    android:layout_height="wrap_content"
-                    android:text="Type:"
-                    android:textAppearance="?android:attr/textAppearanceMedium" />
-
-                <TextView
-                    android:id="@+id/textView13"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="TextView" />
             </LinearLayout>
 
             <LinearLayout
@@ -145,16 +148,39 @@
 
                 <TextView
                     android:id="@+id/textView11"
-                    android:layout_width="80dp"
+                    android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:text="Note:"
                     android:textAppearance="?android:attr/textAppearanceMedium" />
-
+
                 <TextView
-                    android:id="@+id/textView14"
+                    android:id="@+id/tv_transDetailNote"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="TextView" />
+                    android:text="TextView"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linearLayout6"
+                android:layout_width="match_parent"
+                android:layout_height="40dp" >
+
+                <TextView
+                    android:id="@+id/textView9"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:text="Paymode:"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                <TextView
+                    android:id="@+id/tv_trans_detail_paymode"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="TextView" 
+                    android:textAppearance="?android:attr/textAppearanceMedium"/>
+
             </LinearLayout>
 
             <LinearLayout

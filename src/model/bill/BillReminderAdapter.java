@@ -1,10 +1,7 @@
 package model.bill;
 
-import java.util.LinkedList;
 import java.util.List;
-
 import publics.Publics;
-
 import main.activity.R;
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -63,3 +60,4 @@ public class BillReminderAdapter extends BaseAdapter
 	}
 	
 }
+

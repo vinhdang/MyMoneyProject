@@ -13,6 +13,7 @@ import model.transaction.Transaction;
 import account.activity.ManageAccount;
 import android.app.TabActivity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.widget.Toast;
 import android.widget.TabHost.TabSpec;
@@ -185,6 +186,11 @@ public class General extends TabActivity {
 		Publics.tabHost.addTab(specBill);
 		//Publics.tabHost.addTab(specReport);
 		Publics.tabHost.addTab(specMenu);
+		Publics.tabHost.getTabWidget().getChildAt(0).setBackgroundColor(Color.parseColor("#7EEB09"));
+		Publics.tabHost.getTabWidget().getChildAt(1).setBackgroundColor(Color.parseColor("#7EEB09"));
+		Publics.tabHost.getTabWidget().getChildAt(2).setBackgroundColor(Color.parseColor("#7EEB09"));
+		Publics.tabHost.getTabWidget().getChildAt(3).setBackgroundColor(Color.parseColor("#7EEB09"));
+//		Publics.tabHost.getTabWidget().getChildAt(4).setBackgroundColor(Color.parseColor("#00A2E8"));
 		
 		//Switch tab
 		Intent it = getIntent();

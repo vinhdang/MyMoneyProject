@@ -39,43 +39,43 @@ public class SQLiteDB extends SQLiteOpenHelper {
     public static final String BId = "id";
     public static final String BItem = "item";
     public static final String BAmount = "amount";
-    public static final String BCategory = "category";
-    public static final String BDueday = "dueday";
-    public static final String BNote = "note";
-    public static final String BNotification = "notification";
-    public static final String BRepeat = "repeat";  
-    
-    /**Name and version Database*/ 
-    public static final String DB_NAME = "Database.db";
-    public static final String TABLE_ACCOUNT = "Account";
-    public static final String TABLE_CATE = "Category";
-    public static final String TABLE_PLAN = "Plan";
-    public static final String TABLE_TRANS = "Transactions";
-    public static final String TABLE_BILL = "Bill";
-    public static final int DB_VERSION = 3;
-    
-    
-//    SQLiteDatabase db;
-    
-//	public AccountDB(Context context, String name, CursorFactory factory,
-//			int version) {
-//		super(context, name, factory, version);
-//	}
+    public static final String BCategory = "category";  
+	public static final String BDueday = "dueday";
+	public static final String BNote = "note";
+	public static final String BNotification = "notification";
+	public static final String BRepeat = "repeat";  
+	
+	/**Name and version Database*/ 
+	public static final String DB_NAME = "Database.db";
+	public static final String TABLE_ACCOUNT = "Account";
+	public static final String TABLE_CATE = "Category";
+	public static final String TABLE_PLAN = "Plan";
+	public static final String TABLE_TRANS = "Transactions";
+	public static final String TABLE_BILL = "Bill";
+	public static final int DB_VERSION = 3;
+	
+	
+	//SQLiteDatabase db;
+	
+	//public AccountDB(Context context, String name, CursorFactory factory,
+	//		int version) {
+	//	super(context, name, factory, version);
+	//}
 	
 	public SQLiteDB(Context context) {
 	    super(context, DB_NAME, null, DB_VERSION);
-
+	
 	  }
-
+	
 	@Override
 	public void onCreate(SQLiteDatabase db) {
-//		 try
-//         {
-            db.execSQL("CREATE TABLE Account(id integer PRIMARY KEY autoincrement, name text, balance double, unit text, descript text);");
-            db.execSQL("CREATE TABLE Category(id integer primary key autoincrement, name text, type text, descript text);");
-            db.execSQL("CREATE TABLE Plan(id integer primary key autoincrement, name text, account text, category text, amount double);");
-            db.execSQL("CREATE TABLE Transactions(id integer primary key autoincrement, item text, tdate text, amount double, category text, account text, note text, paymode text, repeat text);");
-            db.execSQL("CREATE TABLE Bill(id integer primary key autoincrement, item text, amount double, category text, dueday text, note text, notification text, repeat text);");
+	//	 try
+	//     {
+	        db.execSQL("CREATE TABLE Account(id integer PRIMARY KEY autoincrement, name text, balance double, unit text, descript text);");
+	        db.execSQL("CREATE TABLE Category(id integer primary key autoincrement, name text, type text, descript text);");
+	        db.execSQL("CREATE TABLE Plan(id integer primary key autoincrement, name text, account text, category text, amount double);");
+	        db.execSQL("CREATE TABLE Transactions(id integer primary key autoincrement, item text, tdate text, amount double, category text, account text, note text, paymode text, repeat text);");
+	        db.execSQL("CREATE TABLE Bill(id integer primary key autoincrement, item text, amount double, category text, dueday text, note text, notification text, repeat text);");
 //         }
 //         catch(SQLException ex)
 //         {
@@ -91,7 +91,7 @@ public class SQLiteDB extends SQLiteOpenHelper {
 	        db.execSQL("DROP TABLE IF EXISTS Account");
 	        db.execSQL("DROP TABLE IF EXISTS Category");
 	        db.execSQL("DROP TABLE IF EXISTS Plan");
-	        db.execSQL("DROP TABLE IF EXISTS Transaction");
+	        db.execSQL("DROP TABLE IF EXISTS Transactions");
 	        db.execSQL("DROP TABLE IF EXISTS Bill");
 	        onCreate(db);
 		}

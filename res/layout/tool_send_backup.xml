@@ -2,12 +2,14 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     android:orientation="vertical" >
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/green"
         android:orientation="vertical" >
-
 
         <include
             android:layout_width="wrap_content"
@@ -25,11 +27,12 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical" >
-
+
             <LinearLayout
                 android:id="@+id/linearLayout1"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
+                android:background="@color/blue"
                 android:gravity="center" >
 
                 <TextView
@@ -44,12 +47,14 @@
                 android:id="@+id/linearLayout2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" >
-
+
                 <TextView
                     android:id="@+id/textView2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Choose File : " />
+                    android:text="Choose File : "
+                    android:textColor="@color/black" />
+
             </LinearLayout>
 
             <LinearLayout
@@ -68,12 +73,13 @@
                 android:id="@+id/linearLayout4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" >
-
+
                 <TextView
                     android:id="@+id/textView3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="To : " />
+                    android:text="To : "
+                    android:textColor="@color/black" />
 
                 <EditText
                     android:id="@+id/edt_toolSendEmail"
@@ -87,12 +93,14 @@
                 android:id="@+id/linearLayout5"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" >
-
+
                 <TextView
                     android:id="@+id/textView4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Content : " />
+                    android:text="Content : "
+                    android:textColor="@color/black" />
+
             </LinearLayout>
 
             <EditText

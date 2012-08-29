@@ -2,14 +2,15 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     android:gravity="center|top"
     android:orientation="vertical" >
-	
+	
      <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical" >
-
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:background="@color/green"
+         android:orientation="vertical" >
 
         <include
             android:layout_width="wrap_content"
@@ -18,11 +19,11 @@
             layout="@layout/top_function" />
 
     </LinearLayout>
-    
+    
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/blue" >
+        android:background="@color/orange" >
 
         <Button
             android:id="@+id/btn_newCategory"
@@ -41,19 +42,22 @@
             android:text="New"
             android:textAppearance="?android:attr/textAppearanceLarge" />
     </RelativeLayout>
-	<RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
 
+	<RelativeLayout
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:background="@color/blue" >
+
         <TextView
             android:id="@+id/tv_categoryListItemName2"
             android:layout_width="220dp"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_below="@+id/tv_categoryListItemName"
-            android:text="Category Name" 
-            android:textAppearance="?android:attr/textAppearanceMedium"/>
-
+            android:text="Category Name"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/orange" />
+
         <TextView
             android:id="@+id/tv_categoryListItemType2"
             android:layout_width="wrap_content"
@@ -61,7 +65,8 @@
             android:layout_alignParentTop="true"
             android:layout_toRightOf="@+id/tv_categoryListItemName2"
             android:text="Type"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/orange" />
 
     </RelativeLayout>
     <LinearLayout
@@ -69,11 +74,13 @@
         android:layout_height="wrap_content"
         android:layout_weight="1.93"
         android:orientation="vertical" >
-
+
         <ListView
             android:id="@+id/lv_categoryAll"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" >
+            android:layout_height="match_parent"
+            android:divider="@color/white" >
+
         </ListView>
     </LinearLayout>
 

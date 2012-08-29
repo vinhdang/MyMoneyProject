@@ -1,7 +1,8 @@
 package transaction.activity;
 
-import java.util.Calendar;
+import general.activity.General;
 
+import java.util.Calendar;
 import publics.Publics;
 import main.activity.R;
 import model.transaction.Transaction;
@@ -30,17 +31,31 @@ public class TransactionNew extends Activity {
 	private int pMonth;
 	private int pDay;
 	static final int DATE_DIALOG_ID = 0;
+	private boolean update;
+	private int id;
+	private Transaction data;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.transaction_add);
-		
-		//create function for 4 image button on bottom
-		Publics.bottomFunction(this); 
-		
+		data = new Transaction();
 		//create on click for 5 top button
 		Publics.topFunction(this);
+		
+		//Check the update activity
+		
+		
+		try{
+		update = getIntent().getExtras().getBoolean("update");
+		}
+		catch (Exception ex)
+		{
+			update = false;
+		}
+		if (update)
+			Toast.makeText(this, "Update action", Toast.LENGTH_SHORT).show();
+		
 		
 		/**Process*/
 		btn_transactionCancel = (Button)findViewById(R.id.btn_transactionAddCancel);
@@ -70,18 +85,38 @@ public class TransactionNew extends Activity {
         spnAcc.setAdapter(arrAdapAcc);
         
         Spinner spnCate = (Spinner)findViewById(R.id.spn_transactionAddCategory);
+        
         ArrayAdapter<String> arrAdapCate = new ArrayAdapter<String>(this,
         		android.R.layout.simple_spinner_item,tds.getCategoryList());
         spnCate.setAdapter(arrAdapCate);
-        tds.close();
+        
         
         Spinner spnPay = (Spinner)findViewById(R.id.spn_transactionAddPayMode);
-        spnPay.setAdapter(new ArrayAdapter<String>(this,
-        		android.R.layout.simple_spinner_item,Publics.listPayMode));
+        ArrayAdapter<String> adapPay = new ArrayAdapter<String>(this,
+        		android.R.layout.simple_spinner_item,Publics.listPayMode);
+        spnPay.setAdapter(adapPay);
         
         Spinner spnRepeat = (Spinner)findViewById(R.id.spn_transactionAddRepeat);
-        spnRepeat.setAdapter(new ArrayAdapter<String>(this,
-        		android.R.layout.simple_spinner_item,Publics.listRepeat));
+        ArrayAdapter<String> adapRepeat = new ArrayAdapter<String>(this,
+        		android.R.layout.simple_spinner_item,Publics.listRepeat);
+        spnRepeat.setAdapter(adapRepeat);
+        
+       if (update)
+       {
+    	   id = getIntent().getExtras().getInt("POS");   	   
+    	   data = tds.getTransactionById(id);
+    	   
+    	   ((EditText)findViewById(R.id.edt_transactionAddNote)).setText(data.getTransactionNote());
+    	   ((EditText)findViewById(R.id.edt_transactionItemName)).setText(data.getTransactionItem());
+    	   ((TextView)findViewById(R.id.tv_transAddDate)).setText(data.getTransactionDate());
+    	   ((EditText)findViewById(R.id.edt_transactionAddAmount)).setText(String.valueOf(data.getTransactionAmount()));
+    	   ((Spinner)findViewById(R.id.spn_transactionAddAccount)).setSelection(arrAdapAcc.getPosition(data.getTransactionItem()));
+    	   ((Spinner)findViewById(R.id.spn_transactionAddRepeat)).setSelection(adapRepeat.getPosition(data.getTransactionRepeat()));
+    	   ((Spinner)findViewById(R.id.spn_transactionAddPayMode)).setSelection(adapPay.getPosition(data.getTransactionPaymode()));
+    	   ((Spinner)findViewById(R.id.spn_transactionAddCategory)).setSelection(arrAdapCate.getPosition(data.getTransactionCategory()));
+       }
+       
+       tds.close();
 	}
 	
 	/**Click Save*/
@@ -102,14 +137,22 @@ public class TransactionNew extends Activity {
 			
 			TransactionDataSource tds = new TransactionDataSource(TransactionNew.this);
 			tds.open();
-			
-			tds.insertTransaction(trans);
+			if (update)
+			{
+				trans.setTransactionId(id);
+				tds.updateTransaction(trans);
+			}
+			else
+			{
+				tds.insertTransaction(trans);
+			}
 			tds.close();
 			//
 			//Intent i= new Intent(getApplicationContext(), ManageTransaction.class);
 			//Toast.makeText(getApplicationContext(), "Save New Transaction.....", Toast.LENGTH_SHORT).show();
-			setResult(RESULT_OK);
-			finish();
+			Intent intent = new Intent(getApplicationContext(),General.class);
+			intent.putExtra("tab", 2);
+			startActivity(intent);
 		}
 	};
 	

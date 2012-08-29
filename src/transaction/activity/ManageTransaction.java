@@ -49,11 +49,14 @@ public class ManageTransaction extends Activity {
 		list_trans = new ArrayList<Transaction>();
 		
 		TransactionDataSource tds = new TransactionDataSource(this);
-		tds.open();
-		
-		//list_trans.add(new Transaction("An Choi", 123.0, "Dong A", "chi tieu", "", "26/08/2012", "Cash", "AA"));
-		list_trans = tds.getAllTransactions();
-		tds.close();
+		try{
+			tds.open();
+			list_trans = tds.getAllTransactions();
+			tds.close();
+		}catch(Exception ex)
+		{
+			ex.printStackTrace();
+		}
 		
 		list_transMonth = new ArrayList<Transaction>();
 //		if(daily == null)
@@ -62,7 +65,7 @@ public class ManageTransaction extends Activity {
 			month = new ArrayList<String>();
 		pos = Publics.paramToMngTrans;
 		
-		/***/
+		/**Process*/
 		elv_transaction = (ExpandableListView)findViewById(R.id.elv_transList);
 		btn_transactionNew = (Button)findViewById(R.id.btn_transactionAddNew);
 		btn_transactionNext = (Button)findViewById(R.id.btn_transNext);
@@ -98,9 +101,13 @@ public class ManageTransaction extends Activity {
 		public boolean onChildClick(ExpandableListView parent, View v,
 		int groupPosition, int childPosition, long id) {
 			Intent i = new Intent(getApplicationContext(), TransactionDetail.class);			
-			Toast.makeText(getApplicationContext(), "Start Add New ....", Toast.LENGTH_SHORT).show();
-			i.putExtra("POS", childPosition);
+			//Toast.makeText(getApplicationContext(), "Start Add New ....", Toast.LENGTH_SHORT).show();
+			List<Transaction> tmp = ExpListItems.get(groupPosition).getItems();
+			Transaction t = tmp.get(childPosition);
+
+			i.putExtra("POS", t.getTransactionId());
 			startActivity(i);
+
 			return false;
 		}
 	};	
@@ -226,6 +233,7 @@ public class ManageTransaction extends Activity {
 						list2.add(tmp);
 					}
 			  }
+			  
 			  gru.setItems(list2);
 			  list.add(gru);
 		  }
@@ -281,10 +289,19 @@ public class ManageTransaction extends Activity {
 		 }
 		 else if(requestCode == Publics.REQ_NEW_TRANSACTION )
 		 {
-			 Toast.makeText(getApplicationContext(), "Update list.....", Toast.LENGTH_SHORT).show();
+			 TransactionDataSource t = new TransactionDataSource(this);
+			 t.open();
+			 list_trans = t.getAllTransactions();
+			 t.close();
+			 
+			 filterData(-1);// filter and set adapter		
+			 handleMonth();
+			 elv_transaction.setAdapter(ExpAdapter);
+			 Toast.makeText(getApplicationContext(), "Update list.....2", Toast.LENGTH_SHORT).show();
 		 }
 	}
 	
+	/**process transaction with account*/
 	private void filterData(int p)
 	{
 		if(p != -1)

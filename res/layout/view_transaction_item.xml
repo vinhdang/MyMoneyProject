@@ -2,19 +2,23 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     android:orientation="vertical" >
-
+
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-
+        android:layout_height="wrap_content"
+        android:background="@color/white" >
+
         <TextView
             android:id="@+id/tv_viewItemName"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
+            android:background="@color/white"
             android:text="Name"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
-
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/black" />
+
         <TextView
             android:id="@+id/tv_viewItemUnit"
             android:layout_width="40dp"
@@ -22,8 +26,9 @@
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
             android:text="Unit"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
-
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/black" />
+
         <TextView
             android:id="@+id/tv_viewItemCat"
             android:layout_width="wrap_content"
@@ -31,8 +36,9 @@
             android:layout_alignParentTop="true"
             android:layout_toRightOf="@+id/tv_viewItemName"
             android:text="Cate"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
-
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/black" />
+
         <TextView
             android:id="@+id/tv_viewItemAmount"
             android:layout_width="70dp"
@@ -40,7 +46,8 @@
             android:layout_alignParentTop="true"
             android:layout_toLeftOf="@+id/tv_viewItemUnit"
             android:text="Amount"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/black" />
 
     </RelativeLayout>
 

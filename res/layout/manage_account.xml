@@ -2,12 +2,13 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
-
+    android:background="@color/white"
+    android:orientation="vertical" >
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/blue"
+        android:background="@color/orange"
         android:gravity="center_vertical" >
 
         <Button
@@ -27,10 +28,11 @@
             android:text="Account"
             android:textAppearance="?android:attr/textAppearanceLarge" />
     </RelativeLayout>
-
+
 	<RelativeLayout
 	    android:layout_width="match_parent"
-	    android:layout_height="wrap_content" >
+	    android:layout_height="wrap_content"
+	    android:background="@color/blue" >
 
 		 <TextView
             android:id="@+id/tv_generalAccName3"
@@ -59,20 +61,23 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
-            android:layout_marginRight="31dp"
+            android:layout_marginRight="27dp"
             android:layout_toLeftOf="@+id/tv_generalAccUnit3"
             android:text="Balance"
+            android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="@color/orange"
-            android:textStyle="bold"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
+            android:textStyle="bold" />
 
 	</RelativeLayout>
-
+
     <ListView
         android:id="@+id/lv_account"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="0.64" >
+        android:layout_weight="0.64"
+        android:background="@color/white"
+        android:divider="@color/white" >
+
     </ListView>
    
 </LinearLayout>

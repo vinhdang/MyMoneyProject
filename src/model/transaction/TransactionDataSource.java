@@ -87,40 +87,40 @@ public class TransactionDataSource {
 	  //delete transaction
 	  public void deleteTransaction(Transaction trans) {
 		    long id = trans.getTransactionId();
-		    System.out.println("Comment deleted with id: " + id);
-		    try{
-		    	database.delete(SQLiteDB.TABLE_TRANS, SQLiteDB.TId + " = " + id, null);
-		    }catch(Exception ex)
-		    {
-		    	ex.printStackTrace();
-		    }
-	  }
-	  //get all transaction
-	  public List<Transaction> getAllTransactions() {
-		  List<Transaction> trans = new ArrayList<Transaction>();
-	    try{
-	    	Cursor cursor = database.query(SQLiteDB.TABLE_TRANS,
-	        allColumns, null, null, null, null, null);
-	    	cursor.moveToFirst();
-		    while (!cursor.isAfterLast()) {
-		      Transaction tran = cursorToTransaction(cursor);
-		      trans.add(tran);
-		      cursor.moveToNext();
-		    }
-		    // Make sure to close the cursor
-		    cursor.close();
-	    }catch(Exception ex)
-	    {
-	    	ex.printStackTrace();
-	    }    
-	    return trans;
-	  }
-	  
-	  //Update transaction
-	  public boolean updateTransaction(Transaction trans)
-	  {
-		  if(trans != null)
-		  {
+			System.out.println("Comment deleted with id: " + id);
+			try{
+				database.delete(SQLiteDB.TABLE_TRANS, SQLiteDB.TId + " = " + id, null);
+			}catch(Exception ex)
+			{
+				ex.printStackTrace();
+			}
+			}
+			//get all transaction
+			public List<Transaction> getAllTransactions() {
+			List<Transaction> trans = new ArrayList<Transaction>();
+			try{
+			Cursor cursor = database.query(SQLiteDB.TABLE_TRANS,
+			allColumns, null, null, null, null, null);
+			cursor.moveToFirst();
+			while (!cursor.isAfterLast()) {
+			  Transaction tran = cursorToTransaction(cursor);
+			  trans.add(tran);
+			  cursor.moveToNext();
+			}
+			// Make sure to close the cursor
+			cursor.close();
+			}catch(Exception ex)
+			{
+			ex.printStackTrace();
+			}    
+			return trans;
+			}
+			
+			//Update transaction
+			public boolean updateTransaction(Transaction trans)
+			{
+			if(trans != null)
+			{
 			  	ContentValues cv = new ContentValues();
 			  	cv.put(SQLiteDB.TItem, trans.getTransactionItem());
 			    cv.put(SQLiteDB.TAmount ,trans.getTransactionAmount());
@@ -129,7 +129,8 @@ public class TransactionDataSource {
 			    cv.put(SQLiteDB.TNote, trans.getTransactionNote());
 			    cv.put(SQLiteDB.TDate, trans.getTransactionDate());
 			    cv.put(SQLiteDB.TPaymode, trans.getTransactionPaymode());
-			    cv.put(SQLiteDB.TRepeat, trans.getTransactionRepeat());		   
+			    cv.put(SQLiteDB.TRepeat, trans.getTransactionRepeat());	
+			    cv.put(SQLiteDB.TId, trans.getTransactionId());
 		        try{
 		        	database.update(SQLiteDB.TABLE_TRANS, cv, SQLiteDB.TId + "=" + trans.getTransactionId(), null);
 		        }catch(Exception ex)

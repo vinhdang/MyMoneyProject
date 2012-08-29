@@ -1,13 +1,14 @@
 package billreminder.activity;
 
 import java.util.ArrayList;
-import model.bill.Bill;
 import publics.Publics;
 import main.activity.R;
+import model.bill.Bill;
 import model.bill.BillDataSource;
 import model.bill.BillReminderAdapter;
 import android.app.TabActivity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -38,6 +39,8 @@ public class ManageBillReminder extends TabActivity {
 		TabHost th = getTabHost();
 		th.addTab(th.newTabSpec("Main").setIndicator("View paid bill").setContent(R.id.tab_paidbill));
 		th.addTab(th.newTabSpec("Main2").setIndicator("View upcoming bill").setContent(R.id.tab_upcomingbill));
+		th.getTabWidget().getChildAt(0).setBackgroundColor(Color.parseColor("#FFA500"));
+		th.getTabWidget().getChildAt(1).setBackgroundColor(Color.parseColor("#FFA500"));
 		
 		ListView lv_paidBill = (ListView)findViewById(R.id.lv_paidBill);
 		lv_paidBill.setAdapter(new BillReminderAdapter(this, Publics.list_Bill));

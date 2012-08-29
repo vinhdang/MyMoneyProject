@@ -13,11 +13,13 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical" >
-
+
             <TabWidget
                 android:id="@android:id/tabs"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" >
+                android:layout_height="wrap_content"
+                android:background="@color/orange" >
+
             </TabWidget>
 
             <FrameLayout
@@ -29,9 +31,13 @@
                     android:id="@+id/tab_paidbill"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" >
-					  <RelativeLayout
-				        android:layout_width="match_parent"
-				        android:layout_height="wrap_content" android:layout_marginTop="10px" android:layout_marginBottom="10px">
+
+					  <RelativeLayout
+					      android:layout_width="match_parent"
+					      android:layout_height="wrap_content"
+					      android:layout_marginBottom="10px"
+					      android:layout_marginTop="0px"
+					      android:background="@color/blue" >
 				
 				        <TextView
 				            android:id="@+id/tv_trans_name"
@@ -63,6 +69,10 @@
 				            android:text="Amount"
 				            android:textColor="@color/orange"
            					android:textStyle="bold"/>
+				            android:text="Name" />
+				
+				
+				        
 				
 				    </RelativeLayout>
                     <ListView
@@ -79,35 +89,43 @@
                     android:id="@+id/tab_upcomingbill"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" >
-				
+				
                 	<RelativeLayout
-				        android:layout_width="match_parent"
-				        android:layout_height="wrap_content" android:layout_marginTop="10px" android:layout_marginBottom="10px">
-				
+                	    android:layout_width="match_parent"
+                	    android:layout_height="wrap_content"
+                	    android:layout_marginBottom="10px"
+                	    android:layout_marginTop="0px"
+                	    android:background="@color/blue" >
+				
 				        <TextView
 				            android:id="@+id/tv_trans_name2"
 				            android:layout_width="wrap_content"
 				            android:layout_height="wrap_content"
 				            android:layout_alignParentLeft="true"
 				            android:layout_alignParentTop="true"
-				            android:text="Name" />
-				
-				
+				            android:text="Name"
+				            android:textColor="@color/orange"
+				            android:textStyle="bold" />
+				
 				        <TextView
 				            android:id="@+id/tv_trans_date2"
 				            android:layout_width="wrap_content"
 				            android:layout_height="wrap_content"
 				            android:layout_alignParentTop="true"
 				            android:layout_centerHorizontal="true"
-				            android:text="Due Date"/>
-				
+				            android:text="Due Date"
+				            android:textColor="@color/orange"
+				            android:textStyle="bold" />
+				
 				        <TextView
 				            android:id="@+id/tv_trans_balance2"
 				            android:layout_width="wrap_content"
 				            android:layout_height="wrap_content"
 				            android:layout_alignParentRight="true"
 				            android:layout_alignParentTop="true"
-				            android:text="Amount"/>
+				            android:text="Amount"
+				            android:textColor="@color/orange"
+				            android:textStyle="bold" />
 				
 				    </RelativeLayout>
                     <ListView

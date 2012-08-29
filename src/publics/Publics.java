@@ -1,15 +1,14 @@
 package publics;
 
 import general.activity.General;
-
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import main.activity.R;
 import model.account.Account;
+import model.bill.Bill;
 import model.category.Category;
 import model.plan.Plan;
-import model.bill.Bill;
 import model.transaction.Transaction;
 import android.app.Activity;
 import android.app.AlertDialog;

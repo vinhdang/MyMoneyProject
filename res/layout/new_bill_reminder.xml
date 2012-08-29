@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
-
+
     <ScrollView
         android:id="@+id/scrollView1"
         android:layout_width="match_parent"
@@ -100,12 +100,12 @@
                         android:id="@+id/textView6"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Due Date"
+                        android:text="Due Day"
                         android:textAppearance="?android:attr/textAppearanceLarge" />
 
                     <TextView
                         android:id="@+id/tv_billAddDate"
-                        android:layout_width="140dp"
+                        android:layout_width="60dp"
                         android:layout_height="wrap_content"
                         android:text="Null" />
 

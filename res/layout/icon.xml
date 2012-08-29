@@ -10,13 +10,16 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:src="@drawable/ic_launcher" android:layout_marginTop="20px"/>
-
+
     <TextView
         android:id="@+id/tv_icon_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:layout_marginBottom="30px"
         android:text="Medium Text"
-        android:textAppearance="?android:attr/textAppearanceMedium" android:layout_marginBottom="30px"/>
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@color/blue"
+        android:textColorHint="@color/green" />
 
 </LinearLayout>
