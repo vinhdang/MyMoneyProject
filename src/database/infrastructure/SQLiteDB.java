@@ -44,6 +44,10 @@ public class SQLiteDB extends SQLiteOpenHelper {
 	public static final String BNote = "note";
 	public static final String BNotification = "notification";
 	public static final String BRepeat = "repeat";  
+	/**Table Setting*/
+	 public static final String SId = "id";
+	 public static final String SItem = "item";
+	 public static final String SValue = "value";
 	
 	/**Name and version Database*/ 
 	public static final String DB_NAME = "Database.db";
@@ -52,6 +56,7 @@ public class SQLiteDB extends SQLiteOpenHelper {
 	public static final String TABLE_PLAN = "Plan";
 	public static final String TABLE_TRANS = "Transactions";
 	public static final String TABLE_BILL = "Bill";
+	public static final String TABLE_SETTING = "Setting";
 	public static final int DB_VERSION = 3;
 	
 	
@@ -69,18 +74,19 @@ public class SQLiteDB extends SQLiteOpenHelper {
 	
 	@Override
 	public void onCreate(SQLiteDatabase db) {
-	//	 try
-	//     {
+		 try
+	     {
 	        db.execSQL("CREATE TABLE Account(id integer PRIMARY KEY autoincrement, name text, balance double, unit text, descript text);");
 	        db.execSQL("CREATE TABLE Category(id integer primary key autoincrement, name text, type text, descript text);");
 	        db.execSQL("CREATE TABLE Plan(id integer primary key autoincrement, name text, account text, category text, amount double);");
 	        db.execSQL("CREATE TABLE Transactions(id integer primary key autoincrement, item text, tdate text, amount double, category text, account text, note text, paymode text, repeat text);");
 	        db.execSQL("CREATE TABLE Bill(id integer primary key autoincrement, item text, amount double, category text, dueday text, note text, notification text, repeat text);");
-//         }
-//         catch(SQLException ex)
-//         {
-//             ex.printStackTrace();
-//         }
+	        db.execSQL("CREATE TABLE Setting(id integer primary key autoincrement, item text, value text);");
+         }
+         catch(SQLException ex)
+         {
+             ex.printStackTrace();
+         }
 	}
 
 	@Override
@@ -93,6 +99,7 @@ public class SQLiteDB extends SQLiteOpenHelper {
 	        db.execSQL("DROP TABLE IF EXISTS Plan");
 	        db.execSQL("DROP TABLE IF EXISTS Transactions");
 	        db.execSQL("DROP TABLE IF EXISTS Bill");
+	        db.execSQL("DROP TABLE IF EXISTS Setting");
 	        onCreate(db);
 		}
 		catch(SQLException ex)

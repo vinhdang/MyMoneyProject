@@ -86,6 +86,7 @@ public class ManageSetting extends Activity {
 	/***/
 	OnClickListener handleCheck = new OnClickListener() {
 		
+		@SuppressWarnings("static-access")
 		public void onClick(View v) {
 			if(chk_settingPass.isChecked())
 			{

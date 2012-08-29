@@ -48,92 +48,59 @@ public class GeneralMenu extends Activity {
 			Intent intent;
 			switch (pos)
 			{
-//			case 0:
-//			{//Account
-//				intent = new Intent(GeneralMenu.this,ManageAccount.class);
-//				Toast.makeText(getApplicationContext(), "Start Manage Account ...", Toast.LENGTH_SHORT).show();
-//				GeneralMenu.this.startActivity(intent);
-//			}break;
-//			case 1: //Transaction
-//			{
-//				intent = new Intent(GeneralMenu.this,ManageTransaction.class);
-//				Toast.makeText(getApplicationContext(), "Start Manage Transaction ...", Toast.LENGTH_SHORT).show();
-//				GeneralMenu.this.startActivity(intent);
-//			}break;
-			
-//			case 3: //Bill
-//			{
-//				intent = new Intent(GeneralMenu.this,ManageBillReminder.class);
-//				Toast.makeText(getApplicationContext(), "Start Manage Transaction ...", Toast.LENGTH_SHORT).show();
-//				GeneralMenu.this.startActivity(intent);
-//			}break;
-//			case 4: //Report
-//				{
-//					intent = new Intent(GeneralMenu.this,ManageReport.class);
-//					Toast.makeText(getApplicationContext(), "Start Manage Report ...", Toast.LENGTH_SHORT).show();
-//					GeneralMenu.this.startActivity(intent);
-//				}break;
-			case 0: //Category
-			{
-				intent = new Intent(GeneralMenu.this,ManageCategory.class);
-				Toast.makeText(getApplicationContext(), "Start Manage Category ...", Toast.LENGTH_SHORT).show();
-				GeneralMenu.this.startActivity(intent);
-			}break;
-		/*	case 5: //Transfer
-			{
-				intent = new Intent(General.this,ManageAccount.class);
-				Toast.makeText(getApplicationContext(), "Start Manage Transfer ...", Toast.LENGTH_SHORT).show();
-				General.this.startActivity(intent);
-			}break; */
-			
-			case 1: //View
-			{
-				intent = new Intent(GeneralMenu.this,ManageView.class);
-				Toast.makeText(getApplicationContext(), "Start Manage View ...", Toast.LENGTH_SHORT).show();
-				GeneralMenu.this.startActivity(intent);
-			}break;
-			case 2: //Setting
-			{
-				intent = new Intent(GeneralMenu.this,ManageSetting.class);
-				Toast.makeText(getApplicationContext(), "Start Manage Setting ...", Toast.LENGTH_SHORT).show();
-				GeneralMenu.this.startActivity(intent);
-			}break;
-			case 3: //Plan
-			{
-				intent = new Intent(GeneralMenu.this,ManagePlan.class);
-				Toast.makeText(getApplicationContext(), "Start Manage Plan ...", Toast.LENGTH_SHORT).show();
-				GeneralMenu.this.startActivity(intent);
-			}break;
-//		
-			case 4: //Tools
-			{
-				intent = new Intent(GeneralMenu.this,ManageTool.class);
-				Toast.makeText(getApplicationContext(), "Start Manage Tool ...", Toast.LENGTH_SHORT).show();
-				GeneralMenu.this.startActivity(intent);
-			}break;
-			case 5: //About
-			{
-				intent = new Intent(GeneralMenu.this,About.class);
-				Toast.makeText(getApplicationContext(), "Start About ...", Toast.LENGTH_SHORT).show();
-				GeneralMenu.this.startActivity(intent);
-			}break;
-			case 6: //Upgrade
-			{
-				intent = new Intent(GeneralMenu.this,Upgrade.class);
-				Toast.makeText(getApplicationContext(), "Start Upgrade ...", Toast.LENGTH_SHORT).show();
-				GeneralMenu.this.startActivity(intent);
-			}break;
-			case 7: //Synchronize
-			{
-				intent = new Intent(GeneralMenu.this,Synchronize.class);
-				Toast.makeText(getApplicationContext(), "Start Synchronize ...", Toast.LENGTH_SHORT).show();
-				GeneralMenu.this.startActivity(intent);
-			}break;
+				case 0: //Category
+				{
+					intent = new Intent(GeneralMenu.this,ManageCategory.class);
+					Toast.makeText(getApplicationContext(), "Start Manage Category ...", Toast.LENGTH_SHORT).show();
+					GeneralMenu.this.startActivity(intent);
+				}break;
+				
+				case 1: //View
+				{
+					intent = new Intent(GeneralMenu.this,ManageView.class);
+					Toast.makeText(getApplicationContext(), "Start Manage View ...", Toast.LENGTH_SHORT).show();
+					GeneralMenu.this.startActivity(intent);
+				}break;
+				case 2: //Setting
+				{
+					intent = new Intent(GeneralMenu.this,ManageSetting.class);
+					Toast.makeText(getApplicationContext(), "Start Manage Setting ...", Toast.LENGTH_SHORT).show();
+					GeneralMenu.this.startActivity(intent);
+				}break;
+				case 3: //Plan
+				{
+					intent = new Intent(GeneralMenu.this,ManagePlan.class);
+					Toast.makeText(getApplicationContext(), "Start Manage Plan ...", Toast.LENGTH_SHORT).show();
+					GeneralMenu.this.startActivity(intent);
+				}break;
+		
+				case 4: //Tools
+				{
+					intent = new Intent(GeneralMenu.this,ManageTool.class);
+					Toast.makeText(getApplicationContext(), "Start Manage Tool ...", Toast.LENGTH_SHORT).show();
+					GeneralMenu.this.startActivity(intent);
+				}break;
+				case 5: //About
+				{
+					intent = new Intent(GeneralMenu.this,About.class);
+					Toast.makeText(getApplicationContext(), "Start About ...", Toast.LENGTH_SHORT).show();
+					GeneralMenu.this.startActivity(intent);
+				}break;
+				case 6: //Upgrade
+				{
+					intent = new Intent(GeneralMenu.this,Upgrade.class);
+					Toast.makeText(getApplicationContext(), "Start Upgrade ...", Toast.LENGTH_SHORT).show();
+					GeneralMenu.this.startActivity(intent);
+				}break;
+				case 7: //Synchronize
+				{
+					intent = new Intent(GeneralMenu.this,Synchronize.class);
+					Toast.makeText(getApplicationContext(), "Start Synchronize ...", Toast.LENGTH_SHORT).show();
+					GeneralMenu.this.startActivity(intent);
+				}break;
 			}
 		}
 	};
-
-	
 ////////////////////////////////////////////////////////////////////////////////////////////
 	class ItemData
 	{
@@ -147,15 +114,10 @@ public class GeneralMenu extends Activity {
 		public ImageAdapter(Context c)
 		{
 			context = c;
-			
-			//data.add(new ItemData(R.drawable.account,"Account"));
-			//data.add(new ItemData(R.drawable.transaction,"Transaction"));
 			data.add(new ItemData(R.drawable.category_48,"Category"));
 			data.add(new ItemData(R.drawable.view_48,"View"));
 			data.add(new ItemData(R.drawable.setting_48,"Setting"));
 			data.add(new ItemData(R.drawable.plan_48,"Plan"));
-			//data.add(new ItemData(R.drawable.bill,"Bill"));
-//			data.add(new ItemData(R.drawable.report_48,"Report"));
 			data.add(new ItemData(R.drawable.tools_48,"Tools"));
 			data.add(new ItemData(R.drawable.about_48,"About"));
 			data.add(new ItemData(R.drawable.upgrade48,"Upgrade"));
@@ -166,17 +128,14 @@ public class GeneralMenu extends Activity {
 		public LinkedList<ItemData> data = new LinkedList<ItemData>();
 		
 		public int getCount() {
-			// TODO Auto-generated method stub
 			return data.size();
 		}
 
 		public Object getItem(int arg0) {
-			// TODO Auto-generated method stub
 			return null;
 		}
 
 		public long getItemId(int arg0) {
-			// TODO Auto-generated method stub
 			return 0;
 		}
 
@@ -192,7 +151,6 @@ public class GeneralMenu extends Activity {
 				
 				TextView tv = (TextView)v.findViewById(R.id.tv_icon_text);
 				tv.setText(data.get(pos).caption);
-
 			}
 			else
 			{
@@ -200,6 +158,5 @@ public class GeneralMenu extends Activity {
 			}
 			return v;
 		}
-		
 	}
 }
