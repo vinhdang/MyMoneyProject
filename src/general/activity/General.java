@@ -18,6 +18,8 @@ import android.app.TabActivity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.Toast;
 import android.widget.TabHost.TabSpec;
 
@@ -46,41 +48,41 @@ public class General extends TabActivity {
 		}
 		if(Publics.list_Transaction.size() == 0)
 		{
-			Transaction a = new Transaction("An bun bo", "13/7/2012", (double)20000, "An uong", "Dong A", "An ngon wa",  "Tien mat", "Khong lap");
+			Transaction a = new Transaction("An bun bo", "13/07/2012", (double)20000, "An uong", "Dong A", "An ngon wa",  "Tien mat", "Khong lap");
 			dataSourceTrans.insertTransaction(a);
-			a = new Transaction("Luong Lotteria", "29/7/2012", (double) 1500, "Luong", "HSBC", "", "Card", "Khong lap");
+			a = new Transaction("Luong Lotteria", "29/07/2012", (double) 1500, "Luong", "HSBC", "", "Card", "Khong lap");
 			dataSourceTrans.insertTransaction(a);
-			a = new Transaction("Day them", "29/7/2012", (double) 1000, "Luong", "HSBC", "", "Card", "Khong lap");
+			a = new Transaction("Day them", "29/07/2012", (double) 1000, "Luong", "HSBC", "", "Card", "Khong lap");
 			dataSourceTrans.insertTransaction(a);
-			a = new Transaction("An sang", "9/7/2012", (double) 15, "An uong", "Dong A", "", "Card", "Khong lap");
+			a = new Transaction("An sang", "9/07/2012", (double) 15, "An uong", "Dong A", "", "Card", "Khong lap");
 			dataSourceTrans.insertTransaction(a);
-			a = new Transaction("Do xang", "9/7/2012", (double) 50, "Nhien lieu", "Dong A", "", "Card", "Khong lap");
+			a = new Transaction("Do xang", "9/07/2012", (double) 50, "Nhien lieu", "Dong A", "", "Card", "Khong lap");
 			dataSourceTrans.insertTransaction(a);
-			a = new Transaction("Com trua", "9/7/2012", (double) 30, "An uong", "Dong A", "", "Card", "Khong lap");
+			a = new Transaction("Com trua", "9/07/2012", (double) 30, "An uong", "Dong A", "", "Card", "Khong lap");
 			dataSourceTrans.insertTransaction(a);
-			a = new Transaction("Cafe", "9/7/2012", (double) 10, "An uong", "Dong A", "", "Card", "Khong lap");
+			a = new Transaction("Cafe", "9/07/2012", (double) 10, "An uong", "Dong A", "", "Card", "Khong lap");
 			dataSourceTrans.insertTransaction(a);
-			a = new Transaction("Luong Lotteria", "29/6/2012", (double) 1500, "Luong", "HSBC", "", "Card", "Khong lap");
+			a = new Transaction("Luong Lotteria", "29/06/2012", (double) 1500, "Luong", "HSBC", "", "Card", "Khong lap");
 			dataSourceTrans.insertTransaction(a);
-			a = new Transaction("Dong tien hoc", "25/6/2012", (double) 2000, "Phi", "ACB", "", "Card", "Khong lap");
+			a = new Transaction("Dong tien hoc", "25/06/2012", (double) 2000, "Phi", "ACB", "", "Card", "Khong lap");
 			dataSourceTrans.insertTransaction(a);
-			a = new Transaction("Tien Dien", "25/6/2012", (double) 800, "Phi", "ACB", "", "Card", "Khong lap");
+			a = new Transaction("Tien Dien", "25/06/2012", (double) 800, "Phi", "ACB", "", "Card", "Khong lap");
 			dataSourceTrans.insertTransaction(a);
-			a = new Transaction("Tien nuoc", "24/6/2012", (double) 200, "Phi", "HSBC", "", "Card", "Khong lap");
+			a = new Transaction("Tien nuoc", "24/06/2012", (double) 200, "Phi", "HSBC", "", "Card", "Khong lap");
 			dataSourceTrans.insertTransaction(a);
-			a = new Transaction("Xem phim", "24/6/2012", (double) 150, "Giai tri", "HSBC", "", "Card", "Khong lap");
+			a = new Transaction("Xem phim", "24/06/2012", (double) 150, "Giai tri", "HSBC", "", "Card", "Khong lap");
 			dataSourceTrans.insertTransaction(a);
-			a = new Transaction("Dam cuoi", "22/6/2012", ((double) 500), "Dam tiec", "ACB", "", "Card", "Khong lap");
+			a = new Transaction("Dam cuoi", "22/06/2012", ((double) 500), "Dam tiec", "ACB", "", "Card", "Khong lap");
 			dataSourceTrans.insertTransaction(a);
-			a = new Transaction("Sua xe", "22/6/2012", (double) 100, "Sua chua", "ACB", "", "Card", "Khong lap");
+			a = new Transaction("Sua xe", "22/06/2012", (double) 100, "Sua chua", "ACB", "", "Card", "Khong lap");
 			dataSourceTrans.insertTransaction(a);
-			a = new Transaction("Mua sam","19/6/2012",(double) 180,"Mua sam", "HSBC", "", "Card", "Khong lap");
+			a = new Transaction("Mua sam","19/06/2012",(double) 180,"Mua sam", "HSBC", "", "Card", "Khong lap");
 			dataSourceTrans.insertTransaction(a);
-			a = new Transaction("Mua xe","18/7/1991",(double) 25000, "Mua sam", "HSBC", "", "Card", "Khong lap");
+			a = new Transaction("Mua xe","18/07/1991",(double) 25000, "Mua sam", "HSBC", "", "Card", "Khong lap");
 			dataSourceTrans.insertTransaction(a);
-			a = new Transaction("An Sang","14/6/2012",(double) 5,"An uong", "Dong A", "", "Card", "Khong lap");
+			a = new Transaction("An Sang","14/06/2012",(double) 5,"An uong", "Dong A", "", "Card", "Khong lap");
 			dataSourceTrans.insertTransaction(a);
-			a = new Transaction("Xem phim","14/6/2012",(double) 55,"Giai tri", "HSBC", "", "Card", "Khong lap");
+			a = new Transaction("Xem phim","14/06/2012",(double) 55,"Giai tri", "HSBC", "", "Card", "Khong lap");
 			dataSourceTrans.insertTransaction(a);
 			Publics.list_Transaction = dataSourceTrans.getAllTransactions();
 		}
@@ -192,11 +194,11 @@ public class General extends TabActivity {
 		Publics.tabHost.addTab(specReport);
 		Publics.tabHost.addTab(specMenu);
 		/**Set color*/
-		Publics.tabHost.getTabWidget().getChildAt(0).setBackgroundColor(Color.parseColor("#7EEB09"));
-		Publics.tabHost.getTabWidget().getChildAt(1).setBackgroundColor(Color.parseColor("#7EEB09"));
-		Publics.tabHost.getTabWidget().getChildAt(2).setBackgroundColor(Color.parseColor("#7EEB09"));
-		Publics.tabHost.getTabWidget().getChildAt(3).setBackgroundColor(Color.parseColor("#7EEB09"));
-		Publics.tabHost.getTabWidget().getChildAt(4).setBackgroundColor(Color.parseColor("#7EEB09"));
+		Publics.tabHost.getTabWidget().getChildAt(0).setBackgroundColor(Color.parseColor("#9AD966"));
+		Publics.tabHost.getTabWidget().getChildAt(1).setBackgroundColor(Color.parseColor("#9AD966"));
+		Publics.tabHost.getTabWidget().getChildAt(2).setBackgroundColor(Color.parseColor("#9AD966"));
+		Publics.tabHost.getTabWidget().getChildAt(3).setBackgroundColor(Color.parseColor("#9AD966"));
+		Publics.tabHost.getTabWidget().getChildAt(4).setBackgroundColor(Color.parseColor("#9AD966"));
 		
 		//Switch tab
 		Intent it = getIntent();
@@ -247,5 +249,22 @@ public class General extends TabActivity {
 		dataSourceAcc.close();
 	    super.onPause();
 	  }
+	  
+	  @Override
+		public boolean onCreateOptionsMenu(Menu menu) {
+			menu.add("Exit");
+			return super.onCreateOptionsMenu(menu);
+		}
+		@Override
+		public boolean onOptionsItemSelected(MenuItem item) {
+			if(item.getTitle() == "Exit")//exit
+			{
+				Intent intent = new Intent(Intent.ACTION_MAIN);
+			    intent.addCategory(Intent.CATEGORY_HOME);
+			    startActivity(intent);
+			    finish();
+			}
+			return super.onOptionsItemSelected(item);
+		}
 }
 

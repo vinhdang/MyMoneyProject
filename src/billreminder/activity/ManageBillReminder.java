@@ -56,6 +56,7 @@ public class ManageBillReminder extends TabActivity {
 			}
 		});
 	}
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		menu.add("Add");

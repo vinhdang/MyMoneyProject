@@ -43,8 +43,6 @@ public class ViewCategory extends Activity {
 		spn_viewList.setAdapter(adapterCategory);
 		spn_viewList.setOnItemSelectedListener(handleItem);
 		
-        //function for home button
-        Publics.bottomFunction(this);
 		//create on click for 5 top button
 		Publics.topFunction(this);
 	}

@@ -26,10 +26,7 @@ public class UpdatePlan extends Activity {
 				UpdatePlan.this.finish();
 			}
 		});
-		//end action
-		
-		//function for home button
-        Publics.bottomFunction(this);
+
 		//create on click for 5 top button
 		Publics.topFunction(this);
 	}

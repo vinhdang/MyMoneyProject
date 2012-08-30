@@ -25,7 +25,7 @@ public class ManageSetting extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.manage_setting);
 		//create function for 4 image button on bottom
-		Publics.bottomFunction(this);
+		Publics.topFunction(this);
 				
 		/**Get id and process*/
 		btn_settingSave = (Button)findViewById(R.id.btn_settingSave);

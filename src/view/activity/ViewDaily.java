@@ -55,9 +55,7 @@ public class ViewDaily extends Activity {
         pPickDate.setOnClickListener(handlePickDate);
 		/** Display the current date in the TextView */
         updateDisplay();
-        
-        //function for home button
-        Publics.bottomFunction(this);
+
 		//create on click for 5 top button
 		Publics.topFunction(this);
 	}

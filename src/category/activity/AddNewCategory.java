@@ -26,8 +26,6 @@ public class AddNewCategory extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.add_new_category);
 		
-		//create function for 4 image button on bottom
-		Publics.bottomFunction(this);	
 		//create on click for 5 top button
 		Publics.topFunction(this);
 		cate = new Category("", "", "");

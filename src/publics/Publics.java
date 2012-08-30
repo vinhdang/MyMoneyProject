@@ -2,7 +2,11 @@ package publics;
 
 import general.activity.General;
 import java.text.DecimalFormat;
+import java.text.ParsePosition;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 import main.activity.R;
 import model.account.Account;
@@ -85,8 +89,7 @@ public class Publics {
 			public void onClick(View v) {
 				Intent intent = new Intent(c,General.class);
 				intent.putExtra("tab", 1);
-				c.startActivity(intent);
-				
+				c.startActivity(intent);				
 			}
 		});
 		
@@ -95,8 +98,7 @@ public class Publics {
 			public void onClick(View v) {
 				Intent intent = new Intent(c,General.class);
 				intent.putExtra("tab", 2);
-				c.startActivity(intent);
-				
+				c.startActivity(intent);			
 			}
 		});
 		
@@ -105,8 +107,7 @@ public class Publics {
 			public void onClick(View v) {
 				Intent intent = new Intent(c,General.class);
 				intent.putExtra("tab", 3);
-				c.startActivity(intent);
-				
+				c.startActivity(intent);		
 			}
 		});
 		
@@ -115,8 +116,7 @@ public class Publics {
 			public void onClick(View v) {
 				Intent intent = new Intent(c,General.class);
 				intent.putExtra("tab", 4);
-				c.startActivity(intent);
-				
+				c.startActivity(intent);			
 			}
 		});
 		
@@ -131,68 +131,35 @@ public class Publics {
 		});
 	}
 	
-	/**return home*/
-	public static void bottomFunction(final Context c)
-	{
-		
-//		//home
-//		((Activity)c).findViewById(R.id.ib_home).setOnClickListener(new OnClickListener() {
-//			
-//			public void onClick(View v) {
-//				Intent intent = new Intent(c, General.class);
-//				Toast.makeText(c.getApplicationContext(), "Start Manage Home ...", Toast.LENGTH_SHORT).show();
-//				c.startActivity(intent);
-//				
-//			}
-//		});
-//		//category
-//		((Activity)c).findViewById(R.id.ib_category).setOnClickListener(new OnClickListener() {
-//			
-//			public void onClick(View v) {
-//				Intent intent = new Intent(c,ManageCategory.class);
-//				Toast.makeText(c.getApplicationContext(), "Start Manage Category ...", Toast.LENGTH_SHORT).show();
-//				//General.mTabCurrent.setContent(intent);
-//				c.startActivity(intent);
-//			}
-//		});
-//		//settings
-//		((Activity)c).findViewById(R.id.ib_settings).setOnClickListener(new OnClickListener() {
-//			
-//			public void onClick(View v) {
-//				Intent intent = new Intent(c,ManageSetting.class);
-//				Toast.makeText(c.getApplicationContext(), "Start Manage Settings ...", Toast.LENGTH_SHORT).show();
-//				//General.mTabCurrent.setContent(intent);
-//				c.startActivity(intent);
-//			}
-//		});
-//		
-//		//transaction
-//		((Activity)c).findViewById(R.id.ib_transaction).setOnClickListener(new OnClickListener() {
-//			
-//			public void onClick(View v) {
-//				
-//				Intent intent = new Intent(c,General.class);
-//				//Toast.makeText(c.getApplicationContext(), "Start Manage Transaction ...", Toast.LENGTH_SHORT).show();
-//				//General.mTabCurrent.setContent(intent);
-//				//((Activity)c).finish();
-//				//Publics.tabHost.setCurrentTabByTag("Transaction");
-//				intent.putExtra("tab", 2);
-//				c.startActivity(intent);
-//				
-//			}
-//		});
-	}
-	
 	/**Get unique date from list*/
 	public static List<String> getUniqueDate(List<String> dates)
 	{
 		List<String> rs = new ArrayList<String>();
+		ArrayList al = new ArrayList();
 		for(String t : dates)
 		{
 			if(!rs.contains(t))
 			{
 				rs.add(t);
 			}
+		}
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+		for(String r : rs)
+		{
+			Date master = sdf.parse(r, new ParsePosition(0));
+			al.add(master);
+		}
+		if(al.size() > 0)
+		{
+			Object[] arr = al.toArray();
+			Arrays.sort(arr);
+			rs.clear();
+			sdf = new SimpleDateFormat("dd/MM/yyyy");
+	        for (int i = 0; i < arr.length; i++) {
+	            Date d = (Date)arr[i];
+	            String formattedDate = sdf.format(d);
+	            rs.add(formattedDate);
+	        }
 		}
 		return rs;
 	}

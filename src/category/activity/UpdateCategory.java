@@ -26,9 +26,7 @@ public class UpdateCategory extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.update_category);
-		
-		//create function for 4 image button on bottom
-		Publics.bottomFunction(this);	
+
 		//create on click for 5 top button
 		Publics.topFunction(this);
 		/**Get id and process*/

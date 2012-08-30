@@ -17,9 +17,7 @@ public class ChangePassword extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.change_pass);
-		//create function for 4 image button on bottom
-		Publics.bottomFunction(ChangePassword.this);	
-		
+
 		/**Get id and process*/
 		btn_settingSave = (Button)findViewById(R.id.btn_settingSaveNewPass);
 		

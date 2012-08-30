@@ -17,14 +17,11 @@ import android.widget.ListView;
 public class ManageAccount extends Activity {
 	private ListView lv_acc;
 	private Button btnAddNewAcc;
-//	private AccountDataSource dataSource;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);	
 		setContentView(R.layout.manage_account);
-//		dataSource = new AccountDataSource(this);
-//		dataSource.open();
 		
 		/**Process data*/
 		lv_acc = (ListView)findViewById(R.id.lv_account);
@@ -88,6 +85,5 @@ public class ManageAccount extends Activity {
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
-		
 	}
 }

@@ -12,6 +12,8 @@ import model.transaction.TransactionGroup;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
@@ -85,6 +87,11 @@ public class ManageTransaction extends Activity {
 		tgl_Expand.setOnClickListener(handleCheck);
 	}
 	
+	  @Override
+	  protected void onPause() {
+	    super.onPause();
+	  }
+	
 	/**Click Add New*/
 	OnClickListener handleNew = new OnClickListener() {
 		
@@ -101,13 +108,10 @@ public class ManageTransaction extends Activity {
 		public boolean onChildClick(ExpandableListView parent, View v,
 		int groupPosition, int childPosition, long id) {
 			Intent i = new Intent(getApplicationContext(), TransactionDetail.class);			
-			//Toast.makeText(getApplicationContext(), "Start Add New ....", Toast.LENGTH_SHORT).show();
 			List<Transaction> tmp = ExpListItems.get(groupPosition).getItems();
 			Transaction t = tmp.get(childPosition);
-
 			i.putExtra("POS", t.getTransactionId());
-			startActivity(i);
-
+			startActivity(i);			
 			return false;
 		}
 	};	
@@ -117,7 +121,7 @@ public class ManageTransaction extends Activity {
 		
 		@SuppressWarnings("static-access")
 		public void onClick(View v) {
-			if(indexMonth < month.size()-1)
+			if(indexMonth <= month.size()-2)
 			{
 				indexMonth ++;
 				btn_transactionPrev.setVisibility(v.VISIBLE);
@@ -248,14 +252,17 @@ public class ManageTransaction extends Activity {
 			indexMonth = spn_Month.getSelectedItemPosition();			
 			//process
 			String key = spn_Month.getSelectedItem().toString();
-			handleChoose(key);
-			int len = ExpAdapter.getGroupCount();
-			if(tgl_Expand.getText().toString().equals("Expand"))
+			if(key != null)
 			{
-				for(int i=0; i<len; i++) 
-		        {		            
-		                elv_transaction.expandGroup(i);	      
-		        }
+				handleChoose(key);
+				int len = ExpAdapter.getGroupCount();
+				if(tgl_Expand.getText().toString().equals("Expand"))
+				{
+					for(int i=0; i<len; i++) 
+			        {		            
+			                elv_transaction.expandGroup(i);	      
+			        }
+				}
 			}
 		}
 
@@ -265,20 +272,38 @@ public class ManageTransaction extends Activity {
 		}
 	};
 	  
-	  
 	/***/
 	@Override
 	protected void onResume() {
 		if (Publics.paramToMngTrans!=-1)
 		{
 			//exe code here
-			Toast.makeText(this, String.valueOf(Publics.paramToMngTrans), Toast.LENGTH_SHORT).show();
+//			Toast.makeText(this, String.valueOf(Publics.paramToMngTrans), Toast.LENGTH_SHORT).show();
+			pos = Publics.paramToMngTrans;
+			filterData(pos);
+			handleMonth();
+			if(month.size() == 1)
+			{
+				btn_transactionNext.setVisibility(View.GONE);
+				btn_transactionPrev.setVisibility(View.GONE);
+			}
+			else
+			{
+				btn_transactionPrev.setVisibility(View.VISIBLE);
+				btn_transactionNext.setVisibility(View.GONE);
+			}
+			elv_transaction.setAdapter(ExpAdapter);
+			
+		}
+		else
+		{	
+			Publics.paramToMngTrans = -1;
 			filterData(Publics.paramToMngTrans);
 			handleMonth();
-			elv_transaction.setAdapter(ExpAdapter);
+			elv_transaction.setAdapter(ExpAdapter);;
+			btn_transactionNext.setVisibility(View.GONE);
+			btn_transactionPrev.setVisibility(View.VISIBLE);
 		}
-		//restore param
-		Publics.paramToMngTrans = -1;
 		super.onResume();
 	}
 	
@@ -307,36 +332,36 @@ public class ManageTransaction extends Activity {
 		if(p != -1)
 		{
 			Account acc = Publics.list_Account.get(p);
-			if(acc.getAccountName().equals("Dong A"))
-			{
+//			if(acc.getAccountName().equals("Dong A"))
+//			{
 				list_trans.clear();
 				for(int j=0 ; j<Publics.list_Transaction.size() ; j++)
 				{
 					Transaction t = Publics.list_Transaction.get(j);
-					if(t.getTransactionAccount().equals("Dong A"))
+					if(t.getTransactionAccount().equals(acc.getAccountName()))
 						list_trans.add(t);
 				}
-			}
-			else if(acc.getAccountName().equals("HSBC"))
-			{
-				list_trans.clear();
-				for(int j=0 ; j<Publics.list_Transaction.size() ; j++)
-				{
-					Transaction t = Publics.list_Transaction.get(j);
-					if(t.getTransactionAccount().equals("HSBC")==true)
-						list_trans.add(t);
-				}
-			}
-			else
-			{
-				list_trans.clear();
-				for(int j=0 ; j<Publics.list_Transaction.size() ; j++)
-				{
-					Transaction t = Publics.list_Transaction.get(j);
-					if(t.getTransactionAccount().equals("ACB"))
-						list_trans.add(t);
-				}
-			}
+//			}
+//			else if(acc.getAccountName().equals("HSBC"))
+//			{
+//				list_trans.clear();
+//				for(int j=0 ; j<Publics.list_Transaction.size() ; j++)
+//				{
+//					Transaction t = Publics.list_Transaction.get(j);
+//					if(t.getTransactionAccount().equals("HSBC")==true)
+//						list_trans.add(t);
+//				}
+//			}
+//			else
+//			{
+//				list_trans.clear();
+//				for(int j=0 ; j<Publics.list_Transaction.size() ; j++)
+//				{
+//					Transaction t = Publics.list_Transaction.get(j);
+//					if(t.getTransactionAccount().equals("ACB"))
+//						list_trans.add(t);
+//				}
+//			}
 		}
 		else
 		{
@@ -350,6 +375,7 @@ public class ManageTransaction extends Activity {
 		}
 		daily.clear();
 		daily = Publics.getUniqueDate(dayTemp);
+//		month = Publics.getUniqueMonth(daily);
 		ExpListItems = SetStandardGroups(list_trans);
 		ExpAdapter = new ExpandTransAdapter(ManageTransaction.this, ExpListItems);
 	}
@@ -362,6 +388,10 @@ public class ManageTransaction extends Activity {
 		monthAdapter = new ArrayAdapter<String>(getApplicationContext()
 				, android.R.layout.simple_spinner_item, month);
 		spn_Month.setAdapter(monthAdapter);
+		if(month.size() == 1)
+			indexMonth = 0;
+		else
+			indexMonth = month.size() -1;
 		spn_Month.setSelection(indexMonth);
 	}
 	
@@ -386,5 +416,20 @@ public class ManageTransaction extends Activity {
 		ExpListItems = SetStandardGroups(list_transMonth);
 		ExpAdapter = new ExpandTransAdapter(ManageTransaction.this, ExpListItems);
 		elv_transaction.setAdapter(ExpAdapter);
+	}
+	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		menu.add("All");
+		return super.onCreateOptionsMenu(menu);
+	}
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		if (item.getTitle() == "All") //show all
+		{
+			Publics.paramToMngTrans = -1;
+			onResume();
+		}
+		return super.onOptionsItemSelected(item);
 	}
 }
