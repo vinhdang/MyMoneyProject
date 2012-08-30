@@ -9,7 +9,7 @@ public class Bill{
 	public String billNotification;
 	public String billRepeat;
 	
-	public void Bill(int id, String item, double amount, String category, String dueday, String note, String notification, String repeat ){
+	public Bill(int id, String item, double amount, String category, String dueday, String note, String notification, String repeat ){
 		this.billId = id;
 		this.billItem = item;
 		this.billAmount = amount;
@@ -20,7 +20,7 @@ public class Bill{
 		this.billRepeat = repeat;
 	}
 	
-	public void Bill()
+	public Bill()
 	{
 		
 	}
