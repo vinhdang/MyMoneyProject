@@ -57,10 +57,10 @@ public class ManageTool extends Activity {
 				Toast.makeText(getApplicationContext(), "Exchange......", Toast.LENGTH_SHORT).show();
 				startActivity(i);
 			}break;
-			case 2: // Handle event Click icon Import
+			case 2: // Handle event Click icon Send file
 			{
-				Intent i = new Intent(getApplicationContext(), ToolImport.class);
-				Toast.makeText(getApplicationContext(), "Import......", Toast.LENGTH_SHORT).show();
+				Intent i = new Intent(getApplicationContext(), SendFileExport.class);
+				Toast.makeText(getApplicationContext(), "Send file......", Toast.LENGTH_SHORT).show();
 				startActivity(i);
 			}break;
 			case 1: // Handle event Click icon Restore

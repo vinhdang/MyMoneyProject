@@ -1,8 +1,12 @@
 package setting.activity;
 
+import general.activity.General;
 import publics.Publics;
 import main.activity.R;
+import model.setting.SettingDataSource;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -19,6 +23,7 @@ public class ManageSetting extends Activity {
 	private Spinner spn_settingLanguage;
 	private Spinner spn_settingDateFormat;
 	private CheckBox chk_settingPass;
+	private int flag = 0;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -35,13 +40,16 @@ public class ManageSetting extends Activity {
 		chk_settingPass = (CheckBox)findViewById(R.id.chk_settingProtectByPass);
 		ArrayAdapter<String> adapterLanguage = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_item, Publics.listLanguage);
 		ArrayAdapter<String> adapterDateFormate = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_item, Publics.listDateFormat);
-		if(Publics.Protect != -1)
+		if(Publics.list_Setting.get(Publics.Pass_num).getValue() != "" )
 		{
-			btn_settingChangePass.setVisibility(0);
+			chk_settingPass.setChecked(true);
+			btn_settingChangePass.setVisibility(View.VISIBLE);
+			flag = 1;
 		}
 		else
 		{
-			btn_settingChangePass.setVisibility(0);
+			chk_settingPass.setChecked(false);
+			btn_settingChangePass.setVisibility(View.GONE);
 		}
 		
 		/**Set function for component*/
@@ -56,8 +64,28 @@ public class ManageSetting extends Activity {
 	OnClickListener handleSave = new OnClickListener() {
 		
 		public void onClick(View v) {
-			//Intent i = new Intent(getApplicationContext(), General.class);
-			Toast.makeText(getApplicationContext(), "Save All Change .....", Toast.LENGTH_SHORT).show();
+			
+			SettingDataSource ds = new SettingDataSource(getApplicationContext());
+			try{
+				ds.open();
+				if(flag == 0)
+				{
+					Publics.list_Setting.get(Publics.Pass_num).setValue("");	
+					ds.updateSetting(Publics.list_Setting.get(Publics.Pass_num));
+				}
+				Publics.list_Setting.get(Publics.Language_num).setValue(spn_settingLanguage.getSelectedItem().toString());
+				Publics.list_Setting.get(Publics.DateFormat_num).setValue(spn_settingDateFormat.getSelectedItem().toString());
+				ds.updateSetting(Publics.list_Setting.get(Publics.Language_num));
+				ds.updateSetting(Publics.list_Setting.get(Publics.DateFormat_num));
+				ds.close();
+			}catch(Exception ex)
+			{
+				ex.printStackTrace();
+				ds.close();
+			}			
+			Intent i = new Intent(getApplicationContext(), General.class);
+			startActivity(i);
+			finish();
 		}
 	};
 	
@@ -91,12 +119,30 @@ public class ManageSetting extends Activity {
 			if(chk_settingPass.isChecked())
 			{
 				btn_settingChangePass.setVisibility(v.VISIBLE);
-				Publics.Protect = 1;
+				flag = 1;
 			}
 			else
 			{
-				btn_settingChangePass.setVisibility(v.INVISIBLE);
-				Publics.Protect = -1;
+				Publics.list_Setting.get(Publics.Pass_num).setValue("");
+				AlertDialog.Builder builder = new AlertDialog.Builder(ManageSetting.this);
+				builder.setTitle("Warning!!!")
+				 .setMessage("Are you sure remove your password???")
+				 .setPositiveButton("OK", new DialogInterface.OnClickListener()
+				 {
+					public void onClick(DialogInterface dialog, int which)
+					{
+						flag = 0;
+					}
+				 })
+				 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() 
+				 {
+				 	public void onClick(DialogInterface dialog, int id) {
+				 		dialog.cancel();
+				 	}
+				 });
+				AlertDialog alert = builder.create();
+				alert.show();
+				btn_settingChangePass.setVisibility(View.GONE);
 			}
 		}
 	};

@@ -12,14 +12,22 @@ import model.bill.Bill;
 import model.bill.BillDataSource;
 import model.category.Category;
 import model.category.CategoryDataSoure;
+import model.setting.Setting;
+import model.setting.SettingDataSource;
 import model.transaction.Transaction;
 import account.activity.ManageAccount;
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.TabActivity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.EditText;
 import android.widget.Toast;
 import android.widget.TabHost.TabSpec;
 
@@ -29,14 +37,60 @@ public class General extends TabActivity {
 	public static TabSpec mTabCurrent;
 	private AccountDataSource dataSourceAcc;
 	private CategoryDataSoure dataSourceCate;
-	private BillDataSource dataSource;
-	
+	private BillDataSource dataSourceBill;
+	private SettingDataSource dataSourceSet;
 	private TransactionDataSource dataSourceTrans;
-//	private TabHost tabHost;
 	
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+	protected void onCreate(Bundle savedInstanceState) 
+	{
 		/**processing Transaction*/
+		/**Processing Setting*/
+		dataSourceSet = new SettingDataSource(this);
+		Publics.list_Setting = new ArrayList<Setting>();
+		try{
+			dataSourceSet.open();
+			Publics.list_Setting = dataSourceSet.getAllSettings();
+			dataSourceSet.close();
+			if(Publics.list_Setting.size() == 0)
+			{
+				Publics.list_Setting.add(new Setting(1, "UseName", ""));//Save usename
+				Publics.list_Setting.add(new Setting(2, "Pass", ""));//Save password
+				Publics.list_Setting.add(new Setting(3, "UpdateDate", ""));//Save Update Date of rate
+				Publics.list_Setting.add(new Setting(4, "RateSell", "0"));// Save rate sell
+				Publics.list_Setting.add(new Setting(5, "RateBuy", "0"));//Save rate buy
+				Publics.list_Setting.add(new Setting(6, "DateFormat", "dd/MM/yyyy"));//Save date format
+				Publics.list_Setting.add(new Setting(7, "Language", "Vietnamese"));//Save language
+				Publics.list_Setting.add(new Setting(8, "Backup", ""));//Save schedule backup auto
+				dataSourceSet.open();
+				for(Setting st : Publics.list_Setting)
+				{
+					try{
+						dataSourceSet.insertSetting(st);
+					}catch(Exception e)
+					{
+						e.printStackTrace();
+						dataSourceSet.close();
+						break;
+					}
+				}
+				dataSourceSet.close();
+			}
+		}catch(Exception ex)
+		{
+			ex.printStackTrace();
+			dataSourceSet.close();
+		}
+		if(checkFirst(1))
+		{
+			this.showDialog(1);//First use
+		}
+		else
+		{
+			this.showDialog(2);//login
+		}
+		
+		/**get all transaction had*/
 		Publics.list_Transaction = new ArrayList<Transaction>();
 		dataSourceTrans = new TransactionDataSource(this);
 		dataSourceTrans.open();
@@ -45,6 +99,7 @@ public class General extends TabActivity {
 		}catch(Exception ex)
 		{
 			ex.printStackTrace();
+			dataSourceTrans.close();
 		}
 		if(Publics.list_Transaction.size() == 0)
 		{
@@ -96,6 +151,7 @@ public class General extends TabActivity {
 		}catch(Exception ex)	
 		{
 			ex.printStackTrace();
+			dataSourceAcc.close();
 		}
 		if(Publics.list_Account.size() == 0)
 		{
@@ -118,6 +174,7 @@ public class General extends TabActivity {
 		}catch(Exception ex)	
 		{
 			ex.printStackTrace();
+			dataSourceCate.close();
 		}
 		if(Publics.list_Category.size() == 0)
 		{
@@ -143,16 +200,18 @@ public class General extends TabActivity {
 		dataSourceCate.close();
 		
 		/**Processing Bill*/
-		dataSource = new BillDataSource(this);
+		dataSourceBill = new BillDataSource(this);
 		Publics.list_Bill = new ArrayList<Bill>();
 		try{
-			dataSource.open();
-			Publics.list_Bill = dataSource.getAllBills();
-			dataSource.close();
+			dataSourceBill.open();
+			Publics.list_Bill = dataSourceBill.getAllBills();
+			dataSourceBill.close();
 		}catch(Exception ex)
 		{
 			ex.printStackTrace();
+			dataSourceBill.close();
 		}
+		
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.general);
 		
@@ -265,6 +324,126 @@ public class General extends TabActivity {
 			    finish();
 			}
 			return super.onOptionsItemSelected(item);
+		}
+		
+		protected Dialog onCreateDialog(int id) {
+			switch(id)
+			{
+				case 1:
+				{
+					 LayoutInflater factory = LayoutInflater.from(General.this);
+			         final View textEntryView = factory.inflate(R.layout.alert_dialog_text_entry, null);
+			         final EditText name = (EditText)textEntryView.findViewById(R.id.edt_UN);
+                     final EditText pass = (EditText)textEntryView.findViewById(R.id.edt_P);
+			         return new AlertDialog.Builder(General.this)
+			             .setTitle("Register please!")
+			             .setView(textEntryView)
+			             .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+			                 public void onClick(DialogInterface dialog, int whichButton) {
+			                     Publics.UseName = name.getText().toString().trim();
+			                     Publics.Password = pass.getText().toString().trim();
+			                     if(Publics.UseName.equals("")==false)
+			                     {
+				                    Publics.list_Setting.get(0).setValue(Publics.UseName);
+				                    Publics.list_Setting.get(1).setValue(Publics.Password);
+			                    	 SettingDataSource sdt = new SettingDataSource(General.this);
+				         			try{
+				         				sdt.open();
+				         				sdt.updateSetting(Publics.list_Setting.get(0));
+				         				sdt.updateSetting(Publics.list_Setting.get(1));
+				         				sdt.close();
+				         			}catch(Exception ex)
+				         			{
+				         				ex.printStackTrace();
+				         				sdt.close();
+				         			} 
+			                     }
+			                 }
+			             })
+			             .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+			                 public void onClick(DialogInterface dialog, int whichButton) {
+			                	 dialog.cancel();
+			                 }
+			             })
+			             .create();
+				}
+				case 2:
+				{
+					LayoutInflater factory = LayoutInflater.from(General.this);
+			         final View textEntryView = factory.inflate(R.layout.login, null);
+			         return new AlertDialog.Builder(General.this)
+			             .setTitle("Login")
+			             .setView(textEntryView)
+			             .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+			                 public void onClick(DialogInterface dialog, int whichButton) {
+			                     EditText pass = (EditText)textEntryView.findViewById(R.id.edt_PLG);
+			                     if(checkLogin(pass.getText().toString().trim()) == false)
+			                     {
+			                    	 finish();
+			                    	 General.this.startActivity(getIntent()); 
+			                     }
+			                 }
+			             })
+			             .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+			                 public void onClick(DialogInterface dialog, int whichButton) {
+			                	 dialog.cancel();
+			                	 Intent intent = new Intent(Intent.ACTION_MAIN);
+		         			     intent.addCategory(Intent.CATEGORY_HOME);
+		         			     startActivity(intent);
+		         			     finish();
+			                 }
+			             })
+			             .create();
+				}
+			}
+			return null;
+	    	 
+	    }
+		
+		/**Check first use*/
+		private boolean checkFirst(int id)
+		{
+			SettingDataSource sdt = new SettingDataSource(General.this);
+			try{
+				sdt.open();
+				Setting s = sdt.getSettingById(id);
+				sdt.close();
+				Publics.UseName = s.getValue();
+				if(Publics.UseName.equals(""))
+					return true;
+				else
+					return false;
+			}catch(Exception ex)
+			{
+				ex.printStackTrace();
+				sdt.close();
+				return true;
+			}
+		}
+		
+		
+		/**Check login*/
+		private boolean checkLogin(String pass)
+		{
+			SettingDataSource sdt = new SettingDataSource(General.this);
+			try{
+				sdt.open();
+				Publics.Password = sdt.getSettingById(2).getValue();
+				sdt.close();
+				if(pass.equals(Publics.Password))
+				{
+					return true;
+				}
+				else
+				{
+					return false;
+				}
+			}catch(Exception ex)
+			{
+				ex.printStackTrace();
+				sdt.close();
+				return false;
+			}
 		}
 }
 

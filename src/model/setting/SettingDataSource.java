@@ -10,7 +10,7 @@ import android.database.sqlite.SQLiteDatabase;
 import database.infrastructure.SQLiteDB;
 
 public class SettingDataSource {
-	 private SQLiteDatabase database;
+	  private SQLiteDatabase database;
 	  private SQLiteDB dbHelper;
 	  private String[] allColumns = { SQLiteDB.SId,
 			  SQLiteDB.SItem, SQLiteDB.SValue };
@@ -102,11 +102,50 @@ public class SettingDataSource {
 		        return newS;
 		    }
 		  
+		  /**Update*/
+		  public boolean updateSetting(Setting set)
+		  {
+			  if(set != null)
+			  {
+				  	ContentValues cv = new ContentValues();
+				  	cv.put(SQLiteDB.SId,set.getId());
+				    cv.put(SQLiteDB.SItem, set.getItem());
+			        cv.put(SQLiteDB.SValue,set.getValue());
+			        try{
+			        	database.update(SQLiteDB.TABLE_SETTING, cv, SQLiteDB.SId + "=" + set.getId(), null);
+			        }catch(Exception ex)
+			        {
+			        	ex.printStackTrace();
+			        	return false;
+			        }
+			        return true;
+			  }
+			  return false;
+		  }
+		  
 		  private Setting cursorToSetting(Cursor cursor) {
 			    Setting setting = new Setting();
 			    setting.setId(cursor.getInt(0));
 			    setting.setItem(cursor.getString(1));
 			    setting.setValue(cursor.getString(2));
 			    return setting;
+		  }
+		  
+		  /**Get lastest id*/
+		  public int getLastId()
+		  {
+			  int id = -1;
+			  try{
+				    Cursor cursor = database.query(SQLiteDB.TABLE_SETTING,
+				        allColumns, null, null, null, null, null);
+				    cursor.moveToLast();
+				    Setting s = cursorToSetting(cursor);
+				    id = s.getId();
+				    cursor.close();
+			  }catch(Exception ex)
+			  {
+				  ex.printStackTrace();
+			  }
+			  return id;
 		  }
 }

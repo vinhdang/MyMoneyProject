@@ -41,7 +41,7 @@ public class ManageTransaction extends Activity {
 	private ArrayAdapter<String> monthAdapter;
 	private List<String> daily ;
 	private List<String> month ;
-	private int pos = -1;
+	private int pos;
 	private static int indexMonth = 0;
 	
 	@Override
@@ -49,7 +49,7 @@ public class ManageTransaction extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.transaction_list);
 		list_trans = new ArrayList<Transaction>();
-		
+
 		TransactionDataSource tds = new TransactionDataSource(this);
 		try{
 			tds.open();
@@ -65,7 +65,6 @@ public class ManageTransaction extends Activity {
 		daily = new ArrayList<String>();
 		if(month == null)
 			month = new ArrayList<String>();
-		pos = Publics.paramToMngTrans;
 		
 		/**Process*/
 		elv_transaction = (ExpandableListView)findViewById(R.id.elv_transList);
@@ -74,6 +73,7 @@ public class ManageTransaction extends Activity {
 		btn_transactionPrev = (Button)findViewById(R.id.btn_transPrev);
 		spn_Month = (Spinner)findViewById(R.id.spn_transMonth);
 		tgl_Expand = (ToggleButton)findViewById(R.id.toggleButton1);
+		pos = Publics.paramToMngTrans;
 		filterData(pos);// filter and set adapter		
 		handleMonth();
 		
@@ -86,11 +86,6 @@ public class ManageTransaction extends Activity {
 		spn_Month.setOnItemSelectedListener(handleSelect);
 		tgl_Expand.setOnClickListener(handleCheck);
 	}
-	
-	  @Override
-	  protected void onPause() {
-	    super.onPause();
-	  }
 	
 	/**Click Add New*/
 	OnClickListener handleNew = new OnClickListener() {
@@ -237,7 +232,6 @@ public class ManageTransaction extends Activity {
 						list2.add(tmp);
 					}
 			  }
-			  
 			  gru.setItems(list2);
 			  list.add(gru);
 		  }
@@ -268,17 +262,15 @@ public class ManageTransaction extends Activity {
 
 		public void onNothingSelected(AdapterView<?> arg0) {
 			// TODO Auto-generated method stub
-			
 		}
 	};
 	  
 	/***/
 	@Override
 	protected void onResume() {
+		super.onResume();
 		if (Publics.paramToMngTrans!=-1)
 		{
-			//exe code here
-//			Toast.makeText(this, String.valueOf(Publics.paramToMngTrans), Toast.LENGTH_SHORT).show();
 			pos = Publics.paramToMngTrans;
 			filterData(pos);
 			handleMonth();
@@ -293,7 +285,6 @@ public class ManageTransaction extends Activity {
 				btn_transactionNext.setVisibility(View.GONE);
 			}
 			elv_transaction.setAdapter(ExpAdapter);
-			
 		}
 		else
 		{	
@@ -304,12 +295,18 @@ public class ManageTransaction extends Activity {
 			btn_transactionNext.setVisibility(View.GONE);
 			btn_transactionPrev.setVisibility(View.VISIBLE);
 		}
-		super.onResume();
+	}
+	
+	@Override
+	protected void onPause() 
+	{
+	   super.onPause();
 	}
 	
 	/** Wait for result from add new activity*/
 	@Override protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		 if (resultCode == Activity.RESULT_CANCELED) {
+		 if (resultCode == Activity.RESULT_CANCELED) 
+		 {
 			 //
 		 }
 		 else if(requestCode == Publics.REQ_NEW_TRANSACTION )
@@ -332,36 +329,13 @@ public class ManageTransaction extends Activity {
 		if(p != -1)
 		{
 			Account acc = Publics.list_Account.get(p);
-//			if(acc.getAccountName().equals("Dong A"))
-//			{
-				list_trans.clear();
-				for(int j=0 ; j<Publics.list_Transaction.size() ; j++)
-				{
-					Transaction t = Publics.list_Transaction.get(j);
-					if(t.getTransactionAccount().equals(acc.getAccountName()))
-						list_trans.add(t);
-				}
-//			}
-//			else if(acc.getAccountName().equals("HSBC"))
-//			{
-//				list_trans.clear();
-//				for(int j=0 ; j<Publics.list_Transaction.size() ; j++)
-//				{
-//					Transaction t = Publics.list_Transaction.get(j);
-//					if(t.getTransactionAccount().equals("HSBC")==true)
-//						list_trans.add(t);
-//				}
-//			}
-//			else
-//			{
-//				list_trans.clear();
-//				for(int j=0 ; j<Publics.list_Transaction.size() ; j++)
-//				{
-//					Transaction t = Publics.list_Transaction.get(j);
-//					if(t.getTransactionAccount().equals("ACB"))
-//						list_trans.add(t);
-//				}
-//			}
+			list_trans.clear();
+			for(int j=0 ; j<Publics.list_Transaction.size() ; j++)
+			{
+				Transaction t = Publics.list_Transaction.get(j);
+				if(t.getTransactionAccount().equals(acc.getAccountName()))
+					list_trans.add(t);
+			}
 		}
 		else
 		{
@@ -375,7 +349,6 @@ public class ManageTransaction extends Activity {
 		}
 		daily.clear();
 		daily = Publics.getUniqueDate(dayTemp);
-//		month = Publics.getUniqueMonth(daily);
 		ExpListItems = SetStandardGroups(list_trans);
 		ExpAdapter = new ExpandTransAdapter(ManageTransaction.this, ExpListItems);
 	}
@@ -391,7 +364,7 @@ public class ManageTransaction extends Activity {
 		if(month.size() == 1)
 			indexMonth = 0;
 		else
-			indexMonth = month.size() -1;
+			indexMonth = (month.size() -1);
 		spn_Month.setSelection(indexMonth);
 	}
 	

@@ -30,16 +30,16 @@ public class ComparePlan extends Activity {
 		tv_viewExpense = (TextView)findViewById(R.id.tv_viewExpenseAmount);
 		tv_viewConlusion = (TextView)findViewById(R.id.tv_viewConlusion);
 		
-		ArrayAdapter<String> adapterType = new ArrayAdapter<String>(getApplicationContext(), 
-				android.R.layout.simple_spinner_item, Publics.listMonth);
-		ArrayAdapter<String> adap = new ArrayAdapter<String>(this,
-				android.R.layout.simple_list_item_1,
-				new String[]{"Plan 1","Plan 2"});
+//		ArrayAdapter<String> adapterType = new ArrayAdapter<String>(getApplicationContext(), 
+//				android.R.layout.simple_spinner_item, Publics.listMonth);
+//		ArrayAdapter<String> adap = new ArrayAdapter<String>(this,
+//				android.R.layout.simple_list_item_1,
+//				new String[]{"Plan 1","Plan 2"});
 		
 		
 		/***/
-		spn_viewMonth.setAdapter(adapterType);
-		spn_viewCPlan.setAdapter(adap);
+//		spn_viewMonth.setAdapter(adapterType);
+//		spn_viewCPlan.setAdapter(adap);
 		spn_viewMonth.setOnItemSelectedListener(handleItem);
 		//Complete plan before
 	}

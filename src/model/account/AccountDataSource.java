@@ -62,12 +62,6 @@ public class AccountDataSource {
 	        	ex.printStackTrace();
 	        }
 		  }
-//		    Cursor cursor = database.query(SQLiteDB.TABLE_ACCOUNT,
-//		        allColumns, SQLiteDB.AId + " = " + insertId, null,
-//		        null, null, null);
-//		    cursor.moveToFirst();
-//		    Account newAcc = cursorToAccount(cursor);
-//		    cursor.close();
 	  }
 	  
 	  //delete acc

@@ -147,9 +147,6 @@ public class TransactionNew extends Activity {
 				tds.insertTransaction(trans);
 			}
 			tds.close();
-			//
-			//Intent i= new Intent(getApplicationContext(), ManageTransaction.class);
-			//Toast.makeText(getApplicationContext(), "Save New Transaction.....", Toast.LENGTH_SHORT).show();
 			Intent intent = new Intent(getApplicationContext(),General.class);
 			intent.putExtra("tab", 2);
 			startActivity(intent);
@@ -188,12 +185,11 @@ public class TransactionNew extends Activity {
 	            
 	            /** Updates the date in the TextView */
 	    	    private void updateDisplay() {
-	    	        pDisplayDate.setText(
-	    	            new StringBuilder()
-	    	                    // Month is 0 based so add 1
-	    	                    .append(pMonth + 1).append("/")
-	    	                    .append(pDay).append("/")
-	    	                    .append(pYear).append(" "));
+	    	    	StringBuilder tmp = new StringBuilder()
+                    .append(pMonth + 1).append("/")
+                    .append(pDay).append("/")
+                    .append(pYear).append(" ");
+	    	    	pDisplayDate.setText(Publics.formatDate(Publics.FormatDate, tmp.toString()));
 	    	    }
 	    
 	    /** Displays a notification when the date is updated */

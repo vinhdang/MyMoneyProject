@@ -63,11 +63,15 @@
 
         <requestFocus />
     </EditText>
-
+
     <ListView
         android:id="@+id/lv_toolFileRestore"
+        style="@style/ListFont"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_height="match_parent"
+        android:background="@color/black"
+        android:cacheColorHint="@color/black"
+        android:divider="@color/white" >
 
     </ListView>
 </LinearLayout>

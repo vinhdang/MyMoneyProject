@@ -131,12 +131,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:gravity="center" >
-
-                <Button
-                    android:id="@+id/btn_toolSendViaEmail"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Share Backup File Via Email" />
             </LinearLayout>
 
             <LinearLayout
@@ -150,6 +144,13 @@
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:text="Save" />
+
+                <Button
+                    android:id="@+id/btn_toolBackupBack"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:text="Back" />
+
             </LinearLayout>
         </LinearLayout>
 

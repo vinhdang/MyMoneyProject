@@ -6,6 +6,7 @@ import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import main.activity.R;
@@ -13,6 +14,7 @@ import model.account.Account;
 import model.bill.Bill;
 import model.category.Category;
 import model.plan.Plan;
+import model.setting.Setting;
 import model.transaction.Transaction;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -26,12 +28,11 @@ import android.widget.TabHost;
 
 public class Publics {
 	public final static  String[]  listSpinnerView = {"All", "Daily","Category","Compare Plan"};
-	public final static  String[]  listGridMenuTool = {"Backup","Restore","Import","Export","Exchange"}; 
-	public final static  String[]  listCurrency = {"VND", "USD-US", "USD-AUS", "USD-CAN", "EURO"};
+	public final static  String[]  listGridMenuTool = {"Backup","Restore","SendFileToEmail","Export","Exchange"}; 
+	public final static  String[]  listCurrency = {"VND", "USD-US"};
 	public final static  String[]  listLanguage = {"Vietnamese", "English", "France"};
-	public final static  String[]  listDateFormat = {"dd/mm/yyyy", "mm/dd/yyyy"};
+	public final static  String[]  listDateFormat = {"dd/MM/yyyy", "MM/dd/yyyy"};
 	public final static  String[]  listCategoryType = {"Chi tieu", "Thu nhap"};
-	public final static  String[]  listMonth = {"6", "7"};
 	public final static	 String[]  listDay = {"1 day", "2 day", "1 week", "1 month"};
 	public final static  String[]  listColor = {"-1843419","-14300190","-1044291","-11994766",
 		"-14922743","-7424497","-2417081","-8073554","-7229610","-2005138","-4192165", 
@@ -40,27 +41,35 @@ public class Publics {
 	public final static	 String[]  listPayMode = {"Cash"};
 	public final static	 String[]  listRepeat = {"Dayly","Weekly","Monthly"};
 	
-	public static  List<String>  list_File;
 	public static List<Transaction> list_Transaction;
 	public static List<Category> list_Category; 
 	public static List<Account> list_Account;
 	public static List<Plan>	list_Plan;
 	public static List<Bill>	list_Bill;
+	public static List<Setting> list_Setting;
 	public static TabHost tabHost;
 	
 	public static int paramToMngTrans = -1;
-	public static int Protect = -1;
+	public static String UseName = "";
+	public static String Password = "";
+	public static String FormatDate = "dd/MM/yyyy";
+	
+	public static int Pass_num = 1;
+	public static int UpdateDate_num = 2;
+	public static int RateSell_num = 3;
+	public static int RateBuy_num = 4;
+	public static int DateFormat_num = 5;
+	public static int Language_num = 6;
+	public static int Backup_num = 7;
+	
 	//VuTuyen
 	public static final int REQ_NEW_ACCOUNT = 				1;
 	public static final int CODE_SUCCESS = 					2;
-	
 	public static final int REQ_UPDATE_ACCOUNT = 			3;
 	public static final int REQ_VIEW_ACCOUNT = 				4;
 	public static final int REQ_VIEW_TRANSACTION = 			5;
 	public static final int REQ_NEW_TRANSACTION = 			6;
 	public static final int REQ_CHANGE_PASS = 				7;
-	
-	public static final String[] POPUP_MENU = {"Update", "View", "Delete", "View transaction"};
 ////////////////////////////////////////// functions //////////////////////////////////////////////////////
 	/**Message box*/
 	public static void msgBoxDelete(Context context, String msg, DialogInterface.OnClickListener evtOK, DialogInterface.OnClickListener evtCancel)
@@ -143,7 +152,7 @@ public class Publics {
 				rs.add(t);
 			}
 		}
-		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+		SimpleDateFormat sdf = new SimpleDateFormat(FormatDate);
 		for(String r : rs)
 		{
 			Date master = sdf.parse(r, new ParsePosition(0));
@@ -154,7 +163,7 @@ public class Publics {
 			Object[] arr = al.toArray();
 			Arrays.sort(arr);
 			rs.clear();
-			sdf = new SimpleDateFormat("dd/MM/yyyy");
+			sdf = new SimpleDateFormat(FormatDate);
 	        for (int i = 0; i < arr.length; i++) {
 	            Date d = (Date)arr[i];
 	            String formattedDate = sdf.format(d);
@@ -206,5 +215,49 @@ public class Publics {
 	  {  
 	    return false;  
 	  }  
+	}
+	
+	/**Get current date*/
+	public static  String getCurrentDay()
+	{
+		 String date;
+		 final Calendar cal = Calendar.getInstance();
+	     int  pYear = cal.get(Calendar.YEAR);
+	     int  pMonth = cal.get(Calendar.MONTH);
+	     int pDay = cal.get(Calendar.DAY_OF_MONTH);
+	     StringBuilder builder = new StringBuilder()
+				         .append(pDay).append("/")
+				         .append(pMonth + 1).append("/")
+				         .append(pYear);
+	     date = builder.toString();
+	     date = formatDate(FormatDate, date);
+		return date;
+	}
+	
+	/**format date*/
+	public static String formatDate(String type, String date)
+	{
+		SimpleDateFormat sdf = new SimpleDateFormat(type);
+		Date d = new Date(date);
+		return sdf.format(d);
+	}
+	
+	/**Parse string to double*/
+	public static double ParseStringToDouble(String number)
+	{
+		double rs = 0;
+		String[] t = number.split(",");
+		String tmp = "";
+		for(String k : t)
+		{
+			tmp += k;
+		}
+		try{
+			rs = Double.parseDouble(tmp.trim());
+		}catch(Exception ex)
+		{
+			ex.printStackTrace();
+		}
+		return rs;
 	}
 }

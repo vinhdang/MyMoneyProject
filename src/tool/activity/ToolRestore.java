@@ -1,7 +1,14 @@
 package tool.activity;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
-
+import java.util.List;
 import publics.Publics;
 import main.activity.R;
 import android.app.Activity;
@@ -26,25 +33,22 @@ public class ToolRestore extends Activity {
 	private EditText edt_filterName;
 	private ListView lv_file;
 	ArrayAdapter<String> adapter;
+	private List<String> listFile;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.tool_restore);
-		Publics.list_File = new ArrayList<String>();
-		Publics.list_File.add("BK07072012");
-		Publics.list_File.add("BK28062012");
-		Publics.list_File.add("BK25062012");
-		Publics.list_File.add("BK22062012");
-		Publics.list_File.add("BK19062012");
+		listFile = new ArrayList<String>();
 		
-		/***/
+		/**Process*/
 		lv_file = (ListView)findViewById(R.id.lv_toolFileRestore);
 		edt_filterName = (EditText)findViewById(R.id.edt_toolFilterFile);
+		getFile();
 		adapter = new ArrayAdapter<String>(getApplicationContext(), 
-				android.R.layout.simple_list_item_1, Publics.list_File);
+				android.R.layout.simple_list_item_1, listFile);
 		
-		/***/
+		/**Set function*/
 		lv_file.setAdapter(adapter);
 		lv_file.setOnItemClickListener(handleClick);
 		lv_file.setTextFilterEnabled(true);
@@ -65,24 +69,26 @@ public class ToolRestore extends Activity {
 		}
 	};
 	
-	/***/
+	/** Create menu*/
 	 @Override  
 	    public void onCreateContextMenu(ContextMenu menu, View v,ContextMenuInfo menuInfo) {  
-		 	if(v.getId() == R.id.lv_toolImportFile)
+		 	if(v.getId() == R.id.lv_toolFileRestore)
 		 	{
 		 		AdapterView.AdapterContextMenuInfo info = (AdapterContextMenuInfo) menuInfo;
 		 		super.onCreateContextMenu(menu, v, menuInfo);
-		 		 menu.setHeaderTitle(Publics.list_File.get((info.position)));  
+		 		 menu.setHeaderTitle(listFile.get((info.position)));  
 		 		super.onCreateContextMenu(menu, v, menuInfo);     
 		        menu.add(0, v.getId(), 0, "Restore");
 		        menu.add(0, v.getId(), 0, "Delete");
 		 	}
 	    }  
 	 
+	 
+	 /**Process menu item selected*/
 	 @Override  
 	    public boolean onContextItemSelected(MenuItem item) { 
 		 AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo)item.getMenuInfo();
-		 final String tmp = Publics.list_File.get((info.position));
+		 final String tmp = listFile.get((info.position));
 	        if(item.getTitle()=="Restore")
 	        {
 	        	//show message box
@@ -96,6 +102,7 @@ public class ToolRestore extends Activity {
 						
 							try{
 								Toast.makeText(getApplicationContext(), "Restoring file ....", Toast.LENGTH_SHORT).show();
+								restore(tmp);
 							}catch(Exception ex)
 							{
 								ex.printStackTrace();
@@ -124,7 +131,9 @@ public class ToolRestore extends Activity {
 						
 							try{
 								//Delete item.
-								Publics.list_File.remove(tmp);
+								File file = new File("/mnt/sdcard/MyMoney/" + tmp);
+								file.delete();
+								listFile.remove(tmp);
 								adapter.notifyDataSetChanged();
 							}catch(Exception ex)
 							{
@@ -144,14 +153,14 @@ public class ToolRestore extends Activity {
 	    return true;  
 	    }
 	 
-	 /***/
+	 /**filter text*/
 	 private TextWatcher filterTextWatcher = new TextWatcher() {
 
 		    public void afterTextChanged(Editable s) {
 		    	if(s.length() == 0)
 		    	{
 		    		 adapter = new ArrayAdapter<String>(getApplicationContext(), 
-		    				 android.R.layout.simple_list_item_1, Publics.list_File);
+		    				 android.R.layout.simple_list_item_1, listFile);
 		             lv_file.setAdapter(adapter);
 		    	}
 		    }
@@ -168,4 +177,79 @@ public class ToolRestore extends Activity {
 		        }
 		    }
 		};
+		
+		/**restore database*/
+		private void restore(String DATABASE_NAME)
+		{
+			OutputStream myOutput;			 
+			try {
+	 
+				myOutput = new FileOutputStream("/data/data/main.activity/databases/Database.db");
+	 	 
+			    // Set the folder on the SDcard
+			    File directory = new File("/mnt/sdcard/MyMoney/");
+			    // Set the input file stream up:
+	 
+			    InputStream myInputs = new FileInputStream(directory.getPath()+ "/" + DATABASE_NAME);
+	 
+			    // Transfer bytes from the input file to the output file
+			    byte[] buffer = new byte[1024];
+			    int length;
+			    while ((length = myInputs.read(buffer))>0)
+			    {
+			        myOutput.write(buffer, 0, length);
+			    }
+			    // Close and clear the streams
+			    myOutput.flush();	 
+			    myOutput.close();	 
+			    myInputs.close();	
+			    renameFile(DATABASE_NAME);
+	 
+			} catch (FileNotFoundException e) {
+				Toast.makeText(getApplicationContext(), "Restore Unsuccesfull!", Toast.LENGTH_LONG).show(); 
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {	
+				Toast.makeText(getApplicationContext(), "Restore Unsuccesfull!", Toast.LENGTH_LONG).show();
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			Toast.makeText(getApplicationContext(), "Restore Done Succesfully!", Toast.LENGTH_LONG).show();
+		}
+		
+		/**Get file from sdcard*/
+		 private void getFile()
+		 {
+			 File mfile=new File("/mnt/sdcard/MyMoney/");
+			 File[] list=mfile.listFiles();
+
+			 listFile.clear();
+			 for(int i=0 ; i < mfile.listFiles().length; i++)
+			 {
+			     if(list[i].isFile())
+			     {
+			    	 String tmp = list[i].getName();
+			    	 if(tmp.endsWith(".db"))
+			    	 {
+			    		 listFile.add(tmp);
+			    	 }
+			         Toast.makeText(getApplicationContext(), "files.."+list[i].getName(), Toast.LENGTH_SHORT).show();
+			     }
+			 }
+		 }
+		 
+		 /**rename file*/
+		 private boolean renameFile(String filename)
+		 {
+			 File from = new File("/data/data/main.activity/databases/", filename);
+			 File to = new File("/data/data/main.activity/databases/", "Database.db");
+			 try{
+				 from.renameTo(to);
+				 return true;
+			 }catch(Exception ex)
+			 {
+				 ex.printStackTrace();
+				 return false;
+			 }
+		 }
 }

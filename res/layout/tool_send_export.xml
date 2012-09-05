@@ -48,12 +48,27 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" >
 
-                <TextView
-                    android:id="@+id/textView2"
+                <RadioGroup
+                    android:id="@+id/radioGroup_sendFile"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Choose File : "
-                    android:textColor="@color/black" />
+                    android:layout_height="wrap_content" >
+
+                    <RadioButton
+                        android:id="@+id/rad_sendBackup"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:checked="true"
+                        android:text="Backup"
+                        android:textColor="@color/black" />
+
+                    <RadioButton
+                        android:id="@+id/rad_sendExport"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Export"
+                        android:textColor="@color/black" />
+
+                </RadioGroup>
 
             </LinearLayout>
 
@@ -61,6 +76,13 @@
                 android:id="@+id/linearLayout3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" >
+
+                <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Choose File : "
+                    android:textColor="@color/black" />
 
                 <Spinner
                     android:id="@+id/spn_toolExportSendFile"
@@ -102,11 +124,11 @@
                     android:textColor="@color/black" />
 
             </LinearLayout>
-
+
             <EditText
                 android:id="@+id/edt_toolExportSendContent"
                 android:layout_width="match_parent"
-                android:layout_height="260dp"
+                android:layout_height="137dp"
                 android:ems="10"
                 android:inputType="textMultiLine" />
 

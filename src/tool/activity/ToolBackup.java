@@ -27,7 +27,7 @@ import android.widget.Toast;
 
 public class ToolBackup extends Activity {
 	private Button btn_backupSave;
-	private Button btn_backupSendViaEmail;
+	private Button btn_back;
 	private RadioGroup rad;
 	private EditText edt_name;
 	private Spinner spn_time;
@@ -41,7 +41,7 @@ public class ToolBackup extends Activity {
 		
 		/** */
 		btn_backupSave = (Button)findViewById(R.id.btn_toolSaveBackup);
-		btn_backupSendViaEmail = (Button)findViewById(R.id.btn_toolSendViaEmail);
+		btn_back = (Button)findViewById(R.id.btn_toolBackupBack);
 		rad = (RadioGroup)findViewById(R.id.rad_toolBackupGroup);
 		tv_tmp = (TextView)findViewById(R.id.tv_toolBackupAt);
 		dpk_date = (TimePicker)findViewById(R.id.timePicker_toolScheduler);
@@ -51,8 +51,8 @@ public class ToolBackup extends Activity {
 				android.R.layout.simple_spinner_item, Publics.listDay);
 		
 		/** */
-		btn_backupSave.setOnClickListener(handleSave);
-		btn_backupSendViaEmail.setOnClickListener(handleSendViaEmail);		
+		btn_backupSave.setOnClickListener(handleSave);	
+		btn_back.setOnClickListener(handleBack);
 		rad.setOnCheckedChangeListener(handleCheck);
 		spn_time.setAdapter(adapter);
 		
@@ -73,10 +73,12 @@ public class ToolBackup extends Activity {
 
 		        if (sd.canWrite()) {
 		            String currentDBPath = "//data//main.activity//databases//Database.db";
-		            String tmp = edt_name.getText().toString();
+		            String tmp = edt_name.getText().toString().trim() + ".db";
 		            String backupDBPath = tmp;
+		            File newFolder = new File("/sdcard/MyMoney/");
+		            newFolder.mkdirs();
 		            File currentDB = new File(data, currentDBPath);
-		            File backupDB = new File(sd, backupDBPath);
+		            File backupDB = new File(newFolder, backupDBPath);
 
 //		            if (currentDB.exists()) {
 		                FileChannel src = new FileInputStream(currentDB).getChannel();
@@ -98,12 +100,12 @@ public class ToolBackup extends Activity {
 	};
 	
 	/**Click send file*/
-	OnClickListener handleSendViaEmail = new OnClickListener() {
+	OnClickListener handleBack = new OnClickListener() {
 		
 		public void onClick(View v) {
-			Intent i = new Intent(getApplicationContext(), SendFileBackup.class);
-			Toast.makeText(getApplicationContext(), "Start Send File ......", Toast.LENGTH_SHORT).show();
+			Intent i = new Intent(getApplicationContext(), ManageTool.class);
 			startActivity(i);
+			finish();
 		}
 	};
 	

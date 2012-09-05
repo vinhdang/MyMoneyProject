@@ -132,17 +132,31 @@
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:gravity="center|left" >
-
+
                 <TextView
                     android:id="@+id/textView4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@color/black"
+                    android:background="@color/white"
                     android:text="Source : "
                     android:textColor="@color/black" />
 
                 <TextView
                     android:id="@+id/tv_toolSourceRate"
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:text="TextView"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:id="@+id/textView6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Latest Update : "
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:id="@+id/tv_toolDateUpdateRate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="TextView"
@@ -157,14 +171,28 @@
                 android:gravity="center|left" >
 
                 <TextView
-                    android:id="@+id/textView6"
-                    android:layout_width="wrap_content"
+                    android:id="@+id/textView5"
+                    android:layout_width="60dp"
                     android:layout_height="wrap_content"
-                    android:text="Latest Update : "
+                    android:text="Buy : "
                     android:textColor="@color/black" />
 
                 <TextView
-                    android:id="@+id/tv_toolDateUpdateRate"
+                    android:id="@+id/tv_exBuy"
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:text="TextView"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:id="@+id/textView9"
+                    android:layout_width="60dp"
+                    android:layout_height="wrap_content"
+                    android:text="Sell : "
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:id="@+id/tv_exSell"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="TextView"

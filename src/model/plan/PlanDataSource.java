@@ -11,7 +11,6 @@ import database.infrastructure.SQLiteDB;
 
 public class PlanDataSource {
 	
-
 	  private SQLiteDatabase database;
 	  private SQLiteDB dbHelper;
 	  private String[] allColumns = { SQLiteDB.PId,

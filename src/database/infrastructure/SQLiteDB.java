@@ -59,14 +59,6 @@ public class SQLiteDB extends SQLiteOpenHelper {
 	public static final String TABLE_SETTING = "Setting";
 	public static final int DB_VERSION = 3;
 	
-	
-	//SQLiteDatabase db;
-	
-	//public AccountDB(Context context, String name, CursorFactory factory,
-	//		int version) {
-	//	super(context, name, factory, version);
-	//}
-	
 	public SQLiteDB(Context context) {
 	    super(context, DB_NAME, null, DB_VERSION);
 	
@@ -81,7 +73,7 @@ public class SQLiteDB extends SQLiteOpenHelper {
 	        db.execSQL("CREATE TABLE Plan(id integer primary key autoincrement, name text, account text, category text, amount double);");
 	        db.execSQL("CREATE TABLE Transactions(id integer primary key autoincrement, item text, tdate text, amount double, category text, account text, note text, paymode text, repeat text);");
 	        db.execSQL("CREATE TABLE Bill(id integer primary key autoincrement, item text, amount double, category text, dueday text, note text, notification text, repeat text);");
-	        db.execSQL("CREATE TABLE Setting(id integer primary key autoincrement, item text, value text);");
+	        db.execSQL("CREATE TABLE Setting(id integer primary key, item text, value text);");
          }
          catch(SQLException ex)
          {
@@ -107,5 +99,4 @@ public class SQLiteDB extends SQLiteOpenHelper {
 			ex.printStackTrace();
 		}
 	}
-
 }
