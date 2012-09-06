@@ -12,7 +12,6 @@ import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 public class ManageView extends Activity {
@@ -58,12 +57,6 @@ public class ManageView extends Activity {
 				{
 					Toast.makeText(getApplicationContext(), "Choose Report Category .....", Toast.LENGTH_SHORT).show();
 					Intent i = new  Intent(getApplicationContext(), ViewCategory.class);
-					startActivity(i);
-				}break;
-				case 3: // Handle event of Compare Plan
-				{
-					Toast.makeText(getApplicationContext(), "Choose Report Compare Plan .....", Toast.LENGTH_SHORT).show();
-					Intent i = new  Intent(getApplicationContext(), ComparePlan.class);
 					startActivity(i);
 				}break;
 				default: break;

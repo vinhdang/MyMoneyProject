@@ -68,7 +68,7 @@ public final class R {
         public static final int btn_menu=0x7f0700a7;
         public static final int btn_newCategory=0x7f07005b;
         public static final int btn_planAddSave=0x7f070018;
-        public static final int btn_plan_update=0x7f0700ed;
+        public static final int btn_plan_update=0x7f0700e8;
         public static final int btn_report=0x7f0700a6;
         public static final int btn_save=0x7f07007a;
         public static final int btn_settingChangePass=0x7f070066;
@@ -96,9 +96,9 @@ public final class R {
         public static final int btn_updateCategorySave=0x7f0700d4;
         public static final int btn_upgradeCancel=0x7f0700d8;
         public static final int btn_upgradeOK=0x7f0700d7;
-        public static final int btn_viewCategoryDelete=0x7f0700ea;
-        public static final int btn_viewCategoryUpdate=0x7f0700e9;
-        public static final int btn_viewDailyDate=0x7f0700e2;
+        public static final int btn_viewCategoryDelete=0x7f0700e5;
+        public static final int btn_viewCategoryUpdate=0x7f0700e4;
+        public static final int btn_viewDailyDate=0x7f0700dd;
         public static final int chk_All=0x7f070095;
         public static final int chk_settingProtectByPass=0x7f070065;
         public static final int chk_syncStartOnLogin=0x7f07007e;
@@ -157,8 +157,8 @@ public final class R {
         public static final int lv_toolImportFile=0x7f070098;
         public static final int lv_upcomingBill=0x7f07005a;
         public static final int lv_viewCategoryTransaction=0x7f0700da;
-        public static final int lv_viewDailyTransaction=0x7f0700e3;
-        public static final int lv_viewTransaction=0x7f0700ec;
+        public static final int lv_viewDailyTransaction=0x7f0700de;
+        public static final int lv_viewTransaction=0x7f0700e7;
         public static final int mainLayout=0x7f070043;
         public static final int pie_container=0x7f07004e;
         public static final int rad_sendBackup=0x7f07009d;
@@ -186,7 +186,7 @@ public final class R {
         public static final int spn_planAddaccName=0x7f070014;
         public static final int spn_planAddcategory=0x7f070015;
         public static final int spn_repeat=0x7f070078;
-        public static final int spn_reportListType=0x7f0700eb;
+        public static final int spn_reportListType=0x7f0700e6;
         public static final int spn_reportSelect=0x7f07004d;
         public static final int spn_settingDateFormat=0x7f070064;
         public static final int spn_settingLanguage=0x7f070063;
@@ -202,8 +202,6 @@ public final class R {
         public static final int spn_type=0x7f0700cf;
         public static final int spn_updateCategoryType=0x7f0700d2;
         public static final int spn_viewCategoryType=0x7f0700d9;
-        public static final int spn_viewPlan=0x7f0700dc;
-        public static final int spn_viewType=0x7f0700dd;
         public static final int tab1=0x7f070034;
         public static final int tab2=0x7f070035;
         public static final int tab3=0x7f070036;
@@ -280,25 +278,22 @@ public final class R {
         public static final int tv_transactionViewNameItem=0x7f0700c0;
         public static final int tv_transactionViewNameItem3=0x7f0700bf;
         public static final int tv_transdetailamount=0x7f0700c1;
-        public static final int tv_viewCategoryDescription=0x7f0700e8;
-        public static final int tv_viewCategoryDetail=0x7f0700e5;
-        public static final int tv_viewCategoryName=0x7f0700e6;
+        public static final int tv_viewCategoryDescription=0x7f0700e3;
+        public static final int tv_viewCategoryDetail=0x7f0700e0;
+        public static final int tv_viewCategoryName=0x7f0700e1;
         public static final int tv_viewCategoryTotal=0x7f0700db;
-        public static final int tv_viewCategoryType=0x7f0700e7;
-        public static final int tv_viewConlusion=0x7f0700e0;
-        public static final int tv_viewDailyDate=0x7f0700e1;
-        public static final int tv_viewDailyTotal=0x7f0700e4;
-        public static final int tv_viewExpenseAmount=0x7f0700df;
-        public static final int tv_viewItemAmount=0x7f0700f2;
+        public static final int tv_viewCategoryType=0x7f0700e2;
+        public static final int tv_viewDailyDate=0x7f0700dc;
+        public static final int tv_viewDailyTotal=0x7f0700df;
+        public static final int tv_viewItemAmount=0x7f0700ed;
         public static final int tv_viewItemAmount2=0x7f0700bc;
-        public static final int tv_viewItemCat=0x7f0700f1;
+        public static final int tv_viewItemCat=0x7f0700ec;
         public static final int tv_viewItemCat2=0x7f0700bb;
-        public static final int tv_viewItemName=0x7f0700ef;
+        public static final int tv_viewItemName=0x7f0700ea;
         public static final int tv_viewItemName2=0x7f0700b9;
-        public static final int tv_viewItemUnit=0x7f0700f0;
+        public static final int tv_viewItemUnit=0x7f0700eb;
         public static final int tv_viewItemUnit2=0x7f0700ba;
-        public static final int tv_viewTargetAmount=0x7f0700de;
-        public static final int tv_viewTotalTransacion=0x7f0700ee;
+        public static final int tv_viewTotalTransacion=0x7f0700e9;
     }
     public static final class layout {
         public static final int about=0x7f030000;
@@ -344,13 +339,12 @@ public final class R {
         public static final int update_plan=0x7f030028;
         public static final int upgrade=0x7f030029;
         public static final int view_category=0x7f03002a;
-        public static final int view_compare_plan=0x7f03002b;
-        public static final int view_daily=0x7f03002c;
-        public static final int view_detail_category=0x7f03002d;
-        public static final int view_menu=0x7f03002e;
-        public static final int view_plan=0x7f03002f;
-        public static final int view_transaction=0x7f030030;
-        public static final int view_transaction_item=0x7f030031;
+        public static final int view_daily=0x7f03002b;
+        public static final int view_detail_category=0x7f03002c;
+        public static final int view_menu=0x7f03002d;
+        public static final int view_plan=0x7f03002e;
+        public static final int view_transaction=0x7f03002f;
+        public static final int view_transaction_item=0x7f030030;
     }
     public static final class string {
         public static final int app_name=0x7f050001;

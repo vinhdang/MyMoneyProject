@@ -48,7 +48,7 @@ public class ToolBackup extends Activity {
 		spn_time = (Spinner)findViewById(R.id.spn_toolScheduler);
 		edt_name = (EditText)findViewById(R.id.edt_toolNameFile);
 		ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), 
-				android.R.layout.simple_spinner_item, Publics.listDay);
+				android.R.layout.simple_spinner_item, Publics.listRepeat);
 		
 		/** */
 		btn_backupSave.setOnClickListener(handleSave);	

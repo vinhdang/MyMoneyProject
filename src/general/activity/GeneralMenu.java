@@ -1,15 +1,11 @@
 package general.activity;
 
 import java.util.LinkedList;
-import plan.activity.ManagePlan;
 import setting.activity.ManageSetting;
-import synchronize.activity.Synchronize;
 import tool.activity.ManageTool;
-import view.activity.ManageView;
 import category.activity.ManageCategory;
 import main.activity.About;
 import main.activity.R;
-import main.activity.Upgrade;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -55,25 +51,25 @@ public class GeneralMenu extends Activity {
 					GeneralMenu.this.startActivity(intent);
 				}break;
 				
-				case 1: //View
-				{
-					intent = new Intent(GeneralMenu.this,ManageView.class);
-					Toast.makeText(getApplicationContext(), "Start Manage View ...", Toast.LENGTH_SHORT).show();
-					GeneralMenu.this.startActivity(intent);
-				}break;
-				case 2: //Setting
+//				case 1: //View
+//				{
+//					intent = new Intent(GeneralMenu.this,ManageView.class);
+//					Toast.makeText(getApplicationContext(), "Start Manage View ...", Toast.LENGTH_SHORT).show();
+//					GeneralMenu.this.startActivity(intent);
+//				}break;
+				case 1: //Setting
 				{
 					intent = new Intent(GeneralMenu.this,ManageSetting.class);
 					Toast.makeText(getApplicationContext(), "Start Manage Setting ...", Toast.LENGTH_SHORT).show();
 					GeneralMenu.this.startActivity(intent);
 				}break;
-				case 3: //Tools
+				case 2: //Tools
 				{
 					intent = new Intent(GeneralMenu.this,ManageTool.class);
 					Toast.makeText(getApplicationContext(), "Start Manage Tool ...", Toast.LENGTH_SHORT).show();
 					GeneralMenu.this.startActivity(intent);
 				}break;
-				case 4: //About
+				case 3: //About
 				{
 					intent = new Intent(GeneralMenu.this,About.class);
 					Toast.makeText(getApplicationContext(), "Start About ...", Toast.LENGTH_SHORT).show();
@@ -96,7 +92,7 @@ public class GeneralMenu extends Activity {
 		{
 			context = c;
 			data.add(new ItemData(R.drawable.category_48,"Category"));
-			data.add(new ItemData(R.drawable.view_48,"View"));
+//			data.add(new ItemData(R.drawable.view_48,"View"));
 			data.add(new ItemData(R.drawable.setting_48,"Setting"));
 			data.add(new ItemData(R.drawable.tools_48,"Tools"));
 			data.add(new ItemData(R.drawable.about_48,"About"));
