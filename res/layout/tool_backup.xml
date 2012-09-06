@@ -102,28 +102,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center" >
-
+
                 <Spinner
                     android:id="@+id/spn_toolScheduler"
-                    android:layout_width="70dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1" 
-                    android:visibility="gone"/>
-
-                <TextView
-                    android:id="@+id/tv_toolBackupAt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text=" at " 
-                    android:visibility="gone"/>
+                    android:visibility="gone" />
 
-                <TimePicker
-                    android:id="@+id/timePicker_toolScheduler"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1" 
-                    android:visibility="gone"/>
             </LinearLayout>
 
             <LinearLayout

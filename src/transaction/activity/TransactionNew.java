@@ -5,6 +5,8 @@ import general.activity.General;
 import java.util.Calendar;
 import publics.Publics;
 import main.activity.R;
+import model.repeat.RepeatDataSource;
+import model.repeat.Repeat;
 import model.transaction.Transaction;
 import model.transaction.TransactionDataSource;
 import android.app.Activity;
@@ -24,7 +26,6 @@ import android.widget.Toast;
 
 public class TransactionNew extends Activity {
 	private Button btn_transactionSave;
-	private Button btn_transactionCancel;
 	private TextView pDisplayDate;
 	private Button pPickDate;
 	private int pYear;
@@ -45,7 +46,6 @@ public class TransactionNew extends Activity {
 		
 		//Check the update activity
 		
-		
 		try{
 		update = getIntent().getExtras().getBoolean("update");
 		}
@@ -58,7 +58,6 @@ public class TransactionNew extends Activity {
 		
 		
 		/**Process*/
-		btn_transactionCancel = (Button)findViewById(R.id.btn_transactionAddCancel);
 		btn_transactionSave = (Button)findViewById(R.id.btn_transactionAddOK);
 		pDisplayDate = (TextView) findViewById(R.id.tv_transAddDate);
 	    pPickDate = (Button) findViewById(R.id.btn_transAddDate);
@@ -69,7 +68,6 @@ public class TransactionNew extends Activity {
         pDay = cal.get(Calendar.DAY_OF_MONTH);
 		
 		/**Set function*/
-		btn_transactionCancel.setOnClickListener(handleCancel);
 		btn_transactionSave.setOnClickListener(handleSave);
 		pPickDate.setOnClickListener(handlePickDate);
 		/** Display the current date in the TextView */
@@ -77,53 +75,56 @@ public class TransactionNew extends Activity {
         
         //Fill data for component
         Spinner spnAcc = (Spinner)findViewById(R.id.spn_transactionAddAccount);
-        
         TransactionDataSource tds = new TransactionDataSource(this);
-		tds.open();
-        ArrayAdapter<String> arrAdapAcc = new ArrayAdapter<String>(this,
-        		android.R.layout.simple_spinner_item,tds.getAccountList());
-        spnAcc.setAdapter(arrAdapAcc);
-        
-        Spinner spnCate = (Spinner)findViewById(R.id.spn_transactionAddCategory);
-        
-        ArrayAdapter<String> arrAdapCate = new ArrayAdapter<String>(this,
-        		android.R.layout.simple_spinner_item,tds.getCategoryList());
-        spnCate.setAdapter(arrAdapCate);
-        
-        
-        Spinner spnPay = (Spinner)findViewById(R.id.spn_transactionAddPayMode);
-        ArrayAdapter<String> adapPay = new ArrayAdapter<String>(this,
-        		android.R.layout.simple_spinner_item,Publics.listPayMode);
-        spnPay.setAdapter(adapPay);
-        
-        Spinner spnRepeat = (Spinner)findViewById(R.id.spn_transactionAddRepeat);
-        ArrayAdapter<String> adapRepeat = new ArrayAdapter<String>(this,
-        		android.R.layout.simple_spinner_item,Publics.listRepeat);
-        spnRepeat.setAdapter(adapRepeat);
-        
-       if (update)
-       {
-    	   id = getIntent().getExtras().getInt("POS");   	   
-    	   data = tds.getTransactionById(id);
-    	   
-    	   ((EditText)findViewById(R.id.edt_transactionAddNote)).setText(data.getTransactionNote());
-    	   ((EditText)findViewById(R.id.edt_transactionItemName)).setText(data.getTransactionItem());
-    	   ((TextView)findViewById(R.id.tv_transAddDate)).setText(data.getTransactionDate());
-    	   ((EditText)findViewById(R.id.edt_transactionAddAmount)).setText(String.valueOf(data.getTransactionAmount()));
-    	   ((Spinner)findViewById(R.id.spn_transactionAddAccount)).setSelection(arrAdapAcc.getPosition(data.getTransactionItem()));
-    	   ((Spinner)findViewById(R.id.spn_transactionAddRepeat)).setSelection(adapRepeat.getPosition(data.getTransactionRepeat()));
-    	   ((Spinner)findViewById(R.id.spn_transactionAddPayMode)).setSelection(adapPay.getPosition(data.getTransactionPaymode()));
-    	   ((Spinner)findViewById(R.id.spn_transactionAddCategory)).setSelection(arrAdapCate.getPosition(data.getTransactionCategory()));
-       }
-       
-       tds.close();
+		try{
+	        tds.open();			
+	        ArrayAdapter<String> arrAdapAcc = new ArrayAdapter<String>(this,
+	        		android.R.layout.simple_spinner_item, tds.getAccountList());
+	        spnAcc.setAdapter(arrAdapAcc);
+	        
+	        Spinner spnCate = (Spinner)findViewById(R.id.spn_transactionAddCategory);
+	        
+	        ArrayAdapter<String> arrAdapCate = new ArrayAdapter<String>(this,
+	        		android.R.layout.simple_spinner_item, tds.getCategoryList());
+	        spnCate.setAdapter(arrAdapCate);
+	       
+	        Spinner spnPay = (Spinner)findViewById(R.id.spn_transactionAddPayMode);
+	        ArrayAdapter<String> adapPay = new ArrayAdapter<String>(this,
+	        		android.R.layout.simple_spinner_item, Publics.listPayMode);
+	        spnPay.setAdapter(adapPay);
+	        
+	        Spinner spnRepeat = (Spinner)findViewById(R.id.spn_transactionAddRepeat);
+	        ArrayAdapter<String> adapRepeat = new ArrayAdapter<String>(this,
+	        		android.R.layout.simple_spinner_item, Publics.listRepeat);
+	        spnRepeat.setAdapter(adapRepeat);
+	        
+	       if (update)
+	       {
+	    	   id = getIntent().getExtras().getInt("POS");   	   
+	    	   data = tds.getTransactionById(id);
+	    	   
+	    	   ((EditText)findViewById(R.id.edt_transactionAddNote)).setText(data.getTransactionNote());
+	    	   ((EditText)findViewById(R.id.edt_transactionItemName)).setText(data.getTransactionItem());
+	    	   ((TextView)findViewById(R.id.tv_transAddDate)).setText(data.getTransactionDate());
+	    	   ((EditText)findViewById(R.id.edt_transactionAddAmount)).setText(String.valueOf(data.getTransactionAmount()));
+	    	   ((Spinner)findViewById(R.id.spn_transactionAddAccount)).setSelection(arrAdapAcc.getPosition(data.getTransactionItem()));
+	    	   ((Spinner)findViewById(R.id.spn_transactionAddRepeat)).setSelection(adapRepeat.getPosition(data.getTransactionRepeat()));
+	    	   ((Spinner)findViewById(R.id.spn_transactionAddPayMode)).setSelection(adapPay.getPosition(data.getTransactionPaymode()));
+	    	   ((Spinner)findViewById(R.id.spn_transactionAddCategory)).setSelection(arrAdapCate.getPosition(data.getTransactionCategory()));
+	       }
+	       
+	       tds.close();
+		}catch(Exception ex)
+		{
+			ex.printStackTrace();
+			tds.close();
+		}
 	}
 	
 	/**Click Save*/
 	OnClickListener handleSave = new OnClickListener() {
 		
 		public void onClick(View v) {
-			
 			
 			Transaction trans = new Transaction();
 			trans.setTransactionAccount(((Spinner)findViewById(R.id.spn_transactionAddAccount)).getSelectedItem().toString());
@@ -136,31 +137,40 @@ public class TransactionNew extends Activity {
 			trans.setTransactionNote(((EditText)findViewById(R.id.edt_transactionAddNote)).getText().toString());
 			
 			TransactionDataSource tds = new TransactionDataSource(TransactionNew.this);
-			tds.open();
-			if (update)
+			RepeatDataSource rds = new RepeatDataSource(TransactionNew.this);
+			Repeat r = new Repeat();
+			try{
+				tds.open();
+				rds.open();
+				if (update)
+				{
+					trans.setTransactionId(id);
+					tds.updateTransaction(trans);
+					r.setItem_id(id);
+					r.setSetupDate(trans.getTransactionDate());
+				}
+				else
+				{
+					Transaction tmp = tds.createTransaction(trans);
+					r.setItem_id(tmp.getTransactionId());
+					r.setSetupDate(trans.getTransactionDate());
+				}
+				if(trans.getTransactionRepeat().equals("None") == false)
+					rds.insertRepeat(r);
+				tds.close();
+				rds.close();
+			}catch(Exception ex)
 			{
-				trans.setTransactionId(id);
-				tds.updateTransaction(trans);
+				ex.printStackTrace();
+				tds.close();
+				rds.close();
 			}
-			else
-			{
-				tds.insertTransaction(trans);
-			}
-			tds.close();
 			Intent intent = new Intent(getApplicationContext(),General.class);
 			intent.putExtra("tab", 2);
 			startActivity(intent);
 		}
 	};
-	
-	/**Click Cancel*/
-	OnClickListener handleCancel = new OnClickListener() {
 		
-		public void onClick(View v) {
-			finish();		
-		}
-	};
-	
 	/**Click pickDate*/
 	OnClickListener handlePickDate = new OnClickListener() {
 		
@@ -209,4 +219,6 @@ public class TransactionNew extends Activity {
 	        }
 	        return null;
 	    }
+	    
+	    /**Save info repeat to database*/
 }

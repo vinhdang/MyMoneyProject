@@ -24,10 +24,10 @@
             layout="@layout/top_function" />
 
     </LinearLayout>
-        <ScrollView
+        <ScrollView
             xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
-            android:layout_height="fill_parent" >
+            android:layout_height="wrap_content" >
 
             <TableLayout
                 android:id="@+id/tableLayout1"
@@ -47,13 +47,12 @@
                         android:text="Item:"
                         android:textAppearance="?android:attr/textAppearanceMedium"
                         android:textColor="@color/black" />
-
+
                     <EditText
                         android:id="@+id/edt_transactionItemName"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1.33"
-                        android:text="anchoi" >
+                        android:layout_weight="1.33" >
 
                         <requestFocus />
                     </EditText>
@@ -71,13 +70,12 @@
                         android:text="Amount:"
                         android:textAppearance="?android:attr/textAppearanceMedium"
                         android:textColor="@color/black" />
-
+
                     <EditText
                         android:id="@+id/edt_transactionAddAmount"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1.33"
-                        android:text="2" />
+                        android:layout_weight="1.33" />
 
                 </TableRow>
 
@@ -164,13 +162,12 @@
                         android:text="Note:"
                         android:textAppearance="?android:attr/textAppearanceMedium"
                         android:textColor="@color/black" />
-
+
                     <EditText
                         android:id="@+id/edt_transactionAddNote"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1.33"
-                        android:text="note" />
+                        android:layout_weight="1.33" />
 
                 </TableRow>
 
@@ -213,9 +210,9 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1" />
                 </TableRow>
-
+
                 <TableRow
-                    android:id="@+id/tableRow4"
+                    android:id="@+id/tableRow5"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center" >
@@ -226,14 +223,18 @@
                         android:layout_height="wrap_content"
                         android:text="Save" />
 
-                    <Button
-                        android:id="@+id/btn_transactionAddCancel"
-                        android:layout_width="100dp"
-                        android:layout_height="wrap_content"
-                        android:text="Cancel" />
                 </TableRow>
+
             </TableLayout>
         </ScrollView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center" >
+
+        </LinearLayout>
+
     </LinearLayout>
 
 </LinearLayout>

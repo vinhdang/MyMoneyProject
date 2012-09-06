@@ -1,6 +1,8 @@
 package general.activity;
 
 import java.util.ArrayList;
+import java.util.List;
+
 import billreminder.activity.ManageBillReminder;
 import publics.Publics;
 import report.activity.GraphicActivity;
@@ -12,6 +14,8 @@ import model.bill.Bill;
 import model.bill.BillDataSource;
 import model.category.Category;
 import model.category.CategoryDataSoure;
+import model.repeat.Repeat;
+import model.repeat.RepeatDataSource;
 import model.setting.Setting;
 import model.setting.SettingDataSource;
 import model.transaction.Transaction;
@@ -40,11 +44,14 @@ public class General extends TabActivity {
 	private BillDataSource dataSourceBill;
 	private SettingDataSource dataSourceSet;
 	private TransactionDataSource dataSourceTrans;
+	private String curDate = "";
+	private String past = "";
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) 
 	{
-		/**processing Transaction*/
+		curDate = Publics.getCurrentDay(); // get current date
+		Publics.makeFolder(); //create folder MyMoney if not yet
 		/**Processing Setting*/
 		dataSourceSet = new SettingDataSource(this);
 		Publics.list_Setting = new ArrayList<Setting>();
@@ -60,8 +67,9 @@ public class General extends TabActivity {
 				Publics.list_Setting.add(new Setting(4, "RateSell", "0"));// Save rate sell
 				Publics.list_Setting.add(new Setting(5, "RateBuy", "0"));//Save rate buy
 				Publics.list_Setting.add(new Setting(6, "DateFormat", "dd/MM/yyyy"));//Save date format
-				Publics.list_Setting.add(new Setting(7, "Language", "Vietnamese"));//Save language
+				Publics.list_Setting.add(new Setting(7, "Language", "English"));//Save language
 				Publics.list_Setting.add(new Setting(8, "Backup", ""));//Save schedule backup auto
+				Publics.list_Setting.add(new Setting(9, "DateAccess", curDate));//Save schedule backup auto
 				dataSourceSet.open();
 				for(Setting st : Publics.list_Setting)
 				{
@@ -76,6 +84,14 @@ public class General extends TabActivity {
 				}
 				dataSourceSet.close();
 			}
+			else
+			{
+				dataSourceSet.open();
+				past = Publics.list_Setting.get(Publics.DateAccess_num).getValue(); //get old value
+				Publics.list_Setting.get(Publics.DateAccess_num).setValue(curDate); // set new value
+				dataSourceSet.updateSetting(Publics.list_Setting.get(Publics.DateAccess_num));
+				dataSourceSet.close();
+			}
 		}catch(Exception ex)
 		{
 			ex.printStackTrace();
@@ -88,118 +104,121 @@ public class General extends TabActivity {
 		else
 		{
 			if(Publics.list_Setting.get(1).getValue().equals("") == false)
-				this.showDialog(2);//login
+				if(Publics.login == -1)
+					this.showDialog(2);//login
 		}
+		
+		/**check and autobackup if have*/
+		int c = checkBackup(Publics.list_Setting);
+		autoB(c); // auto backup
+		autoAddTransactionRepeat();
 		
 		/**get all transaction had*/
 		Publics.list_Transaction = new ArrayList<Transaction>();
 		dataSourceTrans = new TransactionDataSource(this);
-		dataSourceTrans.open();
 		try{
+			dataSourceTrans.open();
 			Publics.list_Transaction = dataSourceTrans.getAllTransactions();
+			if(Publics.list_Transaction.size() == 0)
+			{
+				Transaction a = new Transaction("An bun bo", "13/07/2012", (double)20000, "An uong", "Dong A", "An ngon wa",  "Tien mat", "Khong lap");
+				dataSourceTrans.insertTransaction(a);
+				a = new Transaction("Luong Lotteria", "29/07/2012", (double) 1500, "Luong", "HSBC", "", "Card", "Khong lap");
+				dataSourceTrans.insertTransaction(a);
+				a = new Transaction("Day them", "29/07/2012", (double) 1000, "Luong", "HSBC", "", "Card", "Khong lap");
+				dataSourceTrans.insertTransaction(a);
+				a = new Transaction("An sang", "9/07/2012", (double) 15, "An uong", "Dong A", "", "Card", "Khong lap");
+				dataSourceTrans.insertTransaction(a);
+				a = new Transaction("Do xang", "9/07/2012", (double) 50, "Nhien lieu", "Dong A", "", "Card", "Khong lap");
+				dataSourceTrans.insertTransaction(a);
+				a = new Transaction("Com trua", "9/07/2012", (double) 30, "An uong", "Dong A", "", "Card", "Khong lap");
+				dataSourceTrans.insertTransaction(a);
+				a = new Transaction("Cafe", "9/07/2012", (double) 10, "An uong", "Dong A", "", "Card", "Khong lap");
+				dataSourceTrans.insertTransaction(a);
+				a = new Transaction("Luong Lotteria", "29/06/2012", (double) 1500, "Luong", "HSBC", "", "Card", "Khong lap");
+				dataSourceTrans.insertTransaction(a);
+				a = new Transaction("Dong tien hoc", "25/06/2012", (double) 2000, "Phi", "ACB", "", "Card", "Khong lap");
+				dataSourceTrans.insertTransaction(a);
+				a = new Transaction("Tien Dien", "25/06/2012", (double) 800, "Phi", "ACB", "", "Card", "Khong lap");
+				dataSourceTrans.insertTransaction(a);
+				a = new Transaction("Tien nuoc", "24/06/2012", (double) 200, "Phi", "HSBC", "", "Card", "Khong lap");
+				dataSourceTrans.insertTransaction(a);
+				a = new Transaction("Xem phim", "24/06/2012", (double) 150, "Giai tri", "HSBC", "", "Card", "Khong lap");
+				dataSourceTrans.insertTransaction(a);
+				a = new Transaction("Dam cuoi", "22/06/2012", ((double) 500), "Dam tiec", "ACB", "", "Card", "Khong lap");
+				dataSourceTrans.insertTransaction(a);
+				a = new Transaction("Sua xe", "22/06/2012", (double) 100, "Sua chua", "ACB", "", "Card", "Khong lap");
+				dataSourceTrans.insertTransaction(a);
+				a = new Transaction("Mua sam","19/06/2012",(double) 180,"Mua sam", "HSBC", "", "Card", "Khong lap");
+				dataSourceTrans.insertTransaction(a);
+				a = new Transaction("Mua xe","18/07/1991",(double) 25000, "Mua sam", "HSBC", "", "Card", "Khong lap");
+				dataSourceTrans.insertTransaction(a);
+				a = new Transaction("An Sang","14/06/2012",(double) 5,"An uong", "Dong A", "", "Card", "Khong lap");
+				dataSourceTrans.insertTransaction(a);
+				a = new Transaction("Xem phim","14/06/2012",(double) 55,"Giai tri", "HSBC", "", "Card", "Khong lap");
+				dataSourceTrans.insertTransaction(a);
+				Publics.list_Transaction = dataSourceTrans.getAllTransactions();
+			}
+			dataSourceTrans.close();
 		}catch(Exception ex)
 		{
 			ex.printStackTrace();
 			dataSourceTrans.close();
 		}
-		if(Publics.list_Transaction.size() == 0)
-		{
-			Transaction a = new Transaction("An bun bo", "13/07/2012", (double)20000, "An uong", "Dong A", "An ngon wa",  "Tien mat", "Khong lap");
-			dataSourceTrans.insertTransaction(a);
-			a = new Transaction("Luong Lotteria", "29/07/2012", (double) 1500, "Luong", "HSBC", "", "Card", "Khong lap");
-			dataSourceTrans.insertTransaction(a);
-			a = new Transaction("Day them", "29/07/2012", (double) 1000, "Luong", "HSBC", "", "Card", "Khong lap");
-			dataSourceTrans.insertTransaction(a);
-			a = new Transaction("An sang", "9/07/2012", (double) 15, "An uong", "Dong A", "", "Card", "Khong lap");
-			dataSourceTrans.insertTransaction(a);
-			a = new Transaction("Do xang", "9/07/2012", (double) 50, "Nhien lieu", "Dong A", "", "Card", "Khong lap");
-			dataSourceTrans.insertTransaction(a);
-			a = new Transaction("Com trua", "9/07/2012", (double) 30, "An uong", "Dong A", "", "Card", "Khong lap");
-			dataSourceTrans.insertTransaction(a);
-			a = new Transaction("Cafe", "9/07/2012", (double) 10, "An uong", "Dong A", "", "Card", "Khong lap");
-			dataSourceTrans.insertTransaction(a);
-			a = new Transaction("Luong Lotteria", "29/06/2012", (double) 1500, "Luong", "HSBC", "", "Card", "Khong lap");
-			dataSourceTrans.insertTransaction(a);
-			a = new Transaction("Dong tien hoc", "25/06/2012", (double) 2000, "Phi", "ACB", "", "Card", "Khong lap");
-			dataSourceTrans.insertTransaction(a);
-			a = new Transaction("Tien Dien", "25/06/2012", (double) 800, "Phi", "ACB", "", "Card", "Khong lap");
-			dataSourceTrans.insertTransaction(a);
-			a = new Transaction("Tien nuoc", "24/06/2012", (double) 200, "Phi", "HSBC", "", "Card", "Khong lap");
-			dataSourceTrans.insertTransaction(a);
-			a = new Transaction("Xem phim", "24/06/2012", (double) 150, "Giai tri", "HSBC", "", "Card", "Khong lap");
-			dataSourceTrans.insertTransaction(a);
-			a = new Transaction("Dam cuoi", "22/06/2012", ((double) 500), "Dam tiec", "ACB", "", "Card", "Khong lap");
-			dataSourceTrans.insertTransaction(a);
-			a = new Transaction("Sua xe", "22/06/2012", (double) 100, "Sua chua", "ACB", "", "Card", "Khong lap");
-			dataSourceTrans.insertTransaction(a);
-			a = new Transaction("Mua sam","19/06/2012",(double) 180,"Mua sam", "HSBC", "", "Card", "Khong lap");
-			dataSourceTrans.insertTransaction(a);
-			a = new Transaction("Mua xe","18/07/1991",(double) 25000, "Mua sam", "HSBC", "", "Card", "Khong lap");
-			dataSourceTrans.insertTransaction(a);
-			a = new Transaction("An Sang","14/06/2012",(double) 5,"An uong", "Dong A", "", "Card", "Khong lap");
-			dataSourceTrans.insertTransaction(a);
-			a = new Transaction("Xem phim","14/06/2012",(double) 55,"Giai tri", "HSBC", "", "Card", "Khong lap");
-			dataSourceTrans.insertTransaction(a);
-			Publics.list_Transaction = dataSourceTrans.getAllTransactions();
-		}
-		dataSourceTrans.close();
 		/**Processing Account*/
 		Publics.list_Account = new ArrayList<Account>();
 		dataSourceAcc = new AccountDataSource(this);
-		dataSourceAcc.open();
 		try{
+			dataSourceAcc.open();
 			Publics.list_Account = dataSourceAcc.getAllAccounts();
+			if(Publics.list_Account.size() == 0)
+			{
+				Account a = new Account("Dong A", (double)5000, "VND", "");
+				dataSourceAcc.insertAccount(a);
+				a = new Account("HSBC", (double)10000, "VND", "");
+				dataSourceAcc.insertAccount(a);
+				a = new Account("ACB", (double)2000, "VND", "");
+				dataSourceAcc.insertAccount(a);
+				Publics.list_Account = dataSourceAcc.getAllAccounts();
+			}
+			dataSourceAcc.close();
 		}catch(Exception ex)	
 		{
 			ex.printStackTrace();
 			dataSourceAcc.close();
 		}
-		if(Publics.list_Account.size() == 0)
-		{
-			Account a = new Account("Dong A", (double)5000, "VND", "");
-			dataSourceAcc.insertAccount(a);
-			a = new Account("HSBC", (double)10000, "VND", "");
-			dataSourceAcc.insertAccount(a);
-			a = new Account("ACB", (double)2000, "VND", "");
-			dataSourceAcc.insertAccount(a);
-			Publics.list_Account = dataSourceAcc.getAllAccounts();
-		}
-		dataSourceAcc.close();
-
 		/**Processing Category*/
 		Publics.list_Category = new ArrayList<Category>();
 		dataSourceCate = new CategoryDataSoure(this);
 		dataSourceCate.open();
 		try{
 			Publics.list_Category = dataSourceCate.getAllCategorys();
+			if(Publics.list_Category.size() == 0)
+			{
+				Category cate = new Category("An uong", "Chi tieu", "");
+				dataSourceCate.insertCategory(cate);
+				cate = new Category("Dam tiec", "Chi tieu", "");
+				dataSourceCate.insertCategory(cate);
+				cate = new Category("Mua sam", "Chi tieu", "");
+				dataSourceCate.insertCategory(cate);
+				cate = new Category("Luong", "Thu nhap", "");
+				dataSourceCate.insertCategory(cate);
+				cate = new Category("Giai tri", "Chi tieu", "");
+				dataSourceCate.insertCategory(cate);
+				cate = new Category("Sua chua", "Chi tieu", "");
+				dataSourceCate.insertCategory(cate);
+				cate = new Category("Phi", "Chi tieu", "");
+				dataSourceCate.insertCategory(cate);
+				cate = new Category("Nhien lieu", "Chi tieu", "");
+				dataSourceCate.insertCategory(cate);
+				Publics.list_Category = dataSourceCate.getAllCategorys();
+			}
+			dataSourceCate.close();
 		}catch(Exception ex)	
 		{
 			ex.printStackTrace();
 			dataSourceCate.close();
 		}
-		if(Publics.list_Category.size() == 0)
-		{
-			Category cate = new Category("An uong", "Chi tieu", "");
-			dataSourceCate.insertCategory(cate);
-			cate = new Category("Dam tiec", "Chi tieu", "");
-			dataSourceCate.insertCategory(cate);
-			cate = new Category("Mua sam", "Chi tieu", "");
-			dataSourceCate.insertCategory(cate);
-			cate = new Category("Luong", "Thu nhap", "");
-			dataSourceCate.insertCategory(cate);
-			cate = new Category("Giai tri", "Chi tieu", "");
-			dataSourceCate.insertCategory(cate);
-			cate = new Category("Sua chua", "Chi tieu", "");
-			dataSourceCate.insertCategory(cate);
-			cate = new Category("Phi", "Chi tieu", "");
-			dataSourceCate.insertCategory(cate);
-			cate = new Category("Nhien lieu", "Chi tieu", "");
-			dataSourceCate.insertCategory(cate);
-			
-			Publics.list_Category = dataSourceCate.getAllCategorys();
-		}
-		dataSourceCate.close();
-		
 		/**Processing Bill*/
 		dataSourceBill = new BillDataSource(this);
 		Publics.list_Bill = new ArrayList<Bill>();
@@ -268,31 +287,26 @@ public class General extends TabActivity {
 		{
 			Toast.makeText(this, String.valueOf(cTab), Toast.LENGTH_SHORT).show();
 			Publics.tabHost.setCurrentTabByTag("Account");
-			
 		}
 		else if (cTab==2) //transaction
 		{
 			Toast.makeText(this, String.valueOf(cTab), Toast.LENGTH_SHORT).show();
 			Publics.tabHost.setCurrentTabByTag("Transaction");
-			
 		}
 		else if (cTab==3) //bill
 		{
 			Toast.makeText(this, String.valueOf(cTab), Toast.LENGTH_SHORT).show();
 			Publics.tabHost.setCurrentTabByTag("Bill");
-			
 		}
 		else if (cTab==4) //report
 		{
 			Toast.makeText(this, String.valueOf(cTab), Toast.LENGTH_SHORT).show();
 			Publics.tabHost.setCurrentTabByTag("Report");
-			
 		}
 		else if (cTab==5) //menu
 		{
 			Toast.makeText(this, String.valueOf(cTab), Toast.LENGTH_SHORT).show();
 			Publics.tabHost.setCurrentTabByTag("Menu");
-			
 		}
 	}
 	
@@ -432,6 +446,7 @@ public class General extends TabActivity {
 				sdt.close();
 				if(pass.equals(Publics.Password))
 				{
+					Publics.login = 1;
 					return true;
 				}
 				else
@@ -443,6 +458,128 @@ public class General extends TabActivity {
 				ex.printStackTrace();
 				sdt.close();
 				return false;
+			}
+		}
+		
+		/**Check autobackup*/
+		private int checkBackup(List<Setting> lt)
+		{
+			if(lt.size() > 0)
+			{
+				Setting s = lt.get(Publics.Backup_num);
+				if(s.getValue().equals("None"))
+					return 0;
+				else if(s.getValue().equals("Daily"))
+					return 1;
+				else if(s.getValue().equals("Weekly"))
+					return 2;
+				else if(s.getValue().equals("Monthly"))
+					return 3;
+				else
+					return 0;
+			}
+			return 0;
+		}
+		
+		/**Process backup*/
+		private void autoB(int flag)
+		{
+			long rs = 0;
+//			String past = Publics.list_Setting.get(Publics.DateAccess_num).getValue();
+			rs = Publics.CalculateDate(curDate, past);
+			switch (flag) {
+				case 0 : break;
+				case 1: // daily
+				{
+					if(rs == 1)
+					{
+						Publics.AutoBackup();
+					}
+				}break;
+				case 2: // weekly
+				{
+					if(rs == 7)
+					{
+						Publics.AutoBackup();
+					}
+				}break;
+				case 3: // monthly
+				{
+					if(rs == 29)
+					{
+						Publics.AutoBackup();
+					}
+				}break;
+				default: break;
+			}
+		}
+		
+		/**Auto insert transaction if have repeat*/
+		private void autoAddTransactionRepeat()
+		{
+			List<Repeat> list = new ArrayList<Repeat>();
+			RepeatDataSource rds = new RepeatDataSource(General.this);
+			try{
+				rds.open();
+				list = rds.getAllRepeats(); // get all to process transaction repeat
+				rds.close();
+			}catch(Exception ex)
+			{
+				ex.printStackTrace();
+				rds.close();
+			}
+			if(list.size() > 0)
+			{
+				TransactionDataSource tds = new TransactionDataSource(General.this);
+				long rs = 0;
+				try{
+					tds.open();
+					rds.open();
+					for(Repeat r : list) // processs each transaction repeat
+					{
+						Transaction temp = tds.getTransactionById(r.getItem_id());
+						if(temp != null)
+						{
+							if(temp.getTransactionRepeat().equals("Daily"))
+							{
+								rs = Publics.CalculateDate(curDate, r.getSetupDate());
+								if(rs == 1)
+								{
+									tds.insertTransaction(temp);
+									r.setSetupDate(curDate);
+									rds.updateRepeat(r);
+								}
+							}
+							else if(temp.getTransactionRepeat().equals("Weekly"))
+							{
+								rs = Publics.CalculateDate(curDate, r.getSetupDate());
+								if(rs == 7)
+								{
+									tds.insertTransaction(temp);
+									r.setSetupDate(curDate);
+									rds.updateRepeat(r);
+								}
+							}
+							else if(temp.getTransactionRepeat().equals("Monthly"))
+							{
+								rs = Publics.CalculateDate(curDate, r.getSetupDate());
+								if(rs == 29)
+								{
+									tds.insertTransaction(temp);
+									r.setSetupDate(curDate);
+									rds.updateRepeat(r);
+								}
+							}
+						}
+					}
+					tds.close();
+					rds.close();
+				}catch(Exception ex)
+				{
+					ex.printStackTrace();
+					tds.close();
+					rds.close();
+				}
 			}
 		}
 }

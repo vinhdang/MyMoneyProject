@@ -1,6 +1,11 @@
 package publics;
 
 import general.activity.General;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.nio.channels.FileChannel;
 import java.text.DecimalFormat;
 import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
@@ -21,6 +26,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Environment;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -39,7 +45,7 @@ public class Publics {
 		"-13481860","-4693234","-3475868","-15652540"};
 	
 	public final static	 String[]  listPayMode = {"Cash", "Credit Card", "Check"};
-	public final static	 String[]  listRepeat = {"Dayly","Weekly","Monthly"};
+	public final static	 String[]  listRepeat = {"None", "Daily","Weekly","Monthly"};
 	
 	public static List<Transaction> list_Transaction;
 	public static List<Category> list_Category; 
@@ -52,6 +58,7 @@ public class Publics {
 	public static int paramToMngTrans = -1;
 	public static String UseName = "";
 	public static String Password = "";
+	public static int login = -1;
 	public static String FormatDate = "dd/MM/yyyy";
 	
 	public static int Pass_num = 1;
@@ -61,6 +68,7 @@ public class Publics {
 	public static int DateFormat_num = 5;
 	public static int Language_num = 6;
 	public static int Backup_num = 7;
+	public static int DateAccess_num = 8;
 	
 	//VuTuyen
 	public static final int REQ_NEW_ACCOUNT = 				1;
@@ -259,5 +267,72 @@ public class Publics {
 			ex.printStackTrace();
 		}
 		return rs;
+	}
+	
+	/**Calculate date*/
+	public static long CalculateDate(String Now, String Past)
+	{
+		long ddays = 0 ;
+		try{
+			Calendar calendar1 = Calendar.getInstance();
+		    Calendar calendar2 = Calendar.getInstance();
+		    String[] tmp1 = Past.split("/");
+		    calendar1.set(Calendar.YEAR, Integer.parseInt(tmp1[2]));
+		    calendar1.set(Calendar.MONTH, (Integer.parseInt(tmp1[1]) - 1));
+		    calendar1.set(Calendar.DAY_OF_MONTH, Integer.parseInt(tmp1[0]));
+		    
+		    String[] tmp2 = Now.split("/");
+		    calendar2.set(Calendar.YEAR, Integer.parseInt(tmp2[2]));
+		    calendar2.set(Calendar.MONTH, (Integer.parseInt(tmp2[1]) - 1));
+		    calendar2.set(Calendar.DAY_OF_MONTH, Integer.parseInt(tmp2[0]));
+		    
+		    long milsecs1= calendar1.getTimeInMillis();
+		    long milsecs2 = calendar2.getTimeInMillis();
+		    long diff = milsecs2 - milsecs1;
+		    ddays = diff / (24 * 60 * 60 * 1000);
+		}catch(Exception ex)
+		{
+			ex.printStackTrace();
+		}
+	    return ddays;
+	}
+	
+	/**Auto backup*/
+	public static void AutoBackup()
+	{
+		String[] t = Publics.getCurrentDay().split("/");
+		String date = t[0] + t[1] + t[2];
+		try {
+	        File sd = Environment.getExternalStorageDirectory();
+	        File data = Environment.getDataDirectory();
+	        if (sd.canWrite()) {
+	            String currentDBPath = "//data//main.activity//databases//Database.db";
+	            String tmp = "Database" + "_" +date + ".db";
+	            String backupDBPath = tmp;
+	            File newFolder = new File("mnt/sdcard/MyMoney/");
+//	            newFolder.mkdirs();
+	            File currentDB = new File(data, currentDBPath);
+	            File backupDB = new File(newFolder, backupDBPath);
+
+                FileChannel src = new FileInputStream(currentDB).getChannel();
+                FileChannel dst = new FileOutputStream(backupDB).getChannel();
+                dst.transferFrom(src, 0, src.size());
+                src.close();
+                dst.close();
+	        }
+	    } catch (Exception e) 
+	    {
+	    	e.printStackTrace();
+	    }		    
+	}
+	
+	/**Make new folder if not exits*/
+	public static void makeFolder()
+	{
+		File f = new File(Environment.getExternalStorageDirectory() + "/MyMoney");
+		if(f.isDirectory() == false && f.exists() == false) 
+		{
+			f.mkdirs();
+		}
 	}
 }

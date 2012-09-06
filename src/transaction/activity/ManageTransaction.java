@@ -42,7 +42,7 @@ public class ManageTransaction extends Activity {
 	private List<String> daily ;
 	private List<String> month ;
 	private int pos;
-	private static int indexMonth = 0;
+	private int indexMonth = 0;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -61,8 +61,8 @@ public class ManageTransaction extends Activity {
 		}
 		
 		list_transMonth = new ArrayList<Transaction>();
-//		if(daily == null)
-		daily = new ArrayList<String>();
+		if(daily == null)
+			daily = new ArrayList<String>();
 		if(month == null)
 			month = new ArrayList<String>();
 		
@@ -291,7 +291,7 @@ public class ManageTransaction extends Activity {
 			Publics.paramToMngTrans = -1;
 			filterData(Publics.paramToMngTrans);
 			handleMonth();
-			elv_transaction.setAdapter(ExpAdapter);;
+			elv_transaction.setAdapter(ExpAdapter);
 			btn_transactionNext.setVisibility(View.GONE);
 			btn_transactionPrev.setVisibility(View.VISIBLE);
 		}
@@ -312,14 +312,22 @@ public class ManageTransaction extends Activity {
 		 else if(requestCode == Publics.REQ_NEW_TRANSACTION )
 		 {
 			 TransactionDataSource t = new TransactionDataSource(this);
-			 t.open();
-			 list_trans = t.getAllTransactions();
-			 t.close();
-			 
-			 filterData(-1);// filter and set adapter		
-			 handleMonth();
-			 elv_transaction.setAdapter(ExpAdapter);
-			 Toast.makeText(getApplicationContext(), "Update list.....2", Toast.LENGTH_SHORT).show();
+			 try{
+				 t.open();
+				 Publics.list_Transaction = t.getAllTransactions();
+				 t.close();
+			 }catch(Exception ex)
+			 {
+				 ex.printStackTrace();
+				 t.close();
+			 }
+			 if(Publics.list_Transaction.size() > 0)
+			 {
+				 filterData(-1);// filter and set adapter		
+				 handleMonth();
+				 elv_transaction.setAdapter(ExpAdapter);
+				 Toast.makeText(getApplicationContext(), "Update list", Toast.LENGTH_SHORT).show();
+			 }
 		 }
 	}
 	
@@ -342,53 +350,62 @@ public class ManageTransaction extends Activity {
 			list_trans.clear();
 			list_trans = Publics.list_Transaction;
 		}
-		List<String> dayTemp = new ArrayList<String>();
-		for(int k=0 ; k<list_trans.size() ; k++)
+		if(list_trans.size() > 0)
 		{
-			dayTemp.add(list_trans.get(k).getTransactionDate());
+			List<String> dayTemp = new ArrayList<String>();
+			for(int k=0 ; k<list_trans.size() ; k++)
+			{
+				dayTemp.add(list_trans.get(k).getTransactionDate());
+			}
+			daily.clear();
+			daily = Publics.getUniqueDate(dayTemp);
+			ExpListItems = SetStandardGroups(list_trans);
+			ExpAdapter = new ExpandTransAdapter(ManageTransaction.this, ExpListItems);
 		}
-		daily.clear();
-		daily = Publics.getUniqueDate(dayTemp);
-		ExpListItems = SetStandardGroups(list_trans);
-		ExpAdapter = new ExpandTransAdapter(ManageTransaction.this, ExpListItems);
 	}
 	
 	/**process next and previous*/
 	private void handleMonth()
 	{
-		month.clear();
-		month = Publics.getUniqueMonth(daily);
-		monthAdapter = new ArrayAdapter<String>(getApplicationContext()
-				, android.R.layout.simple_spinner_item, month);
-		spn_Month.setAdapter(monthAdapter);
-		if(month.size() == 1)
-			indexMonth = 0;
-		else
-			indexMonth = (month.size() -1);
-		spn_Month.setSelection(indexMonth);
+		if(daily.size() > 0)
+		{
+			month.clear();
+			month = Publics.getUniqueMonth(daily);
+			monthAdapter = new ArrayAdapter<String>(getApplicationContext()
+					, android.R.layout.simple_spinner_item, month);
+			spn_Month.setAdapter(monthAdapter);
+			if(month.size() == 1)
+				indexMonth = 0;
+			else
+				indexMonth = (month.size() -1);
+			spn_Month.setSelection(indexMonth);
+		}
 	}
 	
 	/**process listview follow month*/
 	private void handleChoose(String key)
 	{
-		list_transMonth.clear();
-		for(Transaction t : list_trans)
+		if(list_trans.size() > 0)
 		{
-			if(t.getTransactionDate().contains(key))
+			list_transMonth.clear();
+			for(Transaction t : list_trans)
 			{
-				list_transMonth.add(t);
+				if(t.getTransactionDate().contains(key))
+				{
+					list_transMonth.add(t);
+				}
 			}
+			List<String> dayTemp = new ArrayList<String>();
+			for(int k=0 ; k<list_transMonth.size() ; k++)
+			{
+				dayTemp.add(list_transMonth.get(k).getTransactionDate());
+			}
+			daily.clear();
+			daily = Publics.getUniqueDate(dayTemp);
+			ExpListItems = SetStandardGroups(list_transMonth);
+			ExpAdapter = new ExpandTransAdapter(ManageTransaction.this, ExpListItems);
+			elv_transaction.setAdapter(ExpAdapter);
 		}
-		List<String> dayTemp = new ArrayList<String>();
-		for(int k=0 ; k<list_transMonth.size() ; k++)
-		{
-			dayTemp.add(list_transMonth.get(k).getTransactionDate());
-		}
-		daily.clear();
-		daily = Publics.getUniqueDate(dayTemp);
-		ExpListItems = SetStandardGroups(list_transMonth);
-		ExpAdapter = new ExpandTransAdapter(ManageTransaction.this, ExpListItems);
-		elv_transaction.setAdapter(ExpAdapter);
 	}
 	
 	@Override

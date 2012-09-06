@@ -31,16 +31,16 @@ public class TransactionDataSource {
 	    dbHelper.close();
 	  }
 	  // insert new transaction
-	  public Transaction createTransaction(String _item, double _amount, String _account, String _category, String _note, String _date, String _paymode, String _repeat) {
+	  public Transaction createTransaction(Transaction trans) {
 		    ContentValues cv = new ContentValues();
-		    cv.put(SQLiteDB.TItem, _item);
-	        cv.put(SQLiteDB.TAmount, _amount);
-	        cv.put(SQLiteDB.TAccount,_account);
-	        cv.put(SQLiteDB.TCategory, _category);
-	        cv.put(SQLiteDB.TNote, _note);
-	        cv.put(SQLiteDB.TDate, _date);
-	        cv.put(SQLiteDB.TPaymode, _paymode);
-	        cv.put(SQLiteDB.TRepeat, _repeat);
+		    cv.put(SQLiteDB.TItem, trans.getTransactionItem());
+	        cv.put(SQLiteDB.TAmount, trans.getTransactionAmount());
+	        cv.put(SQLiteDB.TAccount,trans.getTransactionAccount());
+	        cv.put(SQLiteDB.TCategory, trans.getTransactionCategory());
+	        cv.put(SQLiteDB.TNote, trans.getTransactionNote());
+	        cv.put(SQLiteDB.TDate, trans.getTransactionDate());
+	        cv.put(SQLiteDB.TPaymode, trans.getTransactionPaymode());
+	        cv.put(SQLiteDB.TRepeat, trans.getTransactionRepeat());
 		    long insertId = database.insert(SQLiteDB.TABLE_TRANS, null,
 		        cv);
 		    Cursor cursor = database.query(SQLiteDB.TABLE_ACCOUNT,
@@ -63,7 +63,7 @@ public class TransactionDataSource {
 			cv.put(SQLiteDB.TDate, trans.getTransactionDate());
 		    cv.put(SQLiteDB.TAmount ,trans.getTransactionAmount());
 		    cv.put(SQLiteDB.TCategory, trans.getTransactionCategory());
-		    cv.put(SQLiteDB.TAccount,trans.getTransactionAccount());
+		    cv.put(SQLiteDB.TAccount, trans.getTransactionAccount());
 		    cv.put(SQLiteDB.TNote, trans.getTransactionNote());
 		    cv.put(SQLiteDB.TPaymode, trans.getTransactionPaymode());
 		    cv.put(SQLiteDB.TRepeat, trans.getTransactionRepeat());		    

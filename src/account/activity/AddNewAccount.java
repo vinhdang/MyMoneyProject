@@ -31,6 +31,7 @@ public class AddNewAccount extends Activity {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.new_account);
+		Publics.topFunction(this);
 		dataSource = new AccountDataSource(this);
 		dataSource.open();
 		

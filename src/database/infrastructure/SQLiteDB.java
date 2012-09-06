@@ -48,7 +48,10 @@ public class SQLiteDB extends SQLiteOpenHelper {
 	 public static final String SId = "id";
 	 public static final String SItem = "item";
 	 public static final String SValue = "value";
-	
+	 /**Table Repeat*/
+	 public static final String RId = "id";
+	 public static final String RItem = "itemid";//save id of transaction have repeat
+	 public static final String RSetupDate = "setdate";
 	/**Name and version Database*/ 
 	public static final String DB_NAME = "Database.db";
 	public static final String TABLE_ACCOUNT = "Account";
@@ -57,11 +60,11 @@ public class SQLiteDB extends SQLiteOpenHelper {
 	public static final String TABLE_TRANS = "Transactions";
 	public static final String TABLE_BILL = "Bill";
 	public static final String TABLE_SETTING = "Setting";
+	public static final String TABLE_REPEAT = "Repeat";
 	public static final int DB_VERSION = 3;
 	
 	public SQLiteDB(Context context) {
 	    super(context, DB_NAME, null, DB_VERSION);
-	
 	  }
 	
 	@Override
@@ -74,6 +77,7 @@ public class SQLiteDB extends SQLiteOpenHelper {
 	        db.execSQL("CREATE TABLE Transactions(id integer primary key autoincrement, item text, tdate text, amount double, category text, account text, note text, paymode text, repeat text);");
 	        db.execSQL("CREATE TABLE Bill(id integer primary key autoincrement, item text, amount double, category text, dueday text, note text, notification text, repeat text);");
 	        db.execSQL("CREATE TABLE Setting(id integer primary key, item text, value text);");
+	        db.execSQL("CREATE TABLE Repeat(id integer primary key autoincrement, itemid integer, setdate text);");
          }
          catch(SQLException ex)
          {
@@ -92,6 +96,7 @@ public class SQLiteDB extends SQLiteOpenHelper {
 	        db.execSQL("DROP TABLE IF EXISTS Transactions");
 	        db.execSQL("DROP TABLE IF EXISTS Bill");
 	        db.execSQL("DROP TABLE IF EXISTS Setting");
+	        db.execSQL("DROP TABLE IF EXISTS Repeat");
 	        onCreate(db);
 		}
 		catch(SQLException ex)
