@@ -1,7 +1,6 @@
 package model.transaction;
 
 public class Transaction {
-	private String transactionName;
 	private int transactionId;
 	private String transactionItem;
 	private Double transactionAmount;
@@ -38,12 +37,6 @@ public class Transaction {
 		this.transactionId= transactionId;
 	}
 	/*Name*/
-	public String getTransactionName() {
-		return transactionName;
-	}
-	public void setTransactionName(String transactionName) {
-		this.transactionName = transactionName;
-	}
 	/*Item*/
 	public String getTransactionItem() {
 		return transactionItem;

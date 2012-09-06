@@ -49,7 +49,7 @@ public class TransactionAdapter extends BaseAdapter {
 			TextView tv_amount = (TextView)v.findViewById(R.id.tv_viewItemAmount);
 			TextView tv_cate = (TextView)v.findViewById(R.id.tv_viewItemCat);
 			
-			tv_name.setText(listTransaction.get(arg0).getTransactionName());
+			tv_name.setText(listTransaction.get(arg0).getTransactionItem());
 			tv_unit.setText("VND");
 			tv_amount.setText(Publics.formatNumber(listTransaction.get(arg0).getTransactionAmount()));
 			tv_cate.setText(listTransaction.get(arg0).getTransactionCategory());

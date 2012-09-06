@@ -87,7 +87,8 @@ public class General extends TabActivity {
 		}
 		else
 		{
-			this.showDialog(2);//login
+			if(Publics.list_Setting.get(1).getValue().equals("") == false)
+				this.showDialog(2);//login
 		}
 		
 		/**get all transaction had*/
@@ -346,7 +347,7 @@ public class General extends TabActivity {
 			                     {
 				                    Publics.list_Setting.get(0).setValue(Publics.UseName);
 				                    Publics.list_Setting.get(1).setValue(Publics.Password);
-			                    	 SettingDataSource sdt = new SettingDataSource(General.this);
+			                    	SettingDataSource sdt = new SettingDataSource(General.this);
 				         			try{
 				         				sdt.open();
 				         				sdt.updateSetting(Publics.list_Setting.get(0));
@@ -369,7 +370,7 @@ public class General extends TabActivity {
 				}
 				case 2:
 				{
-					LayoutInflater factory = LayoutInflater.from(General.this);
+					 LayoutInflater factory = LayoutInflater.from(General.this);
 			         final View textEntryView = factory.inflate(R.layout.login, null);
 			         return new AlertDialog.Builder(General.this)
 			             .setTitle("Login")
@@ -420,8 +421,7 @@ public class General extends TabActivity {
 				return true;
 			}
 		}
-		
-		
+				
 		/**Check login*/
 		private boolean checkLogin(String pass)
 		{
