@@ -43,6 +43,7 @@ public class ManageTransaction extends Activity {
 	private List<String> month ;
 	private int pos;
 	private int indexMonth = 0;
+	TransactionDataSource tds;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -50,10 +51,10 @@ public class ManageTransaction extends Activity {
 		setContentView(R.layout.transaction_list);
 		list_trans = new ArrayList<Transaction>();
 
-		TransactionDataSource tds = new TransactionDataSource(this);
+		tds = new TransactionDataSource(this);
 		try{
 			tds.open();
-			list_trans = tds.getAllTransactions();
+			Publics.list_Transaction = tds.getAllTransactions();
 			tds.close();
 		}catch(Exception ex)
 		{
@@ -334,6 +335,17 @@ public class ManageTransaction extends Activity {
 	/**process transaction with account*/
 	private void filterData(int p)
 	{
+		tds = new TransactionDataSource(ManageTransaction.this);
+		try{
+			tds.open();
+			Publics.list_Transaction.clear();
+			Publics.list_Transaction = tds.getAllTransactions();
+			tds.close();
+		}catch(Exception ex)
+		{
+			ex.printStackTrace();
+			tds.close();
+		}
 		if(p != -1)
 		{
 			Account acc = Publics.list_Account.get(p);

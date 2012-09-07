@@ -1,5 +1,6 @@
 package billreminder.activity;
 
+import general.activity.General;
 import publics.Publics;
 import main.activity.R;
 import model.bill.Bill;
@@ -17,6 +18,7 @@ public class BillDetail extends Activity {
 	private BillDataSource dataSource;
 	private Bill bill;
 	private int pos = -1;
+	private int id;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -29,6 +31,8 @@ public class BillDetail extends Activity {
 		TextView tvDay = (TextView)findViewById(R.id.tv_dueDay);
 		TextView tvNote = (TextView)findViewById(R.id.tv_note);
 		
+		
+		
 		Intent intent = getIntent();
 		if(intent != null)
 		{
@@ -36,7 +40,12 @@ public class BillDetail extends Activity {
 			if(pos != -1)
 			{
 				bill = new Bill();
-				bill = Publics.list_Bill.get(pos);
+				if (intent.getBooleanExtra("paid", true))
+					bill = Publics.list_PaidBill.get(pos);
+				else
+					bill = Publics.list_UpcomingBill.get(pos);
+				
+				id = bill.getBillId();
 				tvName.setText(bill.getBillItem());
 				tvCate.setText(bill.getBillCategory());
 				tvDay.setText(bill.getBillDueDay());
@@ -45,13 +54,14 @@ public class BillDetail extends Activity {
 			}
 		}
 		
+		
 		//Update button
 		Button btnUpdate = (Button)findViewById(R.id.btn_update);
 		btnUpdate.setOnClickListener(new OnClickListener() {
 			
 			public void onClick(View v) {
 				Intent intentUpdateAccount = new Intent(BillDetail.this, UpdateBillReminder.class);
-				intentUpdateAccount.putExtra("POS", pos);
+				intentUpdateAccount.putExtra("POS", id);
 				startActivity(intentUpdateAccount);			
 			}
 		});
@@ -67,13 +77,17 @@ public class BillDetail extends Activity {
 								if(bill !=null)
 								{
 									try{
-										Publics.list_Bill.remove(bill);
+										if (bill.billType==0) //paid
+											Publics.list_PaidBill.remove(bill);
+										else
+											Publics.list_UpcomingBill.remove(bill);
 										dataSource.open();
 										dataSource.deleteBill(bill);
 										dataSource.close();
-										Intent i = new Intent(getApplicationContext(), ManageBillReminder.class);
-										startActivity(i);
-										finish();
+										Intent intent = new Intent(getApplicationContext(),General.class);
+										intent.putExtra("tab", 3);
+										startActivity(intent);
+										
 									}catch(Exception ex)
 									{
 										ex.printStackTrace();

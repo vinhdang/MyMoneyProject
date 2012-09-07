@@ -26,69 +26,66 @@
                 android:id="@android:id/tabcontent"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" >
-
+
                 <LinearLayout
                     android:id="@+id/tab_paidbill"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" >
+                    android:layout_height="match_parent"
+                    android:orientation="vertical" >
 
-					  <RelativeLayout
-					      android:layout_width="match_parent"
-					      android:layout_height="wrap_content"
-					      android:layout_marginBottom="10px"
-					      android:layout_marginTop="0px"
-					      android:background="@color/blue" >
-				
-				        <TextView
-				            android:id="@+id/tv_trans_name"
-				            android:layout_width="wrap_content"
-				            android:layout_height="wrap_content"
-				            android:layout_alignParentLeft="true"
-				            android:layout_alignParentTop="true"
-				            android:text="Name"
-				            android:textColor="@color/orange"
-           					android:textStyle="bold" />
-				
-				
-				        <TextView
-				            android:id="@+id/tv_trans_date"
-				            android:layout_width="wrap_content"
-				            android:layout_height="wrap_content"
-				            android:layout_alignParentTop="true"
-				            android:layout_centerHorizontal="true"
-				            android:text="Due Date"
-				            android:textColor="@color/orange"
-           					android:textStyle="bold"/>
-				
-				        <TextView
-				            android:id="@+id/tv_trans_balance"
-				            android:layout_width="wrap_content"
-				            android:layout_height="wrap_content"
-				            android:layout_alignParentRight="true"
-				            android:layout_alignParentTop="true"
-				            android:text="Amount"
-				            android:textColor="@color/orange"
-           					android:textStyle="bold"/>
-				            android:text="Name" />
-				
-				
-				        
-				
-				    </RelativeLayout>
-                    <ListView
-                        android:id="@+id/lv_paidBill"
+                    <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1" >
+                        android:layout_marginBottom="10px"
+                        android:layout_marginTop="0px"
+                        android:background="@color/blue" >
 
-                    </ListView>
+                        <TextView
+                            android:id="@+id/tv_trans_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentLeft="true"
+                            android:layout_alignParentTop="true"
+                            android:text="Name"
+                            android:textColor="@color/orange"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/tv_trans_date"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentTop="true"
+                            android:layout_centerHorizontal="true"
+                            android:text="Due Date"
+                            android:textColor="@color/orange"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/tv_trans_balance"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_alignParentTop="true"
+                            android:text="Amount"
+                            android:textColor="@color/orange"
+                            android:textStyle="bold" />
+                    </RelativeLayout>
+
+					  <ListView
+					      android:id="@+id/lv_paidBill"
+					      android:layout_width="match_parent"
+					      android:layout_height="match_parent"
+					      android:layout_weight="1" >
+
+					  </ListView>
 
                 </LinearLayout>
-
+
                 <LinearLayout
                     android:id="@+id/tab_upcomingbill"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" >
+                    android:layout_height="match_parent"
+                    android:orientation="vertical" >
 				
                 	<RelativeLayout
                 	    android:layout_width="match_parent"

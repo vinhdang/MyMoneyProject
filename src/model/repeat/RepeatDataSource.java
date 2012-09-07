@@ -103,6 +103,27 @@ public class RepeatDataSource {
 		        return newS;
 		    }
 		  
+		  //Get Repeat by id item//
+		  public Repeat getRepeatByIdItem(int item_id)
+		    {
+			  	Repeat newS = null;
+			  	try{
+				  	Cursor mCursor = database.query(true, SQLiteDB.TABLE_REPEAT, 
+				  			allColumns, SQLiteDB.RItem + "=" + item_id, null, null, null, null, null);
+			        if(mCursor != null)
+			        {
+			            mCursor.moveToFirst();
+			        }
+			        newS = cursorToRepeat(mCursor);
+			        mCursor.close();
+		        }
+		        catch(Exception ex)
+		        {
+		        	ex.printStackTrace();
+		        }
+		        return newS;
+		    }
+		  
 		  /**Update*/
 		  public boolean updateRepeat(Repeat set)
 		  {

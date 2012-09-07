@@ -8,8 +8,9 @@ public class Bill{
 	public String billNote;
 	public String billNotification;
 	public String billRepeat;
+	public int billType;
 	
-	public Bill(int id, String item, double amount, String category, String dueday, String note, String notification, String repeat ){
+	public Bill(int id, String item, double amount, String category, String dueday, String note, String notification, String repeat, int type ){
 		this.billId = id;
 		this.billItem = item;
 		this.billAmount = amount;
@@ -18,6 +19,7 @@ public class Bill{
 		this.billNote = note;
 		this.billNotification = notification;
 		this.billRepeat = repeat;
+		this.billType = type;
 	}
 	
 	public Bill()
@@ -79,5 +81,11 @@ public class Bill{
 	}
 	public void setBillRepeat(String repeat){
 		this.billRepeat = repeat;
+	}	
+	public int getBillType(){
+		return this.billType;
+	}
+	public void setBillType(int type){
+		this.billType = type;
 	}	
 }

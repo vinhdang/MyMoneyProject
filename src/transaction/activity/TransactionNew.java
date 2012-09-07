@@ -14,6 +14,8 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
@@ -139,25 +141,38 @@ public class TransactionNew extends Activity {
 			
 			TransactionDataSource tds = new TransactionDataSource(TransactionNew.this);
 			RepeatDataSource rds = new RepeatDataSource(TransactionNew.this);
-			Repeat r = new Repeat();
+			Repeat r ;
 			try{
 				tds.open();
 				rds.open();
 				if (update)
 				{
-					r.setSetupDate(trans.getTransactionDate());
-					trans.setTransactionId(id);
-					tds.updateTransaction(trans);
-					r.setItem_id(id);
+					trans.setTransactionId(id);//
+					tds.updateTransaction(trans);//
+					r = rds.getRepeatByIdItem(id);//
+					if(r == null)//
+					{//
+						r = new Repeat();//
+						r.setSetupDate(trans.getTransactionDate());//
+						r.setItem_id(id);//
+					}
+					else//
+					{	//
+						r.setSetupDate(trans.getTransactionDate());//
+						r.setItem_id(id);//
+						if(trans.getTransactionRepeat().equals("None"))//
+							rds.deleteItem(r);//
+					}//
 				}
 				else
 				{
+					r = new Repeat();
 					r.setSetupDate(trans.getTransactionDate());
 					Transaction tmp = tds.createTransaction(trans);
 					r.setItem_id(tmp.getTransactionId());
 				}
 				if(trans.getTransactionRepeat().equals("None") == false)
-					rds.insertRepeat(r);
+					rds.insertRepeat(r);					
 				tds.close();
 				rds.close();
 			}catch(Exception ex)
@@ -190,7 +205,6 @@ public class TransactionNew extends Activity {
 	                    pMonth = monthOfYear;
 	                    pDay = dayOfMonth;
 	                    updateDisplay();
-	                    displayToast();
 	                }
 	            };
 	            
@@ -202,12 +216,6 @@ public class TransactionNew extends Activity {
                     .append(pYear).append(" ");
 	    	    	pDisplayDate.setText(Publics.formatDate(Publics.FormatDate, tmp.toString()));
 	    	    }
-	    
-	    /** Displays a notification when the date is updated */
-	    private void displayToast() {
-	        Toast.makeText(this, new StringBuilder().append("Date choosen is ").append(pDisplayDate.getText()),  Toast.LENGTH_SHORT).show();
-	             
-	    }
 	    
 	    /** Create a new dialog for date picker */
 	    @Override
@@ -221,5 +229,22 @@ public class TransactionNew extends Activity {
 	        return null;
 	    }
 	    
-	    /**Save info repeat to database*/
+	    @Override
+		public boolean onCreateOptionsMenu(Menu menu) {
+			menu.add("Exit");
+			return super.onCreateOptionsMenu(menu);
+		}
+		@Override
+		public boolean onOptionsItemSelected(MenuItem item) {
+			if(item.getTitle() == "Exit")//exit
+			{
+				Intent intent = new Intent(Intent.ACTION_MAIN);
+				intent.addCategory(Intent.CATEGORY_HOME);
+				intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+				startActivity(intent);
+			    finish();
+			    System.exit(0);
+			}
+			return super.onOptionsItemSelected(item);
+		}
 }

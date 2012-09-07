@@ -56,12 +56,14 @@
                         android:text="Item name"
                         android:textAppearance="?android:attr/textAppearanceLarge"
                         android:textColor="@color/black" />
-
+
                     <EditText
                         android:id="@+id/edt_itemName"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:ems="10" />
+                        android:ems="10"
+                        android:text="" />
+
                 </TableRow>
 
                 <TableRow
@@ -76,12 +78,15 @@
                         android:text="Amount"
                         android:textAppearance="?android:attr/textAppearanceLarge"
                         android:textColor="@color/black" />
-
+
                     <EditText
                         android:id="@+id/edt_amount"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:ems="10" />
+                        android:ems="10"
+                        android:hint="x 1000 VNĐ"
+                        android:inputType="number" />
+
                 </TableRow>
 
                 <TableRow
@@ -141,12 +146,14 @@
                         android:text="Note"
                         android:textAppearance="?android:attr/textAppearanceLarge"
                         android:textColor="@color/black" />
-
+
                     <EditText
                         android:id="@+id/edt_note"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:ems="10" />
+                        android:ems="10"
+                        android:text="" />
+
                 </TableRow>
 
                 <TableRow
@@ -191,6 +198,18 @@
                     android:id="@+id/tableRow9"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" >
+                    <TextView
+                        android:id="@+id/textView55"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Type"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:textColor="@color/black" />
+
+                    <Spinner
+                        android:id="@+id/spn_type"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
                 </TableRow>
             </TableLayout>
 

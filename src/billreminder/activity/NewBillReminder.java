@@ -1,5 +1,7 @@
 package billreminder.activity;
 
+import general.activity.General;
+
 import java.util.Calendar;
 
 import publics.Publics;
@@ -14,8 +16,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -40,10 +45,6 @@ public class NewBillReminder extends Activity {
 //		pDisplayDate = (TextView) findViewById(R.id.tv_billAddDate);
 	    pPickDate = (Button) findViewById(R.id.btn_billAddDate);
 	    /** Get the current date */
-	    final Calendar cal = Calendar.getInstance();
-        pYear = cal.get(Calendar.YEAR);
-        pMonth = cal.get(Calendar.MONTH);
-        pDay = cal.get(Calendar.DAY_OF_MONTH);
         
         /**Set function*/
 		pPickDate.setOnClickListener(handlePickDate);
@@ -52,27 +53,84 @@ public class NewBillReminder extends Activity {
         
         //function for home button
         Publics.topFunction(this);
+        
+        
+        //07/09/2012 mvt add
+        
+        BillDataSource bds = new BillDataSource(this);
+        
+        bds.open();
+        
+        Spinner spnCate = (Spinner)findViewById(R.id.spn_category);
+        
+        ArrayAdapter<String> arrAdapCate = new ArrayAdapter<String>(this,
+        		android.R.layout.simple_spinner_item, bds.getCategoryList());
+        spnCate.setAdapter(arrAdapCate);
+        
+        
+        //repeat
+        Spinner spnRepeat = (Spinner)findViewById(R.id.spn_repeat);
+        ArrayAdapter<String> adapRepeat = new ArrayAdapter<String>(this,
+        		android.R.layout.simple_spinner_item, Publics.listRepeat);
+        spnRepeat.setAdapter(adapRepeat);
+        
+        
+        //notifi
+        Spinner spnNotifi = (Spinner)findViewById(R.id.spn_notification);
+        ArrayAdapter<String> adapRNotifi= new ArrayAdapter<String>(this,
+        		android.R.layout.simple_spinner_item, Publics.listNotification);
+        spnNotifi.setAdapter(adapRNotifi);
+        
+        //type
+        Spinner spnType = (Spinner)findViewById(R.id.spn_type);
+        ArrayAdapter<String> adapType= new ArrayAdapter<String>(this,
+        		android.R.layout.simple_spinner_item, Publics.listBillType);
+        spnType.setAdapter(adapType);
+        
+        bds.close();
+        
+        ((Button)findViewById(R.id.btn_save)).setOnClickListener(handleSave);
 	}
 	
 	/**Click button Save*/
 	android.view.View.OnClickListener handleSave = new OnClickListener() {
 		
 		public void onClick(View v) {
-			if(bill !=null )
+			try
 			{
-				try{
-					dataSource.open();
-					dataSource.insertBill(bill);
-					dataSource.close();
-					Publics.list_Bill.add(bill);
-					Intent i = new Intent(getApplicationContext(), ManageBillReminder.class);
-					startActivity(i);
-					finish();
-				}catch(Exception ex)
-				{
-					ex.printStackTrace();
-				}
+				bill.setBillItem(((EditText)findViewById(R.id.edt_itemName)).getText().toString());
+				bill.setBillAmount(Double.parseDouble(((EditText)findViewById(R.id.edt_amount)).getText().toString()));
+				bill.setBillCategory(((Spinner)findViewById(R.id.spn_category)).getSelectedItem().toString());
+				String date = Publics.formatDate(Publics.FormatDate, ((Button)findViewById(R.id.btn_billAddDate)).getText().toString());
+				bill.setBillDueDay(date);
+				bill.setBillNote(((EditText)findViewById(R.id.edt_note)).getText().toString());
+				bill.setBillNotification(((Spinner)findViewById(R.id.spn_notification)).getSelectedItem().toString());
+				bill.setBillRepeat(((Spinner)findViewById(R.id.spn_repeat)).getSelectedItem().toString());
+				if (((Spinner)findViewById(R.id.spn_type)).getSelectedItem().toString().equals(Publics.listBillType[0]))
+					bill.setBillType(0);
+				else
+					bill.setBillType(1);
 			}
+			catch (Exception e)
+			{
+				
+			}
+			try{
+				dataSource.open();
+				dataSource.insertBill(bill);
+				dataSource.close();
+				if (bill.getBillType()==0)
+					Publics.list_PaidBill.add(bill);
+				else
+					Publics.list_UpcomingBill.add(bill);
+				Intent intent = new Intent(getApplicationContext(),General.class);
+				intent.putExtra("tab", 3);
+				startActivity(intent);
+			}catch(Exception ex)
+			{
+				ex.printStackTrace();
+			}
+			
 		}
 	};
 	
@@ -94,7 +152,6 @@ public class NewBillReminder extends Activity {
 	                    pMonth = monthOfYear;
 	                    pDay = dayOfMonth;
 	                    updateDisplay();
-	                    displayToast();
 	                }
 	            };
 	            
@@ -102,17 +159,13 @@ public class NewBillReminder extends Activity {
 	    	    private void updateDisplay() {
 	    	        pPickDate.setText(
 	    	            new StringBuilder()
-	    	                    // Month is 0 based so add 1
-	    	                    .append(pMonth + 1).append("/")
+	    	                    // Month is 0 based so add 1    
 	    	                    .append(pDay).append("/")
-	    	                    .append(pYear).append(" "));
+	    	                    .append(pMonth + 1).append("/")
+	    	                    .append(pYear));
 	    	    }
 	    
 	    /** Displays a notification when the date is updated */
-	    private void displayToast() {
-	        Toast.makeText(this, new StringBuilder().append("Date choosen is ").append(pDisplayDate.getText()),  Toast.LENGTH_SHORT).show();
-	             
-	    }
 	    
 	    /** Create a new dialog for date picker */
 	    @Override

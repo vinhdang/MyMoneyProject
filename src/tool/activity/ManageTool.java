@@ -7,6 +7,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -15,7 +17,6 @@ import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class ManageTool extends Activity {
 	GridView gv_menuTool;
@@ -42,31 +43,26 @@ public class ManageTool extends Activity {
 			case 0: // Handle event Click icon Backup
 			{
 				Intent i = new Intent(getApplicationContext(), ToolBackup.class);
-				Toast.makeText(getApplicationContext(), "Backup......", Toast.LENGTH_SHORT).show();
 				startActivity(i);
 			}break;
 			case 3: // Handle event Click icon Export
 			{
 				Intent i = new Intent(getApplicationContext(), ToolExport.class);
-				Toast.makeText(getApplicationContext(), "Export......", Toast.LENGTH_SHORT).show();
 				startActivity(i);
 			}break;
 			case 4: // Handle event Click icon Exchange
 			{
 				Intent i = new Intent(getApplicationContext(), ToolExchange.class);
-				Toast.makeText(getApplicationContext(), "Exchange......", Toast.LENGTH_SHORT).show();
 				startActivity(i);
 			}break;
 			case 2: // Handle event Click icon Send file
 			{
 				Intent i = new Intent(getApplicationContext(), SendFileExport.class);
-				Toast.makeText(getApplicationContext(), "Send file......", Toast.LENGTH_SHORT).show();
 				startActivity(i);
 			}break;
 			case 1: // Handle event Click icon Restore
 			{
 				Intent i = new Intent(getApplicationContext(), ToolRestore.class);
-				Toast.makeText(getApplicationContext(), "Restore......", Toast.LENGTH_SHORT).show();
 				startActivity(i);
 			}break;
 			default: break;
@@ -118,7 +114,7 @@ public class ManageTool extends Activity {
 				} else if (mobile.equals("Import")){
 					iv.setImageResource(R.drawable.import_);
 				} else
-					iv.setImageResource(R.drawable.restore);
+					iv.setImageResource(R.drawable.mailbox);
 			}
 			else
 			{
@@ -128,5 +124,23 @@ public class ManageTool extends Activity {
 		}
 	
 	}
-
+	
+	 @Override
+		public boolean onCreateOptionsMenu(Menu menu) {
+			menu.add("Exit");
+			return super.onCreateOptionsMenu(menu);
+		}
+		@Override
+		public boolean onOptionsItemSelected(MenuItem item) {
+			if(item.getTitle() == "Exit")//exit
+			{
+				Intent intent = new Intent(Intent.ACTION_MAIN);
+				intent.addCategory(Intent.CATEGORY_HOME);
+				intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+				startActivity(intent);
+			    finish();
+			    System.exit(0);
+			}
+			return super.onOptionsItemSelected(item);
+		}
 }

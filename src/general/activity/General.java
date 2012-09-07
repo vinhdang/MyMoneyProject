@@ -2,7 +2,6 @@ package general.activity;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import billreminder.activity.ManageBillReminder;
 import publics.Publics;
 import report.activity.GraphicActivity;
@@ -32,7 +31,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.Toast;
 import android.widget.TabHost.TabSpec;
 
 import model.transaction.TransactionDataSource;
@@ -126,14 +124,6 @@ public class General extends TabActivity {
 				dataSourceTrans.insertTransaction(a);
 				a = new Transaction("Luong Lotteria", "29/07/2012", (double) 1500, "Luong", "HSBC", "", "Card", "None");
 				dataSourceTrans.insertTransaction(a);
-				a = new Transaction("Day them", "29/07/2012", (double) 1000, "Luong", "HSBC", "", "Card", "None");
-				dataSourceTrans.insertTransaction(a);
-				a = new Transaction("An sang", "9/07/2012", (double) 15, "An uong", "Dong A", "", "Card", "None");
-				dataSourceTrans.insertTransaction(a);
-				a = new Transaction("Do xang", "9/07/2012", (double) 50, "Nhien lieu", "Dong A", "", "Card", "None");
-				dataSourceTrans.insertTransaction(a);
-				a = new Transaction("Com trua", "9/07/2012", (double) 30, "An uong", "Dong A", "", "Card", "None");
-				dataSourceTrans.insertTransaction(a);
 				a = new Transaction("Cafe", "9/07/2012", (double) 10, "An uong", "Dong A", "", "Card", "None");
 				dataSourceTrans.insertTransaction(a);
 				a = new Transaction("Luong Lotteria", "29/06/2012", (double) 1500, "Luong", "HSBC", "", "Card", "None");
@@ -142,21 +132,9 @@ public class General extends TabActivity {
 				dataSourceTrans.insertTransaction(a);
 				a = new Transaction("Tien Dien", "25/06/2012", (double) 800, "Phi", "ACB", "", "Card", "None");
 				dataSourceTrans.insertTransaction(a);
-				a = new Transaction("Tien nuoc", "24/06/2012", (double) 200, "Phi", "HSBC", "", "Card", "None");
-				dataSourceTrans.insertTransaction(a);
-				a = new Transaction("Xem phim", "24/06/2012", (double) 150, "Giai tri", "HSBC", "", "Card", "None");
-				dataSourceTrans.insertTransaction(a);
-				a = new Transaction("Dam cuoi", "22/06/2012", ((double) 500), "Dam tiec", "ACB", "", "Card", "None");
-				dataSourceTrans.insertTransaction(a);
-				a = new Transaction("Sua xe", "22/06/2012", (double) 100, "Sua chua", "ACB", "", "Card", "None");
-				dataSourceTrans.insertTransaction(a);
 				a = new Transaction("Mua sam","19/06/2012",(double) 180,"Mua sam", "HSBC", "", "Card", "None");
 				dataSourceTrans.insertTransaction(a);
 				a = new Transaction("Mua xe","18/07/1991",(double) 25000, "Mua sam", "HSBC", "", "Card", "None");
-				dataSourceTrans.insertTransaction(a);
-				a = new Transaction("An Sang","14/06/2012",(double) 5,"An uong", "Dong A", "", "Card", "None");
-				dataSourceTrans.insertTransaction(a);
-				a = new Transaction("Xem phim","14/06/2012",(double) 55,"Giai tri", "HSBC", "", "Card", "None");
 				dataSourceTrans.insertTransaction(a);
 				Publics.list_Transaction = dataSourceTrans.getAllTransactions();
 			}
@@ -286,45 +264,37 @@ public class General extends TabActivity {
 		
 		if (cTab==1) //Account
 		{
-			Toast.makeText(this, String.valueOf(cTab), Toast.LENGTH_SHORT).show();
 			Publics.tabHost.setCurrentTabByTag("Account");
 		}
 		else if (cTab==2) //transaction
 		{
-			Toast.makeText(this, String.valueOf(cTab), Toast.LENGTH_SHORT).show();
 			Publics.tabHost.setCurrentTabByTag("Transaction");
 		}
 		else if (cTab==3) //bill
 		{
-			Toast.makeText(this, String.valueOf(cTab), Toast.LENGTH_SHORT).show();
 			Publics.tabHost.setCurrentTabByTag("Bill");
 		}
 		else if (cTab==4) //report
 		{
-			Toast.makeText(this, String.valueOf(cTab), Toast.LENGTH_SHORT).show();
 			Publics.tabHost.setCurrentTabByTag("Report");
 		}
 		else if (cTab==5) //menu
 		{
-			Toast.makeText(this, String.valueOf(cTab), Toast.LENGTH_SHORT).show();
 			Publics.tabHost.setCurrentTabByTag("Menu");
 		}
 	}
 	
 	@Override
 	  protected void onResume() {
-		dataSourceCate.open();
-		dataSourceAcc.open();
 	    super.onResume();
 	  }
 
 	  @Override
 	  protected void onPause() {
-		dataSourceCate.close();
-		dataSourceAcc.close();
 	    super.onPause();
 	  }
 	  
+
 	  @Override
 		public boolean onCreateOptionsMenu(Menu menu) {
 			menu.add("Exit");
@@ -335,9 +305,11 @@ public class General extends TabActivity {
 			if(item.getTitle() == "Exit")//exit
 			{
 				Intent intent = new Intent(Intent.ACTION_MAIN);
-			    intent.addCategory(Intent.CATEGORY_HOME);
-			    startActivity(intent);
-			    finish();
+				intent.addCategory(Intent.CATEGORY_HOME);
+				intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+				startActivity(intent);
+			    General.this.finish();
+			    System.exit(0);
 			}
 			return super.onOptionsItemSelected(item);
 		}
@@ -380,6 +352,12 @@ public class General extends TabActivity {
 			             .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
 			                 public void onClick(DialogInterface dialog, int whichButton) {
 			                	 dialog.cancel();
+			                	 Intent intent = new Intent(Intent.ACTION_MAIN);
+			                	 intent.addCategory(Intent.CATEGORY_HOME);
+			                	 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+			                	 startActivity(intent);
+		         			     finish();
+		         			     System.exit(0);
 			                 }
 			             })
 			             .create();
@@ -405,9 +383,11 @@ public class General extends TabActivity {
 			                 public void onClick(DialogInterface dialog, int whichButton) {
 			                	 dialog.cancel();
 			                	 Intent intent = new Intent(Intent.ACTION_MAIN);
-		         			     intent.addCategory(Intent.CATEGORY_HOME);
-		         			     startActivity(intent);
+			                	 intent.addCategory(Intent.CATEGORY_HOME);
+			                	 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+			                	 startActivity(intent);
 		         			     finish();
+		         			     System.exit(0);
 			                 }
 			             })
 			             .create();
@@ -543,7 +523,8 @@ public class General extends TabActivity {
 								rs = Publics.CalculateDate(curDate, r.getSetupDate());
 								if(rs == 1)
 								{
-									tds.insertTransaction(temp);
+									temp = tds.createTransaction(temp);//
+									r.setItem_id(temp.getTransactionId());//
 									r.setSetupDate(curDate);
 									rds.updateRepeat(r);
 								}

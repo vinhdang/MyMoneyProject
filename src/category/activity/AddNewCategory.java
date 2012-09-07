@@ -5,6 +5,8 @@ import model.category.Category;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
@@ -55,4 +57,23 @@ public class AddNewCategory extends Activity {
 			startActivity(i);
 		}
 	};
+	
+	 @Override
+		public boolean onCreateOptionsMenu(Menu menu) {
+			menu.add("Exit");
+			return super.onCreateOptionsMenu(menu);
+		}
+		@Override
+		public boolean onOptionsItemSelected(MenuItem item) {
+			if(item.getTitle() == "Exit")//exit
+			{
+				Intent intent = new Intent(Intent.ACTION_MAIN);
+				intent.addCategory(Intent.CATEGORY_HOME);
+				intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+				startActivity(intent);
+			    finish();
+			    System.exit(0);
+			}
+			return super.onOptionsItemSelected(item);
+		}
 }

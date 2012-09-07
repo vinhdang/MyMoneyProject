@@ -15,7 +15,7 @@ public class BillDataSource {
 	  private SQLiteDatabase database;
 	  private SQLiteDB dbHelper;
 	  private String[] allColumns = { SQLiteDB.BId,
-			  SQLiteDB.BItem, SQLiteDB.BAmount, SQLiteDB.BCategory, SQLiteDB.BDueday, SQLiteDB.BNote, SQLiteDB.BNotification, SQLiteDB.BRepeat};
+			  SQLiteDB.BItem, SQLiteDB.BAmount, SQLiteDB.BCategory, SQLiteDB.BDueday, SQLiteDB.BNote, SQLiteDB.BNotification, SQLiteDB.BRepeat, SQLiteDB.BType};
 
 	  public BillDataSource(Context context) {
 	    dbHelper = new SQLiteDB(context);
@@ -29,7 +29,7 @@ public class BillDataSource {
 	    dbHelper.close();
 	  }
 	  // insert new bill
-	  public Bill createBill(String _item, double _amount, String _category, String _dueday, String _note, String _notification, String _repeat ) {
+	  public Bill createBill(String _item, double _amount, String _category, String _dueday, String _note, String _notification, String _repeat, int _billtype ) {
 		    ContentValues cv = new ContentValues();
 		    cv.put(SQLiteDB.BItem, _item);
 	        cv.put(SQLiteDB.BAmount,_amount);
@@ -38,6 +38,7 @@ public class BillDataSource {
 	        cv.put(SQLiteDB.BNote, _note);
 	        cv.put(SQLiteDB.BNotification, _notification);
 	        cv.put(SQLiteDB.BRepeat, _repeat);
+	        cv.put(SQLiteDB.BType, _billtype);
 		    long insertId = database.insert(SQLiteDB.TABLE_BILL, null,
 		        cv);
 		    Cursor cursor = database.query(SQLiteDB.TABLE_BILL,
@@ -61,6 +62,7 @@ public class BillDataSource {
 	        cv.put(SQLiteDB.BNote, bill.getBillNote());
 	        cv.put(SQLiteDB.BNotification, bill.getBillNotification());
 	        cv.put(SQLiteDB.BRepeat, bill.getBillRepeat());
+	        cv.put(SQLiteDB.BType, bill.getBillType());
 	        try{
 	        	database.insert(SQLiteDB.TABLE_BILL, null, cv);
 	        }catch(Exception ex)
@@ -97,11 +99,53 @@ public class BillDataSource {
 		    cursor.close();
 	    }catch(Exception ex)
 	    {
+	    	
 	    	ex.printStackTrace();
 	    }    
 	    return Bills;
 	  }
-	  
+	  //get all paid bill
+	  public List<Bill> getAllPaidBills() {
+	    List<Bill> Bills = new ArrayList<Bill>();
+	    try{
+	    	Cursor cursor = database.query(SQLiteDB.TABLE_BILL,
+	        allColumns, SQLiteDB.BType + "=0", null, null, null, null);
+	    	cursor.moveToFirst();
+		    while (!cursor.isAfterLast()) {
+		      Bill bill = cursorToBill(cursor);
+		      Bills.add(bill);
+		      cursor.moveToNext();
+		    }
+		    // Make sure to close the cursor
+		    cursor.close();
+	    }catch(Exception ex)
+	    {
+	    	
+	    	ex.printStackTrace();
+	    }    
+	    return Bills;
+	  }  
+	  //get all upcoming bill
+	  public List<Bill> getAllUpcomingBills() {
+	    List<Bill> Bills = new ArrayList<Bill>();
+	    try{
+	    	Cursor cursor = database.query(SQLiteDB.TABLE_BILL,
+	        allColumns, SQLiteDB.BType + "=1", null, null, null, null);
+	    	cursor.moveToFirst();
+		    while (!cursor.isAfterLast()) {
+		      Bill bill = cursorToBill(cursor);
+		      Bills.add(bill);
+		      cursor.moveToNext();
+		    }
+		    // Make sure to close the cursor
+		    cursor.close();
+	    }catch(Exception ex)
+	    {
+	    	
+	    	ex.printStackTrace();
+	    }    
+	    return Bills;
+	  }  
 	  //Update bill
 	  public boolean updateBill(Bill bill)
 	  {
@@ -115,6 +159,7 @@ public class BillDataSource {
 		        cv.put(SQLiteDB.BNote, bill.getBillNote());
 		        cv.put(SQLiteDB.BNotification, bill.getBillNotification());
 		        cv.put(SQLiteDB.BRepeat, bill.getBillRepeat());
+		        cv.put(SQLiteDB.BType, bill.getBillType());
 		        try{
 		        	database.update(SQLiteDB.TABLE_BILL, cv, SQLiteDB.BId + "=" + bill.getBillId(), null);
 		        }catch(Exception ex)
@@ -158,6 +203,22 @@ public class BillDataSource {
 		    bill.setBillNote(cursor.getString(5));
 		    bill.setBillNotification(cursor.getString(6));
 		    bill.setBillRepeat(cursor.getString(7));
+		    bill.setBillType(cursor.getInt(8));
 		    return bill;
+	  }
+	  public String[] getCategoryList()
+	  {
+		  Cursor cu = database.query(SQLiteDB.TABLE_CATE,
+				  new String[]{SQLiteDB.CName}, null, null, null, null, null);
+		  cu.moveToFirst();
+		  String[] rs = new String[cu.getCount()];
+		  int i=0;
+		  while (!cu.isAfterLast())
+		  {
+			  rs[i++] = cu.getString(0);
+			  cu.moveToNext();
+		  }
+		  cu.close();
+		  return rs;
 	  }
 }

@@ -37,7 +37,7 @@ public class Publics {
 	public final static  String[]  listSpinnerView = {"All", "Daily","Category"};
 	public final static  String[]  listGridMenuTool = {"Backup","Restore","SendFileToEmail","Export","Exchange"}; 
 	public final static  String[]  listCurrency = {"VND", "USD-US"};
-	public final static  String[]  listLanguage = {"Vietnamese", "English"};
+	public final static  String[]  listLanguage = {"English", "Vietnamese"};
 	public final static  String[]  listDateFormat = {"dd/MM/yyyy", "MM/dd/yyyy"};
 	public final static  String[]  listCategoryType = {"Chi tieu", "Thu nhap"};
 //	public final static	 String[]  listDay = {"1 day", "2 day", "1 week", "1 month"};
@@ -47,6 +47,8 @@ public class Publics {
 	
 	public final static	 String[]  listPayMode = {"Cash", "Credit Card", "Check"};
 	public final static	 String[]  listRepeat = {"None", "Daily","Weekly","Monthly"};
+	public final static	 String[]  listNotification = {"Notification bar"};
+	public final static	 String[]  listBillType = {"Paid Bill", "Upcoming Bill"};
 	
 	public static List<Transaction> list_Transaction;
 	public static List<Category> list_Category; 
@@ -54,6 +56,8 @@ public class Publics {
 	public static List<Plan>	list_Plan;
 	public static List<Bill>	list_Bill;
 	public static List<Setting> list_Setting;
+	public static List<Bill>	list_PaidBill;
+	public static List<Bill>	list_UpcomingBill;
 	public static TabHost tabHost;
 	
 	public static int paramToMngTrans = -1;
@@ -107,7 +111,8 @@ public class Publics {
 			public void onClick(View v) {
 				Intent intent = new Intent(c,General.class);
 				intent.putExtra("tab", 1);
-				c.startActivity(intent);				
+				c.startActivity(intent);
+				((Activity)c).finish();
 			}
 		});
 		
@@ -116,7 +121,8 @@ public class Publics {
 			public void onClick(View v) {
 				Intent intent = new Intent(c,General.class);
 				intent.putExtra("tab", 2);
-				c.startActivity(intent);			
+				c.startActivity(intent);	
+				((Activity)c).finish();
 			}
 		});
 		
@@ -125,7 +131,8 @@ public class Publics {
 			public void onClick(View v) {
 				Intent intent = new Intent(c,General.class);
 				intent.putExtra("tab", 3);
-				c.startActivity(intent);		
+				c.startActivity(intent);	
+				((Activity)c).finish();
 			}
 		});
 		
@@ -134,7 +141,8 @@ public class Publics {
 			public void onClick(View v) {
 				Intent intent = new Intent(c,General.class);
 				intent.putExtra("tab", 4);
-				c.startActivity(intent);			
+				c.startActivity(intent);	
+				((Activity)c).finish();
 			}
 		});
 		
@@ -144,6 +152,7 @@ public class Publics {
 				Intent intent = new Intent(c,General.class);
 				intent.putExtra("tab", 5);
 				c.startActivity(intent);
+				((Activity)c).finish();
 				
 			}
 		});

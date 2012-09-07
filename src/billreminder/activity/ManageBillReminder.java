@@ -2,6 +2,8 @@ package billreminder.activity;
 
 import publics.Publics;
 import main.activity.R;
+import model.bill.Bill;
+import model.bill.BillDataSource;
 import model.bill.BillReminderAdapter;
 import android.app.TabActivity;
 import android.content.Intent;
@@ -30,19 +32,30 @@ public class ManageBillReminder extends TabActivity {
 		
 		/**List paid bill*/
 		ListView lv_paidBill = (ListView)findViewById(R.id.lv_paidBill);
-		lv_paidBill.setAdapter(new BillReminderAdapter(this, Publics.list_Bill));
+		
+		BillDataSource bds = new BillDataSource(this);
+		
+		bds.open();
+		Publics.list_PaidBill = bds.getAllPaidBills();
+		
+		
+		lv_paidBill.setAdapter(new BillReminderAdapter(this, Publics.list_PaidBill));
 		
 		/**List upcoming bill*/
+		Publics.list_UpcomingBill = bds.getAllUpcomingBills();
+		bds.close();
 		ListView lv_upcomingBill = (ListView)findViewById(R.id.lv_upcomingBill);
-		lv_upcomingBill.setAdapter(new BillReminderAdapter(this, Publics.list_Bill));
+		lv_upcomingBill.setAdapter(new BillReminderAdapter(this, Publics.list_UpcomingBill));
 		
 		
 		lv_upcomingBill.setOnItemClickListener(new OnItemClickListener() {
 
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
-				Intent intentUpdateAccount = new Intent(ManageBillReminder.this, BillDetail.class);
-				startActivityForResult(intentUpdateAccount,Publics.REQ_VIEW_ACCOUNT);
+				Intent intent = new Intent(ManageBillReminder.this, BillDetail.class);
+				intent.putExtra("POS", arg2);
+				intent.putExtra("paid",false);
+				startActivityForResult(intent,Publics.REQ_VIEW_ACCOUNT);
 				
 			}
 		});
@@ -51,8 +64,10 @@ public class ManageBillReminder extends TabActivity {
 
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
-				Intent intentUpdateAccount = new Intent(ManageBillReminder.this, BillDetail.class);
-				startActivityForResult(intentUpdateAccount,Publics.REQ_VIEW_ACCOUNT);			
+				Intent intent = new Intent(ManageBillReminder.this, BillDetail.class);
+				intent.putExtra("POS", arg2);
+				intent.putExtra("paid", true);
+				startActivityForResult(intent,Publics.REQ_VIEW_ACCOUNT);			
 			}
 		});
 	}
