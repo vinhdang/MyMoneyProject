@@ -103,7 +103,8 @@ public class General extends TabActivity {
 		}
 		else
 		{
-			if(Publics.list_Setting.get(1).getValue().equals("") == false)
+			String p = Publics.list_Setting.get(1).getValue();
+			if(p.equals("") == false)
 				if(Publics.login == -1)
 					this.showDialog(2);//login
 		}
@@ -121,41 +122,41 @@ public class General extends TabActivity {
 			Publics.list_Transaction = dataSourceTrans.getAllTransactions();
 			if(Publics.list_Transaction.size() == 0)
 			{
-				Transaction a = new Transaction("An bun bo", "13/07/2012", (double)20000, "An uong", "Dong A", "An ngon wa",  "Tien mat", "Khong lap");
+				Transaction a = new Transaction("An bun bo", "13/07/2012", (double)20000, "An uong", "Dong A", "An ngon wa",  "Tien mat", "None");
 				dataSourceTrans.insertTransaction(a);
-				a = new Transaction("Luong Lotteria", "29/07/2012", (double) 1500, "Luong", "HSBC", "", "Card", "Khong lap");
+				a = new Transaction("Luong Lotteria", "29/07/2012", (double) 1500, "Luong", "HSBC", "", "Card", "None");
 				dataSourceTrans.insertTransaction(a);
-				a = new Transaction("Day them", "29/07/2012", (double) 1000, "Luong", "HSBC", "", "Card", "Khong lap");
+				a = new Transaction("Day them", "29/07/2012", (double) 1000, "Luong", "HSBC", "", "Card", "None");
 				dataSourceTrans.insertTransaction(a);
-				a = new Transaction("An sang", "9/07/2012", (double) 15, "An uong", "Dong A", "", "Card", "Khong lap");
+				a = new Transaction("An sang", "9/07/2012", (double) 15, "An uong", "Dong A", "", "Card", "None");
 				dataSourceTrans.insertTransaction(a);
-				a = new Transaction("Do xang", "9/07/2012", (double) 50, "Nhien lieu", "Dong A", "", "Card", "Khong lap");
+				a = new Transaction("Do xang", "9/07/2012", (double) 50, "Nhien lieu", "Dong A", "", "Card", "None");
 				dataSourceTrans.insertTransaction(a);
-				a = new Transaction("Com trua", "9/07/2012", (double) 30, "An uong", "Dong A", "", "Card", "Khong lap");
+				a = new Transaction("Com trua", "9/07/2012", (double) 30, "An uong", "Dong A", "", "Card", "None");
 				dataSourceTrans.insertTransaction(a);
-				a = new Transaction("Cafe", "9/07/2012", (double) 10, "An uong", "Dong A", "", "Card", "Khong lap");
+				a = new Transaction("Cafe", "9/07/2012", (double) 10, "An uong", "Dong A", "", "Card", "None");
 				dataSourceTrans.insertTransaction(a);
-				a = new Transaction("Luong Lotteria", "29/06/2012", (double) 1500, "Luong", "HSBC", "", "Card", "Khong lap");
+				a = new Transaction("Luong Lotteria", "29/06/2012", (double) 1500, "Luong", "HSBC", "", "Card", "None");
 				dataSourceTrans.insertTransaction(a);
-				a = new Transaction("Dong tien hoc", "25/06/2012", (double) 2000, "Phi", "ACB", "", "Card", "Khong lap");
+				a = new Transaction("Dong tien hoc", "25/06/2012", (double) 2000, "Phi", "ACB", "", "Card", "None");
 				dataSourceTrans.insertTransaction(a);
-				a = new Transaction("Tien Dien", "25/06/2012", (double) 800, "Phi", "ACB", "", "Card", "Khong lap");
+				a = new Transaction("Tien Dien", "25/06/2012", (double) 800, "Phi", "ACB", "", "Card", "None");
 				dataSourceTrans.insertTransaction(a);
-				a = new Transaction("Tien nuoc", "24/06/2012", (double) 200, "Phi", "HSBC", "", "Card", "Khong lap");
+				a = new Transaction("Tien nuoc", "24/06/2012", (double) 200, "Phi", "HSBC", "", "Card", "None");
 				dataSourceTrans.insertTransaction(a);
-				a = new Transaction("Xem phim", "24/06/2012", (double) 150, "Giai tri", "HSBC", "", "Card", "Khong lap");
+				a = new Transaction("Xem phim", "24/06/2012", (double) 150, "Giai tri", "HSBC", "", "Card", "None");
 				dataSourceTrans.insertTransaction(a);
-				a = new Transaction("Dam cuoi", "22/06/2012", ((double) 500), "Dam tiec", "ACB", "", "Card", "Khong lap");
+				a = new Transaction("Dam cuoi", "22/06/2012", ((double) 500), "Dam tiec", "ACB", "", "Card", "None");
 				dataSourceTrans.insertTransaction(a);
-				a = new Transaction("Sua xe", "22/06/2012", (double) 100, "Sua chua", "ACB", "", "Card", "Khong lap");
+				a = new Transaction("Sua xe", "22/06/2012", (double) 100, "Sua chua", "ACB", "", "Card", "None");
 				dataSourceTrans.insertTransaction(a);
-				a = new Transaction("Mua sam","19/06/2012",(double) 180,"Mua sam", "HSBC", "", "Card", "Khong lap");
+				a = new Transaction("Mua sam","19/06/2012",(double) 180,"Mua sam", "HSBC", "", "Card", "None");
 				dataSourceTrans.insertTransaction(a);
-				a = new Transaction("Mua xe","18/07/1991",(double) 25000, "Mua sam", "HSBC", "", "Card", "Khong lap");
+				a = new Transaction("Mua xe","18/07/1991",(double) 25000, "Mua sam", "HSBC", "", "Card", "None");
 				dataSourceTrans.insertTransaction(a);
-				a = new Transaction("An Sang","14/06/2012",(double) 5,"An uong", "Dong A", "", "Card", "Khong lap");
+				a = new Transaction("An Sang","14/06/2012",(double) 5,"An uong", "Dong A", "", "Card", "None");
 				dataSourceTrans.insertTransaction(a);
-				a = new Transaction("Xem phim","14/06/2012",(double) 55,"Giai tri", "HSBC", "", "Card", "Khong lap");
+				a = new Transaction("Xem phim","14/06/2012",(double) 55,"Giai tri", "HSBC", "", "Card", "None");
 				dataSourceTrans.insertTransaction(a);
 				Publics.list_Transaction = dataSourceTrans.getAllTransactions();
 			}
@@ -366,6 +367,7 @@ public class General extends TabActivity {
 				         				sdt.open();
 				         				sdt.updateSetting(Publics.list_Setting.get(0));
 				         				sdt.updateSetting(Publics.list_Setting.get(1));
+				         				Publics.login = 1; 
 				         				sdt.close();
 				         			}catch(Exception ex)
 				         			{
@@ -444,21 +446,17 @@ public class General extends TabActivity {
 				sdt.open();
 				Publics.Password = sdt.getSettingById(2).getValue();
 				sdt.close();
-				if(pass.equals(Publics.Password))
+				if(Publics.Password.toString().equals(pass.toString()) == true)
 				{
 					Publics.login = 1;
 					return true;
-				}
-				else
-				{
-					return false;
 				}
 			}catch(Exception ex)
 			{
 				ex.printStackTrace();
 				sdt.close();
-				return false;
 			}
+			return false;
 		}
 		
 		/**Check autobackup*/

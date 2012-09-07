@@ -7,6 +7,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.nio.channels.FileChannel;
 import java.text.DecimalFormat;
+import java.text.ParseException;
 import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -246,8 +247,15 @@ public class Publics {
 	public static String formatDate(String type, String date)
 	{
 		SimpleDateFormat sdf = new SimpleDateFormat(type);
-		Date d = new Date(date);
-		return sdf.format(d);
+		Date d;
+		try {
+			d = sdf.parse(date);
+			return sdf.format(d);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return "";
 	}
 	
 	/**Parse string to double*/

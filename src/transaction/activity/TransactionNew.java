@@ -130,7 +130,8 @@ public class TransactionNew extends Activity {
 			trans.setTransactionAccount(((Spinner)findViewById(R.id.spn_transactionAddAccount)).getSelectedItem().toString());
 			trans.setTransactionAmount(Double.parseDouble(((EditText)findViewById(R.id.edt_transactionAddAmount)).getText().toString()));
 			trans.setTransactionCategory(((Spinner)findViewById(R.id.spn_transactionAddCategory)).getSelectedItem().toString());
-			trans.setTransactionDate(((TextView)findViewById(R.id.tv_transAddDate)).getText().toString());
+			String date = Publics.formatDate(Publics.FormatDate, ((TextView)findViewById(R.id.tv_transAddDate)).getText().toString());
+			trans.setTransactionDate(date);
 			trans.setTransactionItem(((EditText)findViewById(R.id.edt_transactionItemName)).getText().toString());
 			trans.setTransactionPaymode(((Spinner)findViewById(R.id.spn_transactionAddPayMode)).getSelectedItem().toString());
 			trans.setTransactionRepeat(((Spinner)findViewById(R.id.spn_transactionAddRepeat)).getSelectedItem().toString());
@@ -144,16 +145,16 @@ public class TransactionNew extends Activity {
 				rds.open();
 				if (update)
 				{
+					r.setSetupDate(trans.getTransactionDate());
 					trans.setTransactionId(id);
 					tds.updateTransaction(trans);
 					r.setItem_id(id);
-					r.setSetupDate(trans.getTransactionDate());
 				}
 				else
 				{
+					r.setSetupDate(trans.getTransactionDate());
 					Transaction tmp = tds.createTransaction(trans);
 					r.setItem_id(tmp.getTransactionId());
-					r.setSetupDate(trans.getTransactionDate());
 				}
 				if(trans.getTransactionRepeat().equals("None") == false)
 					rds.insertRepeat(r);
@@ -196,8 +197,8 @@ public class TransactionNew extends Activity {
 	            /** Updates the date in the TextView */
 	    	    private void updateDisplay() {
 	    	    	StringBuilder tmp = new StringBuilder()
-                    .append(pMonth + 1).append("/")
                     .append(pDay).append("/")
+                    .append(pMonth + 1).append("/")
                     .append(pYear).append(" ");
 	    	    	pDisplayDate.setText(Publics.formatDate(Publics.FormatDate, tmp.toString()));
 	    	    }

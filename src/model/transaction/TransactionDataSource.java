@@ -43,8 +43,8 @@ public class TransactionDataSource {
 	        cv.put(SQLiteDB.TRepeat, trans.getTransactionRepeat());
 		    long insertId = database.insert(SQLiteDB.TABLE_TRANS, null,
 		        cv);
-		    Cursor cursor = database.query(SQLiteDB.TABLE_ACCOUNT,
-		        allColumns, SQLiteDB.AId + " = " + insertId, null,
+		    Cursor cursor = database.query(SQLiteDB.TABLE_TRANS,
+		        allColumns, SQLiteDB.TId + " = " + insertId, null,
 		        null, null, null);
 		    cursor.moveToFirst();
 		    Transaction newTrans = cursorToTransaction(cursor);
