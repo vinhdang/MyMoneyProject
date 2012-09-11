@@ -83,39 +83,42 @@ public class ViewPieChart extends View{
     	Rect bounds = new Rect();
     	//------------------------------------------------------------
     	PieDetailsItem Item;
-    	for (int i = 0; i < mDataArray.size(); i++) {
-    		Item = (PieDetailsItem) mDataArray.get(i);
-    		
-    		Percent = (float)Item.Count / (float)mMaxConnection;
-    	    mSweep = (float) 360 * Percent;
-    	    // Format Label
-    	    LblPercent = FloatFormatter.format(Percent);
-    	    // Get Label width and height in pixels
-    	    mLinePaints.getTextBounds(LblPercent,0,LblPercent.length(),bounds);
-    	    // Claculate final coords for Label
-    	    lblX = (float) ((float) CenterOffset + Radius*Math.cos( Conv*(mStart+mSweep/2)))- bounds.width()/2;
-    	    lblY = (float) ((float) CenterOffset + Radius*Math.sin( Conv*(mStart+mSweep/2)))+ bounds.height()/2;
-    	    // Dwraw Label on Canvas
-    		mBgPaints.setColor(Item.Color);
-    		canvas.drawArc(mOvals, mStart, mSweep, true, mBgPaints);
-    		canvas.drawArc(mOvals, mStart, mSweep, true, mLinePaints);
-    		canvas.drawText(LblPercent, lblX , lblY , mLinePaints);
-    		mStart += mSweep;
-    		//------------------------------------------------------
-        	//Draw small rectangle and write the meaning of this rectangle.
-        	//------------------------------------------------------
-    		paint.setColor(mDataArray.get(i).Color);
-            canvas.drawRect(0, SmallRectX, 30, SmallRectY, paint);
-            paint.setColor(Color.DKGRAY);
-            canvas.drawText(LblPercent + " " + Item.Label, 50, TextLocation, paint);
-            if(i == 0)
-            {
-            	canvas.drawText(Item.title, 0, 164, paint);
-            }
-            SmallRectX += 30;
-            SmallRectY += 30;
-            TextLocation += 30;
-        }
+    	if(mDataArray.size() > 0)
+    	{
+	    	for (int i = 0; i < mDataArray.size(); i++) {
+	    		Item = (PieDetailsItem) mDataArray.get(i);
+	    		
+	    		Percent = (float)Item.Count / (float)mMaxConnection;
+	    	    mSweep = (float) 360 * Percent;
+	    	    // Format Label
+	    	    LblPercent = FloatFormatter.format(Percent);
+	    	    // Get Label width and height in pixels
+	    	    mLinePaints.getTextBounds(LblPercent,0,LblPercent.length(),bounds);
+	    	    // Claculate final coords for Label
+	    	    lblX = (float) ((float) CenterOffset + Radius*Math.cos( Conv*(mStart+mSweep/2)))- bounds.width()/2;
+	    	    lblY = (float) ((float) CenterOffset + Radius*Math.sin( Conv*(mStart+mSweep/2)))+ bounds.height()/2;
+	    	    // Dwraw Label on Canvas
+	    		mBgPaints.setColor(Item.Color);
+	    		canvas.drawArc(mOvals, mStart, mSweep, true, mBgPaints);
+	    		canvas.drawArc(mOvals, mStart, mSweep, true, mLinePaints);
+	    		canvas.drawText(LblPercent, lblX , lblY , mLinePaints);
+	    		mStart += mSweep;
+	    		//------------------------------------------------------
+	        	//Draw small rectangle and write the meaning of this rectangle.
+	        	//------------------------------------------------------
+	    		paint.setColor(mDataArray.get(i).Color);
+	            canvas.drawRect(0, SmallRectX, 30, SmallRectY, paint);
+	            paint.setColor(Color.DKGRAY);
+	            canvas.drawText(LblPercent + " " + Item.Label, 50, TextLocation, paint);
+	            if(i == 0)
+	            {
+	            	canvas.drawText(Item.title, 0, 164, paint);
+	            }
+	            SmallRectX += 30;
+	            SmallRectY += 30;
+	            TextLocation += 30;
+	        }
+    	}
     	//------------------------------------------------------
     	Options options = new BitmapFactory.Options();
         options.inScaled = false;

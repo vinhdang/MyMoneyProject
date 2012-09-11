@@ -1,8 +1,14 @@
 package account.activity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import publics.Publics;
 import main.activity.R;
+import model.account.Account;
 import model.account.AccountAdapter;
+import model.category.Category;
+import model.transaction.Transaction;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -19,6 +25,8 @@ import android.widget.ListView;
 public class ManageAccount extends Activity {
 	private ListView lv_acc;
 	private Button btnAddNewAcc;
+	private List<Account> listNew;
+	private AccountAdapter accAdapter;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +36,8 @@ public class ManageAccount extends Activity {
 		/**Process data*/
 		lv_acc = (ListView)findViewById(R.id.lv_account);
 		btnAddNewAcc = (Button)findViewById(R.id.btn_addNewAccount);
-		AccountAdapter accAdapter = new AccountAdapter(getApplicationContext(), Publics.list_Account);
+		CalculateBalance();
+		accAdapter = new AccountAdapter(getApplicationContext(), listNew);
 			
 		/**Set function*/
 		lv_acc.setAdapter(accAdapter);
@@ -36,18 +45,6 @@ public class ManageAccount extends Activity {
 		lv_acc.setOnItemClickListener(handleView);
 		lv_acc.setOnItemLongClickListener(handleLongClick);
 	}
-	
-//	 @Override
-//	  protected void onResume() {
-//		dataSource.open();
-//	    super.onResume();
-//	  }
-//
-//	  @Override
-//	  protected void onPause() {
-//		dataSource.close();
-//	    super.onPause();
-//	  }
 	
 	/** Click On ListVIew*/
 	OnItemClickListener handleView = new OnItemClickListener()
@@ -58,6 +55,14 @@ public class ManageAccount extends Activity {
 			 Publics.paramToMngTrans = arg2;
 			 Publics.tabHost.setCurrentTabByTag("Transaction");			
 		}
+	};
+	
+	@Override
+	protected void onResume() {
+		CalculateBalance();
+		accAdapter = new AccountAdapter(getApplicationContext(), listNew);
+		lv_acc.setAdapter(accAdapter);
+		super.onResume();
 	};
 	
 	/**Long Click On ListView*/
@@ -86,23 +91,62 @@ public class ManageAccount extends Activity {
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
 	}
-	
-	 @Override
-		public boolean onCreateOptionsMenu(Menu menu) {
-			menu.add("Exit");
-			return super.onCreateOptionsMenu(menu);
-		}
-		@Override
-		public boolean onOptionsItemSelected(MenuItem item) {
-			if(item.getTitle() == "Exit")//exit
+		
+	/**Calculate balance*/
+	private void CalculateBalance()
+	{
+		listNew = new ArrayList<Account>();
+		double totalExpense = 0;
+		double totalIncome = 0;
+		double rs = 0;
+		if(Publics.list_Account.size() > 0)
+		{
+			for(Account a : Publics.list_Account)
 			{
-				Intent intent = new Intent(Intent.ACTION_MAIN);
-				intent.addCategory(Intent.CATEGORY_HOME);
-				intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-				startActivity(intent);
-			    finish();
-			    System.exit(0);
+				totalExpense = 0;
+				totalIncome = 0;
+				for(Transaction t : Publics.list_Transaction)
+				{
+					if(t.getTransactionAccount().equals(a.getAccountName()))
+					{
+						String type = CheckCategory(t.getTransactionCategory());
+						if(type.equals("Chi tieu"))
+						{
+							totalExpense += t.getTransactionAmount();
+						}
+						else if(type.equals("Thu nhap"))
+						{
+							totalIncome += t.getTransactionAmount();
+						}
+					}
+				}
+				double b = a.getFinalBalance();
+				if(totalExpense > totalIncome)
+				{
+					rs = totalExpense - totalIncome;
+					a.setFinalBalance(b-rs);
+				}
+				else
+				{
+					rs = totalIncome - totalExpense;
+					a.setFinalBalance(b + rs);
+				}
+				listNew.add(a);
 			}
-			return super.onOptionsItemSelected(item);
 		}
+	}
+	
+	private String CheckCategory(String CategoryName)
+	{
+		String rs = "";
+		for(Category c : Publics.list_Category)
+		{
+			if(c.getCategoryName().equals(CategoryName))
+			{
+				rs = c.getCategoryType();
+				return rs;
+			}
+		}
+		return rs;
+	}
 }

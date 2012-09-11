@@ -117,27 +117,33 @@ public class ManageTransaction extends Activity {
 		
 		@SuppressWarnings("static-access")
 		public void onClick(View v) {
-			if(indexMonth <= month.size()-2)
+			if(month.size() > 0)
 			{
-				indexMonth ++;
-				btn_transactionPrev.setVisibility(v.VISIBLE);
-			}
-			else
-			{
-				btn_transactionNext.setVisibility(v.GONE);
-				btn_transactionPrev.setVisibility(v.VISIBLE);
-			}
-			spn_Month.setSelection(indexMonth);
-			//process list view
-			String key = spn_Month.getSelectedItem().toString();
-			handleChoose(key);
-			int len = ExpAdapter.getGroupCount();
-			if(tgl_Expand.getText().toString().equals("Expand"))
-			{
-				for(int i=0; i<len; i++) 
-		        {		            
-		                elv_transaction.expandGroup(i);	      
-		        }
+				if(indexMonth <= month.size()-2)
+				{
+					indexMonth ++;
+					btn_transactionPrev.setVisibility(v.VISIBLE);
+				}
+				else
+				{
+					btn_transactionNext.setVisibility(v.GONE);
+					btn_transactionPrev.setVisibility(v.VISIBLE);
+				}
+				spn_Month.setSelection(indexMonth);
+				//process list view
+				String key = spn_Month.getSelectedItem().toString();
+				if(key != null)
+				{
+					handleChoose(key);
+					int len = ExpAdapter.getGroupCount();
+					if(tgl_Expand.getText().toString().equals("Expand"))
+					{
+						for(int i=0; i<len; i++) 
+				        {		            
+				                elv_transaction.expandGroup(i);	      
+				        }
+					}
+				}
 			}
 		}
 	};
@@ -147,26 +153,32 @@ public class ManageTransaction extends Activity {
 		
 		@SuppressWarnings("static-access")
 		public void onClick(View v) {
-			if(indexMonth > 0)
+			if(month.size() > 0)
 			{
-				indexMonth --;
-				btn_transactionNext.setVisibility(v.VISIBLE);
-			}
-			else
-			{
-				btn_transactionPrev.setVisibility(v.GONE);
-				btn_transactionNext.setVisibility(v.VISIBLE);
-			}
-			spn_Month.setSelection(indexMonth);
-			String key = spn_Month.getSelectedItem().toString();
-			handleChoose(key);
-			int len = ExpAdapter.getGroupCount();
-			if(tgl_Expand.getText().toString().equals("Expand"))
-			{
-				for(int i=0; i<len; i++) 
-		        {		            
-		                elv_transaction.expandGroup(i);	      
-		        }
+				if(indexMonth > 0)
+				{
+					indexMonth --;
+					btn_transactionNext.setVisibility(v.VISIBLE);
+				}
+				else
+				{
+					btn_transactionPrev.setVisibility(v.GONE);
+					btn_transactionNext.setVisibility(v.VISIBLE);
+				}
+				spn_Month.setSelection(indexMonth);
+				String key = spn_Month.getSelectedItem().toString();
+				if(key != null)
+				{
+					handleChoose(key);
+					int len = ExpAdapter.getGroupCount();
+					if(tgl_Expand.getText().toString().equals("Expand"))
+					{
+						for(int i=0; i<len; i++) 
+				        {		            
+				                elv_transaction.expandGroup(i);	      
+				        }
+					}
+				}
 			}
 		}
 	};
@@ -175,21 +187,27 @@ public class ManageTransaction extends Activity {
 	OnClickListener handleCheck = new OnClickListener() {
 		
 		public void onClick(View v) {
+			if(ExpAdapter != null)
+			{
 				int len = ExpAdapter.getGroupCount();
-				if(tgl_Expand.getText().toString().equals("Expand"))
+				if(len > 0)
 				{
-					for(int i=0; i<len; i++) 
-			        {		            
-			                elv_transaction.expandGroup(i);	      
-			        }
-				}
-		        else
-				{
-					for(int i=0; i<len; i++)
+					if(tgl_Expand.getText().toString().equals("Expand"))
 					{
-			                elv_transaction.collapseGroup(i);
-			        }
+						for(int i=0; i<len; i++) 
+				        {		            
+				                elv_transaction.expandGroup(i);	      
+				        }
+					}
+			        else
+					{
+						for(int i=0; i<len; i++)
+						{
+				                elv_transaction.collapseGroup(i);
+				        }
+					}
 				}
+			}
 		}
 	};
 	
@@ -197,22 +215,28 @@ public class ManageTransaction extends Activity {
 	OnGroupExpandListener handleExpand = new OnGroupExpandListener() {
 		
 		public void onGroupExpand(int groupPosition) {
-			int len = ExpAdapter.getGroupCount();
-			if(tgl_Expand.getText().toString().equals("Expand"))
+			if(ExpAdapter != null)
 			{
-		        for(int i=0; i<len; i++) {
-		            if(i != groupPosition) {
-		                elv_transaction.expandGroup(i);
-		            }
-		        }
-			}
-			else
-			{
-				for(int i=0; i<len; i++) {
-		            if(i != groupPosition) {
-		                elv_transaction.collapseGroup(i);
-		            }
-		        }
+				int len = ExpAdapter.getGroupCount();
+				if(len > 0)
+				{
+					if(tgl_Expand.getText().toString().equals("Expand"))
+					{
+				        for(int i=0; i<len; i++) {
+				            if(i != groupPosition) {
+				                elv_transaction.expandGroup(i);
+				            }
+				        }
+					}
+					else
+					{
+						for(int i=0; i<len; i++) {
+				            if(i != groupPosition) {
+				                elv_transaction.collapseGroup(i);
+				            }
+				        }
+					}
+				}
 			}
 		}
 	};

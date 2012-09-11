@@ -120,23 +120,23 @@ public class General extends TabActivity {
 			Publics.list_Transaction = dataSourceTrans.getAllTransactions();
 			if(Publics.list_Transaction.size() == 0)
 			{
-				Transaction a = new Transaction("An bun bo", "13/07/2012", (double)20000, "An uong", "Dong A", "An ngon wa",  "Tien mat", "None");
-				dataSourceTrans.insertTransaction(a);
-				a = new Transaction("Luong Lotteria", "29/07/2012", (double) 1500, "Luong", "HSBC", "", "Card", "None");
-				dataSourceTrans.insertTransaction(a);
-				a = new Transaction("Cafe", "9/07/2012", (double) 10, "An uong", "Dong A", "", "Card", "None");
-				dataSourceTrans.insertTransaction(a);
-				a = new Transaction("Luong Lotteria", "29/06/2012", (double) 1500, "Luong", "HSBC", "", "Card", "None");
-				dataSourceTrans.insertTransaction(a);
-				a = new Transaction("Dong tien hoc", "25/06/2012", (double) 2000, "Phi", "ACB", "", "Card", "None");
-				dataSourceTrans.insertTransaction(a);
-				a = new Transaction("Tien Dien", "25/06/2012", (double) 800, "Phi", "ACB", "", "Card", "None");
-				dataSourceTrans.insertTransaction(a);
-				a = new Transaction("Mua sam","19/06/2012",(double) 180,"Mua sam", "HSBC", "", "Card", "None");
-				dataSourceTrans.insertTransaction(a);
-				a = new Transaction("Mua xe","18/07/1991",(double) 25000, "Mua sam", "HSBC", "", "Card", "None");
-				dataSourceTrans.insertTransaction(a);
-				Publics.list_Transaction = dataSourceTrans.getAllTransactions();
+//				Transaction a = new Transaction("An bun bo", "13/07/2012", (double)20000, "An uong", "Dong A", "An ngon wa",  "Tien mat", "None");
+//				dataSourceTrans.insertTransaction(a);
+//				a = new Transaction("Luong Lotteria", "29/07/2012", (double) 1500, "Luong", "HSBC", "", "Card", "None");
+//				dataSourceTrans.insertTransaction(a);
+//				a = new Transaction("Cafe", "9/07/2012", (double) 10, "An uong", "Dong A", "", "Card", "None");
+//				dataSourceTrans.insertTransaction(a);
+//				a = new Transaction("Luong Lotteria", "29/06/2012", (double) 1500, "Luong", "HSBC", "", "Card", "None");
+//				dataSourceTrans.insertTransaction(a);
+//				a = new Transaction("Dong tien hoc", "25/06/2012", (double) 2000, "Phi", "ACB", "", "Card", "None");
+//				dataSourceTrans.insertTransaction(a);
+//				a = new Transaction("Tien Dien", "25/06/2012", (double) 800, "Phi", "ACB", "", "Card", "None");
+//				dataSourceTrans.insertTransaction(a);
+//				a = new Transaction("Mua sam","19/06/2012",(double) 180,"Mua sam", "HSBC", "", "Card", "None");
+//				dataSourceTrans.insertTransaction(a);
+//				a = new Transaction("Mua xe","18/07/1991",(double) 25000, "Mua sam", "HSBC", "", "Card", "None");
+//				dataSourceTrans.insertTransaction(a);
+//				Publics.list_Transaction = dataSourceTrans.getAllTransactions();
 			}
 			dataSourceTrans.close();
 		}catch(Exception ex)
@@ -152,13 +152,13 @@ public class General extends TabActivity {
 			Publics.list_Account = dataSourceAcc.getAllAccounts();
 			if(Publics.list_Account.size() == 0)
 			{
-				Account a = new Account("Dong A", (double)5000, "VND", "");
-				dataSourceAcc.insertAccount(a);
-				a = new Account("HSBC", (double)10000, "VND", "");
-				dataSourceAcc.insertAccount(a);
-				a = new Account("ACB", (double)2000, "VND", "");
-				dataSourceAcc.insertAccount(a);
-				Publics.list_Account = dataSourceAcc.getAllAccounts();
+//				Account a = new Account("Dong A", (double)5000, "VND", "");
+//				dataSourceAcc.insertAccount(a);
+//				a = new Account("HSBC", (double)10000, "VND", "");
+//				dataSourceAcc.insertAccount(a);
+//				a = new Account("ACB", (double)2000, "VND", "");
+//				dataSourceAcc.insertAccount(a);
+//				Publics.list_Account = dataSourceAcc.getAllAccounts();
 			}
 			dataSourceAcc.close();
 		}catch(Exception ex)	

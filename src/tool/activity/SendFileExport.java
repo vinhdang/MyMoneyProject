@@ -99,38 +99,34 @@ public class SendFileExport extends Activity {
 	/**Send file to email*/
 	 public void sendMail_CSV(String email, String filename, String content)
 	 {
-		 if(bkf_status == true) 
-		 {
+		 
           //CSV file is created so we need to Export that ...
-           final File CSVFile = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + filename);
+           final File CSVFile = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/MyMoney/" + filename);
            Log.i("SEND EMAIL TESTING", "Email sending");
-           Intent emailIntent = new Intent(android.content.Intent.ACTION_SEND);
-           emailIntent.setType("text/csv");
-           emailIntent.putExtra(android.content.Intent.EXTRA_EMAIL, new String[] {email});
+           Intent emailIntent = new Intent(android.content.Intent.ACTION_SENDTO, Uri.fromParts( 
+        		   "mailto",email, null));
+//           emailIntent.putExtra(android.content.Intent.EXTRA_EMAIL, new String[] {email});
            emailIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Backup contacts CSV");           
            emailIntent.putExtra(android.content.Intent.EXTRA_TEXT, "\n\n" + content);
            emailIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse("file://" + CSVFile.getAbsolutePath()));
-           emailIntent.setType("message/rfc822"); // Shows all application that supports SEND activity 
+           emailIntent.setType("application/octet-stream"); // Shows all application that supports SEND activity 
            try {
-               startActivity(Intent.createChooser(emailIntent, "Send mail..."));
+               emailIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        	   startActivity(Intent.createChooser(emailIntent, "Send mail..."));
+        	   Toast.makeText(getApplicationContext(), "Successfully", Toast.LENGTH_SHORT).show();
+               finish();
            } catch (android.content.ActivityNotFoundException ex) {
-               Toast.makeText(getApplicationContext(), "Email client : " + ex.toString(), Toast.LENGTH_SHORT);
+               Toast.makeText(getApplicationContext(), "Email client : " + ex.toString(), Toast.LENGTH_SHORT).show();
            }
-       }
-		else 
-		{
-           Toast.makeText(getApplicationContext(), "File not found.....", Toast.LENGTH_SHORT).show();
-	    }
 	 }
 	 
 	 /**Get file from sdcard*/
 	 private void getFile(String keey)
 	 {
-		 File mfile=new File("/mnt/sdcard/MyMoney/");
+		 File mfile=new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/MyMoney/");
 		 File[] list=mfile.listFiles();
 
 		 listFile.clear();
-		 Toast.makeText(getApplicationContext(), "list"+mfile.listFiles().length, Toast.LENGTH_SHORT).show();
 		 for(int i=0 ; i < mfile.listFiles().length; i++)
 		 {
 		     if(list[i].isFile())
@@ -140,7 +136,6 @@ public class SendFileExport extends Activity {
 		    	 {
 		    		 listFile.add(tmp);
 		    	 }
-		         Toast.makeText(getApplicationContext(), "files.."+list[i].getName(), Toast.LENGTH_SHORT).show();
 		     }
 		 }
 	 }

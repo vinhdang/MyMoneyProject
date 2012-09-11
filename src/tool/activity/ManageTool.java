@@ -113,8 +113,11 @@ public class ManageTool extends Activity {
 					iv.setImageResource(R.drawable.exchange);
 				} else if (mobile.equals("Import")){
 					iv.setImageResource(R.drawable.import_);
-				} else
+				} else if(mobile.equals("SendFileToEmail")){
 					iv.setImageResource(R.drawable.mailbox);
+				}else
+					iv.setImageResource(R.drawable.restore);
+				
 			}
 			else
 			{

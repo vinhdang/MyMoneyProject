@@ -138,92 +138,100 @@ public class GraphicActivity extends Activity {
 		//Toast.makeText(getApplicationContext(), key	, Toast.LENGTH_SHORT).show();
 		//
 		//xu ly cac transaction da loc va add vao list_transMonth
-		
-		if(select.equals("Account"))
+		if(key != null)
 		{
-			handleChoose(key, list_trans);
-			//filterCategory(list_transMonth);
-			getUniqueCategory(list_transMonth);
-			// loai bo cac type theo yeu cau
-			List<ChartData> tmp = new ArrayList<GraphicActivity.ChartData>();
-			for(ChartData c : chartData)
+			if(select.equals("Account"))
 			{
-				if(c.type.equals(type))
-					tmp.add(c);
-			}
-			chartData.clear();
-			chartData = tmp;
-			for(ChartData c: chartData)
-			{
-				for(Transaction t: list_transMonth)
+				handleChoose(key, list_trans);
+				//filterCategory(list_transMonth);
+				getUniqueCategory(list_transMonth);
+				// loai bo cac type theo yeu cau
+				List<ChartData> tmp = new ArrayList<GraphicActivity.ChartData>();
+				if(chartData.size() > 0)
 				{
-					if(c.name.equals(t.getTransactionCategory()))
+					for(ChartData c : chartData)
 					{
-						c.amount = c.amount + t.getTransactionAmount();
+						if(c.type.equals(type))
+							tmp.add(c);
+					}
+					chartData.clear();
+					chartData = tmp;
+					for(ChartData c: chartData)
+					{
+						for(Transaction t: list_transMonth)
+						{
+							if(c.name.equals(t.getTransactionCategory()))
+							{
+								c.amount = c.amount + t.getTransactionAmount();
+							}
+						}
+					}
+					if(chartData.size() > 0)
+					{
+						try {
+							//////////////Reset heighofbg for bitmap
+							HeighOfBg = setHeight(chartData);
+							
+							mBackgroundImage = Bitmap.createBitmap(230, HeighOfBg, Bitmap.Config.RGB_565);
+							drawChart(chartData, key, type);
+						} catch (IOException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}
+					else
+					{
+						if(type.equals("Thu nhap"))
+							Toast.makeText(getApplicationContext(), "No Income in this month"	, Toast.LENGTH_SHORT).show();
+		        		if(type.equals("Chi tieu"))
+		        			Toast.makeText(getApplicationContext(), "No Expense in this month"	, Toast.LENGTH_SHORT).show();
 					}
 				}
 			}
-			if(chartData.size() > 0)
+			else if(select.equals("Category"))
 			{
-				try {
-					//////////////Reset heighofbg for bitmap
-					HeighOfBg = setHeight(chartData);
-					
-					mBackgroundImage = Bitmap.createBitmap(230, HeighOfBg, Bitmap.Config.RGB_565);
-					drawChart(chartData, key, type);
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-			else
-			{
-				if(type.equals("Thu nhap"))
-					Toast.makeText(getApplicationContext(), "No Income in this month"	, Toast.LENGTH_SHORT).show();
-        		if(type.equals("Chi tieu"))
-        			Toast.makeText(getApplicationContext(), "No Expense in this month"	, Toast.LENGTH_SHORT).show();
-			}
-		}
-		else if(select.equals("Category"))
-		{
-			handleChoose(key, Publics.list_Transaction);
-			getUniqueCategory(list_transMonth);
-			// loai bo cac type theo yeu cau
-			List<ChartData> tmp = new ArrayList<GraphicActivity.ChartData>();
-			for(ChartData c : chartData)
-			{
-				if(c.type.equals(type))
-					tmp.add(c);
-			}
-			chartData.clear();
-			chartData = tmp;
-			for(ChartData c: chartData)
-			{
-				for(Transaction t: list_transMonth)
+				handleChoose(key, Publics.list_Transaction);
+				getUniqueCategory(list_transMonth);
+				// loai bo cac type theo yeu cau
+				List<ChartData> tmp = new ArrayList<GraphicActivity.ChartData>();
+				if(chartData.size() > 0)
 				{
-					if(c.name.equals(t.getTransactionCategory()))
+					for(ChartData c : chartData)
 					{
-						c.amount = c.amount + t.getTransactionAmount();
+						if(c.type.equals(type))
+							tmp.add(c);
+					}
+					chartData.clear();
+					chartData = tmp;
+					for(ChartData c: chartData)
+					{
+						for(Transaction t: list_transMonth)
+						{
+							if(c.name.equals(t.getTransactionCategory()))
+							{
+								c.amount = c.amount + t.getTransactionAmount();
+							}
+						}
+					}
+					if(chartData.size() > 0)
+					{
+						try {
+							HeighOfBg = setHeight(chartData);
+							mBackgroundImage = Bitmap.createBitmap(230, HeighOfBg, Bitmap.Config.RGB_565);
+							drawChart(chartData, key, type);
+						} catch (IOException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}
+					else
+					{
+						if(type.equals("Thu nhap"))
+							Toast.makeText(getApplicationContext(), "No Income in this month"	, Toast.LENGTH_SHORT).show();
+		        		if(type.equals("Chi tieu"))
+		        			Toast.makeText(getApplicationContext(), "No Expense in this month"	, Toast.LENGTH_SHORT).show();
 					}
 				}
-			}
-			if(chartData.size() > 0)
-			{
-				try {
-					HeighOfBg = setHeight(chartData);
-					mBackgroundImage = Bitmap.createBitmap(230, HeighOfBg, Bitmap.Config.RGB_565);
-					drawChart(chartData, key, type);
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-			else
-			{
-				if(type.equals("Thu nhap"))
-					Toast.makeText(getApplicationContext(), "No Income in this month"	, Toast.LENGTH_SHORT).show();
-        		if(type.equals("Chi tieu"))
-        			Toast.makeText(getApplicationContext(), "No Expense in this month"	, Toast.LENGTH_SHORT).show();
 			}
 		}
 	}
@@ -260,12 +268,14 @@ public class GraphicActivity extends Activity {
 				case R.id.radio_reportExpense:
 				{
 					type = "Chi tieu";
-					DrawPieChart();
+					if(month.size() > 0)
+						DrawPieChart();
 				}break;
 				case R.id.radio_reportIncome:
 				{
 					type = "Thu nhap";
-					DrawPieChart();
+					if(month.size() > 0)
+						DrawPieChart();
 				}break;
 				default: break;
 				}
@@ -275,40 +285,49 @@ public class GraphicActivity extends Activity {
 	//Get unique month
 	public void getMonth()
 	{
-		month.clear();
-		List<String> dayTemp = new ArrayList<String>();
-		for(int k=0 ; k < list_trans.size() ; k++)
+		if(list_trans.size() > 0)
 		{
-			dayTemp.add(list_trans.get(k).getTransactionDate());
+			month.clear();
+			List<String> dayTemp = new ArrayList<String>();
+			for(int k=0 ; k < list_trans.size() ; k++)
+			{
+				dayTemp.add(list_trans.get(k).getTransactionDate());
+			}
+			List<String> daily = new ArrayList<String>();
+			daily = Publics.getUniqueDate(dayTemp);
+			month = Publics.getUniqueMonth(daily);
 		}
-		List<String> daily = new ArrayList<String>();
-		daily = Publics.getUniqueDate(dayTemp);
-		month = Publics.getUniqueMonth(daily);
 	}
 	
 	//Get all month that have transaction
 	public void getAllMonth()
 	{
-		month.clear();
-		List<String> dayTemp = new ArrayList<String>();
-		for(int k = 0; k < Publics.list_Transaction.size() ; k++)
+		if(Publics.list_Transaction.size() > 0)
 		{
-			dayTemp.add(Publics.list_Transaction.get(k).getTransactionDate());
+			month.clear();
+			List<String> dayTemp = new ArrayList<String>();
+			for(int k = 0; k < Publics.list_Transaction.size() ; k++)
+			{
+				dayTemp.add(Publics.list_Transaction.get(k).getTransactionDate());
+			}
+			List<String> daily = new ArrayList<String>();
+			daily = Publics.getUniqueDate(dayTemp);
+			month = Publics.getUniqueMonth(daily);	
 		}
-		List<String> daily = new ArrayList<String>();
-		daily = Publics.getUniqueDate(dayTemp);
-		month = Publics.getUniqueMonth(daily);
 	}
 	
 	/**process listview follow month*/
 	private void handleChoose(String key, List<Transaction> list)
 	{
-		list_transMonth.clear();
-		for(Transaction t : list)
+		if(list.size() > 0)
 		{
-			if(t.getTransactionDate().contains(key))
+			list_transMonth.clear();
+			for(Transaction t : list)
 			{
-				list_transMonth.add(t);
+				if(t.getTransactionDate().contains(key))
+				{
+					list_transMonth.add(t);
+				}
 			}
 		}
 	}
@@ -318,62 +337,73 @@ public class GraphicActivity extends Activity {
 	 @Override  
 	 public void onCreateContextMenu(ContextMenu menu, View v,ContextMenuInfo menuInfo) 
 	 {  
-		 	//AdapterView.AdapterContextMenuInfo info = (AdapterContextMenuInfo) menuInfo;
-	 		menu.setHeaderTitle("Select account, please!");  
-	 		super.onCreateContextMenu(menu, v, menuInfo);
-	 		for(Account a : Publics.list_Account)
-	 		{
-	 			 menu.add(0, v.getId(), 0, a.getAccountName());
-	 		}
+		 	if(Publics.list_Account.size() > 0)
+		 	{
+		 		menu.setHeaderTitle("Select account, please!");  
+		 		super.onCreateContextMenu(menu, v, menuInfo);
+		 		for(Account a : Publics.list_Account)
+		 		{
+		 			 menu.add(0, v.getId(), 0, a.getAccountName());
+		 		}
+		 	}
 	 }
 	 
 	 @Override  
 	 public boolean onContextItemSelected(MenuItem item) 
 	 { 
 		 	account = item.toString();
-		 	Toast.makeText(getApplicationContext(), account	, Toast.LENGTH_SHORT).show();
 //	        loc lai list transaction theo account duoc chon
-//		 	filterCategory(list_transMonth);
+		 	if(Publics.list_Transaction.size() > 0)
+		 	{
 		 	filterAccount(Publics.list_Transaction);
 		 	setSpinner();
+		 	}
 	    	return false;  
 	 }
 	 
 	 //loc list transaction theo acc
 	 public List<Transaction> filterAccount(List<Transaction> list)
 	 {
-		 list_trans.clear();
-		 List<Transaction> tmp = new ArrayList<Transaction>();
-		 for(Transaction t : list)
+		 if(list.size() > 0)
 		 {
-			 if(t.getTransactionAccount().equals(account))
+			 list_trans.clear();
+			 List<Transaction> tmp = new ArrayList<Transaction>();
+			 for(Transaction t : list)
 			 {
-				 tmp.add(t);
+				 if(t.getTransactionAccount().equals(account))
+				 {
+					 tmp.add(t);
+				 }
 			 }
+			 list_trans = tmp;
+			 return list_trans;
 		 }
-		 list_trans = tmp;
-		 return list_trans;
+		 return null;
 	 }
 	 
 	 public List<ChartData> getUniqueCategory(List<Transaction> list){
-		 chartData.clear();
-		 List<String> listTemp = new ArrayList<String>();
-		 for( Transaction t : list)
-		 {	
-			 String tmp = t.getTransactionCategory();
-			 if(!listTemp.contains(tmp))
-				 listTemp.add(tmp);
-		 }
-		 
-		 for(String c : listTemp)
+		 if(list.size() > 0)
 		 {
-			 for(Category cate : Publics.list_Category)
-			 {
-				 if(c.equals(cate.categoryName))
-					 chartData.add(new ChartData( cate, 0,""));
+			 chartData.clear();
+			 List<String> listTemp = new ArrayList<String>();
+			 for( Transaction t : list)
+			 {	
+				 String tmp = t.getTransactionCategory();
+				 if(!listTemp.contains(tmp))
+					 listTemp.add(tmp);
 			 }
+			 
+			 for(String c : listTemp)
+			 {
+				 for(Category cate : Publics.list_Category)
+				 {
+					 if(c.equals(cate.categoryName))
+						 chartData.add(new ChartData( cate, 0,""));
+				 }
+			 }
+			 return chartData;
 		 }
-		 return chartData;
+		 return null;
 	 }
 	 
 	 //reload spinner
@@ -389,82 +419,85 @@ public class GraphicActivity extends Activity {
 	 * @throws IOException */
 	 public void drawChart(List<ChartData> c, String m, String t) throws IOException
 	 {
-		 	//------------------------------------------------------------------------------------------
-	        // Used vars declaration
-	        //------------------------------------------------------------------------------------------
-		 	PieData = new ArrayList<PieDetailsItem>();
-	        //Random mNumGen  = new Random();
-	        int MaxPieItems = c.size();
-	        int MaxCount  = 0;
-	        //------------------------------------------------------------------------------------------
-	        // Generating data by a random loop
-	        //------------------------------------------------------------------------------------------
-	        for (int i = 0 ; i <MaxPieItems ; i++)
-	        {
-	        	Item       = new PieDetailsItem();
-	        	if(i == 0)
-	        	{
-	        		if(t.equals("Thu nhap") && select.equals("Category"))
-	        			Item.title = "The Category chart of Income in " + m;
-	        		if(t.equals("Thu nhap") && select.equals("Account"))
-	        			Item.title = account + " account chart of Income in " + m;
-	        		if(t.equals("Chi tieu") && select.equals("Category"))
-	        			Item.title = "The Category chart of Expense in " + m;
-	        		if(t.equals("Chi tieu") && select.equals("Account"))
-	        			Item.title = account + " account chart of Expense in " + m;
-	        	}
-	        	Item.Count = c.get(i).amount;
-	        	Item.Label = c.get(i).name;
-	        	//Item.Color = 0xff000000 + 256*256*mNumGen.nextInt(256) + 256*mNumGen.nextInt(256) + mNumGen.nextInt(256); 	
-	        	Item.Color = Integer.parseInt(Publics.listColor[i]);
-	        	MaxCount += c.get(i).amount;
-	        	PieData.add(Item);       	
-	        }
-	        //------------------------------------------------------------------------------------------
-	        // OverlayId  => Image to be drawn on top of pie to make it more beautiful!
-	        //------------------------------------------------------------------------------------------
-	        //int OverlayId = R.drawable.cam_overlay_big;
-	        //------------------------------------------------------------------------------------------
-	        // Size => Pie size
-	        //------------------------------------------------------------------------------------------
-	        int Size = 146;
-	        //------------------------------------------------------------------------------------------
-	        // BgColor  => The background Pie Color
-	        //------------------------------------------------------------------------------------------
-	        int BgColor = Color.WHITE;
-	        
-	        //------------------------------------------------------------------------------------------
-	        // Generating Pie views
-	        //------------------------------------------------------------------------------------------
-	        PieChartView = new ViewPieChart( this );
-	        PieChartView.setLayoutParams(new LayoutParams(Size, Size));
-	        PieChartView.setGeometry(Size, Size, 1, 1, 1, 1, R.drawable.cam_overlay_big);
-	        PieChartView.setSkinParams(BgColor);
-	        PieChartView.setData(PieData, MaxCount);
-	        PieChartView.invalidate();
-	        
-	        //------------------------------------------------------------------------------------------
-	        // Draw Pie Vien on Bitmap canvas
-	        //------------------------------------------------------------------------------------------
-	      
-	        //Bitmap temp = convertToMutable(mBackgroundImage);
-	        can.setBitmap(mBackgroundImage);
-	        PieChartView.draw(can);
-	        PieChartView = null;
-	        //------------------------------------------------------------------------------------------
-	        // Create a new ImageView to add to main layout 
-	        //------------------------------------------------------------------------------------------
-	        	      
-	        TargetPieView.removeView(mImageView);
-	    	mImageView.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
-	    	mImageView.setBackgroundColor(BgColor);
-	        mImageView.setImageBitmap(mBackgroundImage);
-		    
-		    //------------------------------------------------------------------------------------------
-	        // Finaly add Image View to target view !!!
-	        //------------------------------------------------------------------------------------------
-		    TargetPieView.addView(mImageView);
-		    TargetPieView.setBackgroundColor(BgColor);
+		 	if(c.size() > 0 && m != null && t != null )
+		 	{
+			 	//------------------------------------------------------------------------------------------
+		        // Used vars declaration
+		        //------------------------------------------------------------------------------------------
+			 	PieData = new ArrayList<PieDetailsItem>();
+		        //Random mNumGen  = new Random();
+		        int MaxPieItems = c.size();
+		        int MaxCount  = 0;
+		        //------------------------------------------------------------------------------------------
+		        // Generating data by a random loop
+		        //------------------------------------------------------------------------------------------
+		        for (int i = 0 ; i <MaxPieItems ; i++)
+		        {
+		        	Item       = new PieDetailsItem();
+		        	if(i == 0)
+		        	{
+		        		if(t.equals("Thu nhap") && select.equals("Category"))
+		        			Item.title = "The Category chart of Income in " + m;
+		        		if(t.equals("Thu nhap") && select.equals("Account"))
+		        			Item.title = account + " account chart of Income in " + m;
+		        		if(t.equals("Chi tieu") && select.equals("Category"))
+		        			Item.title = "The Category chart of Expense in " + m;
+		        		if(t.equals("Chi tieu") && select.equals("Account"))
+		        			Item.title = account + " account chart of Expense in " + m;
+		        	}
+		        	Item.Count = c.get(i).amount;
+		        	Item.Label = c.get(i).name;
+		        	//Item.Color = 0xff000000 + 256*256*mNumGen.nextInt(256) + 256*mNumGen.nextInt(256) + mNumGen.nextInt(256); 	
+		        	Item.Color = Integer.parseInt(Publics.listColor[i]);
+		        	MaxCount += c.get(i).amount;
+		        	PieData.add(Item);       	
+		        }
+		        //------------------------------------------------------------------------------------------
+		        // OverlayId  => Image to be drawn on top of pie to make it more beautiful!
+		        //------------------------------------------------------------------------------------------
+		        //int OverlayId = R.drawable.cam_overlay_big;
+		        //------------------------------------------------------------------------------------------
+		        // Size => Pie size
+		        //------------------------------------------------------------------------------------------
+		        int Size = 146;
+		        //------------------------------------------------------------------------------------------
+		        // BgColor  => The background Pie Color
+		        //------------------------------------------------------------------------------------------
+		        int BgColor = Color.WHITE;
+		        
+		        //------------------------------------------------------------------------------------------
+		        // Generating Pie views
+		        //------------------------------------------------------------------------------------------
+		        PieChartView = new ViewPieChart( this );
+		        PieChartView.setLayoutParams(new LayoutParams(Size, Size));
+		        PieChartView.setGeometry(Size, Size, 1, 1, 1, 1, R.drawable.cam_overlay_big);
+		        PieChartView.setSkinParams(BgColor);
+		        PieChartView.setData(PieData, MaxCount);
+		        PieChartView.invalidate();
+		        
+		        //------------------------------------------------------------------------------------------
+		        // Draw Pie Vien on Bitmap canvas
+		        //------------------------------------------------------------------------------------------
+		      
+		        //Bitmap temp = convertToMutable(mBackgroundImage);
+		        can.setBitmap(mBackgroundImage);
+		        PieChartView.draw(can);
+		        PieChartView = null;
+		        //------------------------------------------------------------------------------------------
+		        // Create a new ImageView to add to main layout 
+		        //------------------------------------------------------------------------------------------
+		        	      
+		        TargetPieView.removeView(mImageView);
+		    	mImageView.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
+		    	mImageView.setBackgroundColor(BgColor);
+		        mImageView.setImageBitmap(mBackgroundImage);
+			    
+			    //------------------------------------------------------------------------------------------
+		        // Finaly add Image View to target view !!!
+		        //------------------------------------------------------------------------------------------
+			    TargetPieView.addView(mImageView);
+			    TargetPieView.setBackgroundColor(BgColor);
+		 	}
 	 }
 	 public int setHeight(List<ChartData> c)
 	 {
@@ -473,7 +506,6 @@ public class GraphicActivity extends Activity {
 			 count += (c.size() - 5)*30;
 		 else
 			 count = 380;
-        //Toast.makeText(getApplicationContext(), "Heigh: " + count, Toast.LENGTH_SHORT).show();
 		 return count;
 	 }
 }
